@@ -1,2 +1,7 @@
 RewriteEngine On
 RewriteRule ^health/?$ health.php [L]
+
+# One canonical host for Google: srtxcheats.com -> https://www.srtxcheats.com (301)
+RewriteCond %{HTTP_HOST} ^srtxcheats\.com$ [NC]
+RewriteRule ^(.*)$ https://www.srtxcheats.com/$1 [R=301,L]
+
