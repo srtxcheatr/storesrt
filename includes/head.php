@@ -34,6 +34,8 @@ $seoTitle  = $pageTitle ?? $siteName;
 <link rel="shortcut icon" href="<?= $siteIcon ?>">
 <link rel="apple-touch-icon" href="<?= $siteIcon ?>">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_NP">
+<meta name="geo.region" content="NP">
 <meta property="og:site_name" content="<?= $siteName ?>">
 <meta property="og:title" content="<?= htmlspecialchars($seoTitle) ?>">
 <meta property="og:description" content="<?= htmlspecialchars($seoDesc) ?>">
@@ -49,7 +51,7 @@ $seoTitle  = $pageTitle ?? $siteName;
     '@context' => 'https://schema.org',
     '@graph' => [
         ['@type' => 'WebSite', '@id' => $siteUrl . '/#website', 'url' => $siteUrl . '/', 'name' => $siteName,
-         'alternateName' => ['SRT X CHEATS', 'SRTX CHEATS', 'srtxcheats'], 'description' => $seoDesc, 'inLanguage' => 'en'],
+         'alternateName' => ['SRT X CHEATS', 'SRTX CHEATS', 'srtxcheats', 'SRT X CHEATS Nepali Panel Seller'], 'description' => $seoDesc, 'inLanguage' => 'en'],
         ['@type' => 'Store', '@id' => $siteUrl . '/#store', 'name' => $siteName, 'url' => $siteUrl . '/', 'logo' => $siteIcon, 'image' => $siteIcon, 'description' => 'Nepal trusted panel seller and Glory bot seller', 'areaServed' => 'NP'],
         // src by SRT X CHEATS. Copy right SRT X CHEATS
         ['@type' => 'Organization', '@id' => $siteUrl . '/#org', 'name' => $siteName, 'url' => $siteUrl . '/',
