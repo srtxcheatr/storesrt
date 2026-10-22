@@ -1,0 +1,147 @@
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+:root {
+    --bg-main: #0b0b13;
+    --bg-gradient: linear-gradient(180deg, #0f0e1a 0%, #0b0b13 100%);
+    --glass-bg: rgba(14, 13, 24, .92);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --glass-panel: #151422;
+    --glass-border: rgba(255, 255, 255, .08);
+    --glass-border-hover: rgba(255, 255, 255, .18);
+    --glow-shadow: none;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, .35), 0 8px 24px rgba(0, 0, 0, .22);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --text-secondary: #a3acbd;
+    --text-muted: #7f8aa0;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+[data-theme="light"] {
+    --bg-main: #f5f6fa;
+    --bg-gradient: linear-gradient(180deg, #f8f9fc 0%, #f1f3f8 100%);
+    --glass-bg: rgba(255, 255, 255, .94);
+    --glass-panel: #ffffff;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --glass-border: rgba(20, 20, 50, .09);
+    --glass-border-hover: rgba(20, 20, 50, .2);
+    --card-shadow: 0 1px 2px rgba(20, 20, 50, .06), 0 6px 20px rgba(20, 20, 50, .06);
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+body { font-size: 15px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body:not(.fx-wild)::before, body:not(.fx-wild)::after { display: none !important; }
+
+body:not(.fx-wild) .tilt { transform: none !important; will-change: auto; transition: border-color .2s, box-shadow .2s; }
+body:not(.fx-wild) .tilt::after { display: none !important; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+body:not(.fx-wild) .shortcut-card, body:not(.fx-wild) .product-card { animation: none !important; }
+
+.glass-nav-header { box-shadow: none; border-bottom: 1px solid var(--glass-border); padding: 10px 16px; }
+.nav-container { max-width: none; width: 100%; }
+@media (min-width: 640px) { body:not(.has-sidebar) .nav-container { max-width: 1100px; } }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.page-title { font-family: var(--font-body); font-weight: 800; letter-spacing: .2px; font-size: 16px; }
+
+.panel {
+    background: var(--glass-panel);
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--card-shadow);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.panel::before { display: none !important; }
+body.fx-wild .panel::before { display: block !important; }
+.panel:hover { border-color: var(--glass-border-hover); }
+.prompt-header { font-family: var(--font-body); font-size: 14px; font-weight: 800; letter-spacing: .2px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.btn { border-radius: 12px; font-weight: 700; letter-spacing: .1px; }
+input, select, textarea { font-family: inherit; }
+input[type=text], input[type=email], input[type=password], input[type=number], input[type=tel], input[type=search], textarea, select {
+    font-size: 16px;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.modal-overlay { background: rgba(5, 5, 12, .66); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+
+.term-window { width: 100%; max-width: 560px; padding-left: 16px; padding-right: 16px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@media (min-width: 700px) { .term-window { max-width: 760px; } }
+@media (min-width: 900px) {
+    body.has-sidebar .term-window { max-width: 1200px; padding-left: 0; padding-right: 0; }
+}
+@media (min-width: 1200px) { .term-window { max-width: 960px; } }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+img, video, canvas, svg { max-width: 100%; }
+table { max-width: 100%; }
+.panel, .term-content, .dash-hero { min-width: 0; overflow-wrap: anywhere; }
+.panel table, .table-wrap { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.bottom-tabbar { padding-bottom: max(6px, env(safe-area-inset-bottom)); }
+.term-content { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+
+@media (max-width: 380px) {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    .term-window { padding-left: 12px; padding-right: 12px; }
+    .panel { padding: 14px; }
+    .dash-hero-amount { font-size: 26px; }
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.gb-launch, .gb-groups { padding: 20px; }
+.gb-card { box-shadow: var(--card-shadow); }
+.gb-card::before { opacity: .35; }
+.gb-select, .gb-input { border: 1.5px solid var(--glass-border-hover); background: var(--input-bg); }
+.gb-select:hover, .gb-input:focus { border-color: #34d399; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.gb-launch-btn { box-shadow: 0 4px 14px rgba(16, 185, 129, .25); }
+.gb-sheet { box-shadow: 0 -12px 40px rgba(0, 0, 0, .35); }
+@media (min-width: 640px) {
+    .gb-sheet-ov { align-items: center; }
+    .gb-sheet { border-radius: 22px; max-height: 80vh; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+@media (min-width: 1000px) {
+    #gbList { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+    #gbList .gb-card { margin-bottom: 0; }
+    #gbList > .dim { grid-column: 1 / -1; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+@media (max-width: 400px) {
+    .gb-stats { grid-template-columns: 1fr 1fr; row-gap: 12px; }
+    .gb-stat:nth-child(3) { grid-column: 1 / -1; border-left: 0; padding-left: 0; }
+    .gb-sec-title { font-size: 19px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.gb-mini .gb-v { font-size: 14px; white-space: nowrap; }
+.gb-mini { gap: 6px; }
+.gb-mini .gb-v { font-size: 13px; text-overflow: clip; overflow: visible; letter-spacing: -.2px; }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+body.fx-wild {
+    --glass-panel: rgba(26, 23, 53, .75);
+    --glass-border: rgba(168, 85, 247, .22);
+    --glass-border-hover: rgba(0, 240, 255, .5);
+    --glow-shadow: 0 8px 32px 0 rgba(168, 85, 247, .25);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --card-shadow: 0 4px 18px rgba(0, 0, 0, .35);
+    background-image: radial-gradient(circle at 50% 0%, #170d38 0%, #080718 60%, #03020a 100%);
+}
+html[data-theme="light"] body.fx-wild {
+    --glass-panel: rgba(255, 255, 255, .96);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --glass-border: rgba(88, 28, 135, .14);
+    --glass-border-hover: rgba(8, 145, 178, .4);
+    --glow-shadow: 0 8px 28px 0 rgba(88, 28, 135, .1);
+    --card-shadow: 0 2px 14px rgba(30, 20, 60, .08);
+    background-image: radial-gradient(circle at 50% 0%, #ece7fb 0%, #f7f6fc 55%, #eef0f7 100%);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+body.fx-wild .panel { -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: var(--glow-shadow), var(--card-shadow); }
+body.fx-wild .prompt-header { font-family: var(--font-heading); }

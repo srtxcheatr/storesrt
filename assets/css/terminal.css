@@ -1,0 +1,1827 @@
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+:root {
+    --bg-main: #070714;
+    --bg-gradient: radial-gradient(circle at 50% 0%, #170d38 0%, #080718 60%, #03020a 100%);
+    --glass-bg: rgba(18, 16, 38, 0.65);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --glass-panel: rgba(26, 23, 53, 0.75);
+    --glass-border: rgba(168, 85, 247, 0.22);
+    --glass-border-hover: rgba(0, 240, 255, 0.5);
+    
+    --neon-blue: #22d3ee;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --neon-purple: #a855f7;
+    --neon-pink: #ec4899;
+    --neon-amber: #d4af37;
+    --gold-shine: linear-gradient(135deg, #f5dfa0 0%, #d4af37 50%, #a9822a 100%);
+    --neon-red: #ef4444;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --neon-green: #22c55e;
+    
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --glow-shadow: 0 8px 32px 0 rgba(168, 85, 247, 0.25);
+    --cyan-glow: 0 0 20px rgba(0, 240, 255, 0.35);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --card-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    --surface-tint: rgba(255, 255, 255, 0.05);
+    --surface-tint-strong: rgba(255, 255, 255, 0.08);
+    --input-bg: rgba(0, 0, 0, 0.2);
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+[data-theme="light"] {
+    --bg-main: #f6f5fb;
+    --bg-gradient: radial-gradient(circle at 50% 0%, #ece7fb 0%, #f7f6fc 55%, #eef0f7 100%);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --glass-panel: rgba(255, 255, 255, 0.96);
+    --glass-border: rgba(88, 28, 135, 0.14);
+    --glass-border-hover: rgba(8, 145, 178, 0.4);
+    --neon-blue: #0e7490;
+    --neon-purple: #7c3aed;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --neon-pink: #db2777;
+    --neon-amber: #a8791f;
+    --gold-shine: linear-gradient(135deg, #c9a545 0%, #a8791f 50%, #7a5714 100%);
+    --neon-red: #dc2626;
+    --neon-green: #15803d;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --text-primary: #1e1b2e;
+    --text-secondary: #514c66;
+    --text-muted: #8b86a3;
+    --glow-shadow: 0 8px 28px 0 rgba(88, 28, 135, 0.1);
+    --card-shadow: 0 2px 14px rgba(30, 20, 60, 0.08);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --surface-tint: rgba(30, 20, 60, 0.045);
+    --surface-tint-strong: rgba(30, 20, 60, 0.07);
+    --input-bg: rgba(30, 20, 60, 0.035);
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    -webkit-touch-callout: default;
+}
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+a, button, .btn, .nav-item, .cat-filter, .theme-toggle-btn, .btn-logout,
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+input, textarea, select, .banner-dot {
+    -webkit-tap-highlight-color: transparent;
+}
+a:focus, button:focus, .btn:focus, input:focus, textarea:focus, select:focus {
+    outline: none;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+a:focus-visible, button:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--neon-purple);
+    outline-offset: 2px;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+::selection { background: var(--neon-purple); color: #fff; }
+
+body {
+    background: var(--bg-main);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background-image: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 14px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+body::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    animation: pulseGlow 10s infinite alternate;
+}
+body::after {
+    content: '';
+    position: fixed;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    bottom: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    pointer-events: none;
+    z-index: 0;
+    animation: pulseGlow 8s infinite alternate-reverse;
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@keyframes pulseGlow {
+    0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
+    100% { transform: scale(1.2) translate(30px, -30px); opacity: 1; }
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+a { color: var(--neon-blue); text-decoration: none; transition: all 0.3s ease; }
+
+.glass-nav-header {
+    position: sticky;
+    top: 0;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    z-index: 100;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding: 10px 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.nav-container {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    gap: 10px;
+}
+
+.brand-logo {
+    display: flex;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+    min-width: 0;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.logo-img-wrap {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding: 2px;
+    background: linear-gradient(135deg, var(--neon-cyan, #00f0ff), var(--neon-purple));
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+}
+.site-logo {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.brand-title {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 15px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.neon-cyan { color: var(--neon-blue); text-shadow: 0 0 8px rgba(0,240,255,0.6); }
+.brand-sub {
+    font-size: 10px;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    line-height: 1;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.nav-links { display: flex; gap: 6px; }
+.nav-item {
+    display: flex;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 12px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+.nav-item i { font-size: 12px; width: 14px; text-align: center; flex-shrink: 0; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.nav-item:hover, .nav-item.active {
+    color: var(--text-primary);
+    background: rgba(168, 85, 247, 0.15);
+    border-color: var(--glass-border-hover);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.theme-toggle-btn {
+    width: 36px;
+    height: 36px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    background: var(--glass-panel);
+    color: var(--neon-amber);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    transition: all 0.3s ease;
+}
+.theme-toggle-btn:hover {
+    transform: rotate(15deg) scale(1.05);
+    box-shadow: 0 0 12px rgba(255, 180, 84, 0.4);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.nav-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.reseller-community-btn {
+    width: 36px;
+    height: 36px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-radius: 50%;
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    background: rgba(37, 211, 102, 0.12);
+    color: #25d366;
+    display: flex;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.reseller-community-btn:hover { transform: scale(1.08); box-shadow: 0 0 12px rgba(37, 211, 102, 0.4); }
+.reseller-community-btn.hidden { display: none; }
+
+[data-theme="dark"] .sun-icon { display: block; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+[data-theme="dark"] .moon-icon { display: none; }
+[data-theme="light"] .sun-icon { display: none; }
+[data-theme="light"] .moon-icon { display: block; color: var(--neon-purple); }
+
+.btn-logout {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(255,71,87,0.3);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: rgba(255,71,87,0.1);
+    color: var(--neon-red);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    justify-content: center;
+    font-size: 13px;
+    transition: all 0.3s;
+}
+.btn-logout:hover {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: var(--neon-red);
+    color: #fff;
+    box-shadow: 0 0 12px rgba(255, 71, 87, 0.5);
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@media (max-width: 380px) {
+    .nav-item { padding: 0 10px; }
+    .nav-links .nav-item .nav-text { display: none; }
+    .brand-sub { display: none; }
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.term-window {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 0 16px 90px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    position: relative;
+    z-index: 2;
+}
+
+.panel {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: var(--glass-panel);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: var(--glow-shadow), var(--card-shadow);
+    transition: all 0.3s ease;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.panel:hover {
+    border-color: var(--glass-border-hover);
+}
+
+.prompt-header {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: var(--text-primary);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.prompt-header i { color: var(--neon-purple); }
+
+.btn {
+    width: 100%;
+    padding: 11px 16px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.btn-solid {
+    background: linear-gradient(135deg, var(--neon-purple), #7c3aed);
+    color: #fff;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+.btn-solid:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.btn-ghost {
+    background: var(--surface-tint);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.btn-ghost:hover {
+    background: rgba(0, 240, 255, 0.1);
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    transform: translateY(-2px);
+}
+.btn-danger {
+    background: rgba(255, 71, 87, 0.15);
+    color: var(--neon-red);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border: 1px solid rgba(255, 71, 87, 0.3);
+}
+.btn-danger:hover {
+    background: var(--neon-red);
+    color: #fff;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+}
+
+.field { margin-bottom: 12px; }
+.field label {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+input, textarea, select {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    transition: all 0.3s ease;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: var(--cyan-glow);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.cat-filter {
+    padding: 6px 14px;
+    border-radius: 20px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: var(--surface-tint);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+.cat-filter.active, .cat-filter:hover {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: linear-gradient(135deg, var(--neon-purple), #6d28d9);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.banner-carousel {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 16px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border: 1px solid var(--glass-border);
+    position: relative;
+    box-shadow: var(--glow-shadow);
+}
+.banner-track { display: flex; transition: transform 0.4s ease-in-out; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.banner-slide { min-width: 100%; }
+.banner-slide img { width: 100%; height: 160px; object-fit: cover; display: block; }
+.banner-dots {
+    position: absolute;
+    bottom: 8px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.banner-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.banner-dot.active {
+    width: 20px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-radius: 10px;
+    background: var(--neon-blue);
+    box-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(4, 3, 12, 0.75);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    animation: fadeIn 0.3s ease forwards;
+}
+.modal-overlay.hidden { display: none !important; }
+
+@keyframes fadeIn {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.toast {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass-panel);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 12px 20px;
+    font-size: 13px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-weight: 600;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.toast.show { display: flex; align-items: center; gap: 8px; animation: slideUp 0.3s ease; }
+.toast.error { border-color: var(--neon-red); color: var(--neon-red); }
+.toast.success { border-color: var(--neon-green); color: var(--neon-green); }
+
+@keyframes slideUp {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    from { transform: translate(-50%, 20px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.dim { color: var(--text-muted); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.hidden { display: none !important; }
+.mono-num { font-family: var(--font-mono); }
+
+.panel-premium {
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    box-shadow: 0 8px 32px 0 rgba(212, 175, 55, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.gold-text {
+    background: var(--gold-shine);
+    -webkit-background-clip: text;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.icon-btn {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: var(--glass-panel);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.icon-btn:hover { border-color: var(--glass-border-hover); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.page-title {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--text-primary);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    flex: 1;
+}
+
+.tab-row { display: flex; gap: 8px; margin-bottom: 14px; }
+.tab-pill {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding: 12px 0;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-panel);
+    color: var(--text-secondary);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: var(--card-shadow);
+}
+.tab-pill.active {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: linear-gradient(135deg, var(--neon-purple), #6d28d9);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(168, 85, 247, 0.35);
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 700;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: rgba(4, 3, 12, 0.6);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.drawer-backdrop.show { opacity: 1; pointer-events: auto; }
+
+.drawer-panel {
+    position: fixed;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 701;
+    width: min(300px, 84vw);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: var(--glass-panel);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    padding: 18px 16px calc(18px + env(safe-area-inset-bottom, 0px));
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    box-shadow: 12px 0 40px rgba(0, 0, 0, 0.4);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow-y: auto;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.drawer-panel.open { transform: translateX(0); }
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+.drawer-brand { display: flex; align-items: center; gap: 9px; min-width: 0; }
+.drawer-user {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: var(--radius-md);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: var(--surface-tint);
+    margin-bottom: 14px;
+}
+.avatar-circle {
+    width: 40px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon-purple), #6d28d9);
+    display: flex;
+    align-items: center;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.drawer-user-name { font-weight: 700; font-size: 14px; }
+
+.drawer-balance-card {
+    background: linear-gradient(135deg, var(--neon-purple), #6d28d9);
+    border-radius: var(--radius-md);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(88, 28, 220, 0.35);
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.dbc-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.85);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    margin-bottom: 6px;
+}
+.dbc-amount { font-size: 26px; font-weight: 800; color: #fff; margin-bottom: 10px; -webkit-text-fill-color: #fff; }
+.dbc-btn {
+    display: inline-flex;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    padding: 7px 16px;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.drawer-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 14px 4px 6px;
+}
+.drawer-item {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 8px;
+    border-radius: var(--radius-sm);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+}
+.drawer-item i { width: 18px; text-align: center; color: var(--text-muted); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.drawer-item:hover, .drawer-item.active {
+    background: rgba(168, 85, 247, 0.14);
+    color: var(--text-primary);
+}
+.drawer-item.active i { color: var(--neon-purple); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.drawer-logout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: rgba(255, 71, 87, 0.1);
+    color: var(--neon-red);
+    font-weight: 700;
+    font-size: 13px;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.bottom-tabbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    bottom: 0;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    background: var(--glass-panel);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--glass-border);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.tab-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    align-items: center;
+    gap: 3px;
+    padding: 6px 0;
+    color: var(--text-muted);
+    font-size: 10px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-weight: 600;
+    background: none;
+    border: none;
+}
+.tab-item i { font-size: 17px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.tab-item.active { color: var(--neon-purple); }
+.tab-fab {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    margin: -26px 6px 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: linear-gradient(135deg, var(--neon-amber), #a9822a);
+    color: #1a1408;
+    font-size: 19px;
+    border: 3px solid var(--bg-main, #070714);
+    box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.term-content { padding-bottom: 76px; }
+
+.support-ticket {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: var(--input-bg);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    margin-bottom: 4px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+.ticket-row { display: flex; gap: 8px; padding: 3px 0; }
+.ticket-row .k { color: var(--text-muted); min-width: 76px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.ticket-row .eq { color: var(--text-muted); }
+.ticket-row .v { color: var(--neon-amber); font-weight: 700; word-break: break-all; }
+
+.product-grid {
+    display: grid;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.product-card {
+    background: var(--glass-panel);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: border-color 0.2s;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.product-card:hover { border-color: var(--glass-border-hover); }
+.product-thumb {
+    position: relative;
+    aspect-ratio: 1.1 / 1;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(212, 175, 55, 0.12));
+}
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.product-tag-row {
+    position: absolute;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    left: 8px;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    gap: 4px;
+}
+.product-tag {
+    font-size: 10px;
+    font-weight: 700;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    letter-spacing: 0.3px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(168, 85, 247, 0.25);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    color: #fff;
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+}
+.product-tag-nonroot { background: rgba(34, 211, 238, 0.25); border-color: rgba(34, 211, 238, 0.45); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.product-tag-root    { background: rgba(248, 113, 113, 0.25); border-color: rgba(248, 113, 113, 0.45); }
+.product-tag-ios     { background: rgba(148, 163, 184, 0.28); border-color: rgba(148, 163, 184, 0.5); }
+.product-tag-pc      { background: rgba(74, 222, 128, 0.25); border-color: rgba(74, 222, 128, 0.45); }
+.product-tag-contact { background: rgba(212, 175, 55, 0.25); border-color: rgba(212, 175, 55, 0.45); }
+.product-body { padding: 10px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.product-title {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.product-meta { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
+.product-rating { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.product-rating .stars { color: var(--neon-amber); font-size: 11px; letter-spacing: 1px; }
+.product-rating .stars .far { color: rgba(212, 175, 55, 0.3); }
+.product-rating .rating-num { font-size: 11px; font-weight: 700; color: var(--text-secondary); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.product-actions { display: flex; flex-direction: column; gap: 6px; }
+.btn-buy, .btn-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    gap: 6px;
+    padding: 9px 0;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 700;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border: none;
+}
+.btn-buy {
+    background: linear-gradient(135deg, var(--neon-purple), #6d28d9);
+    color: #fff;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.btn-download {
+    background: rgba(0, 240, 255, 0.12);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    color: var(--neon-blue);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.product-actions {
+    display: flex;
+    flex-wrap: wrap;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+}
+.btn-buy, .btn-download {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    flex: 1 1 auto;
+    min-width: 80px;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 13px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-radius: var(--radius-md);
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    text-decoration: none;
+}
+.btn-buy {
+    background: var(--neon-blue);
+    color: #fff;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.btn-buy:hover { background: var(--neon-purple); }
+.btn-download {
+    background: var(--neon-green);
+    color: #fff;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.btn-download:hover { background: #1a9e5a; }
+
+.whatsapp-float {
+    position: fixed;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    bottom: 100px;
+    right: 20px;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    gap: 8px;
+    background: #25D366;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 50px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+    text-decoration: none;
+    transition: all 0.25s ease;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.whatsapp-float:hover {
+    transform: scale(1.05);
+    background: #1ebe5a;
+    color: #fff;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.whatsapp-float i {
+    font-size: 20px;
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@media (max-width: 480px) {
+    .whatsapp-float {
+        bottom: 90px;
+        right: 12px;
+        padding: 8px 14px;
+        /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+        font-size: 12px;
+    }
+    .whatsapp-float i {
+        font-size: 18px;
+    }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.term-window { animation: pageFadeIn .45s cubic-bezier(0.16,1,0.3,1) both; }
+@keyframes pageFadeIn { from { opacity:0; transform: translateY(8px);} to { opacity:1; transform:translateY(0);} }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.product-card {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    transition: border-color .2s, transform .3s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow .3s ease;
+    animation: cardIn .5s cubic-bezier(0.16,1,0.3,1) both;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,0.4), var(--glow-shadow); }
+.shortcut-card, .stat-card, .log-entry { animation: cardIn .5s cubic-bezier(0.16,1,0.3,1) both; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.drawer-panel { transition: transform .3s cubic-bezier(0.175,0.885,0.32,1.275), background-color .35s ease, border-color .35s ease; }
+body, .glass-nav-header, .bottom-tabbar { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
+
+.boot-body { min-height: 100vh; display:flex; align-items:center; justify-content:center; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.boot-stage { position:relative; width:min(420px,92vw); text-align:center; z-index:2; }
+.boot-particles { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.boot-dot {
+    position:absolute; width:3px; height:3px; border-radius:50%;
+    background: var(--neon-blue); opacity:0; box-shadow:0 0 6px var(--neon-blue);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    animation: dotFloat linear infinite;
+}
+@keyframes dotFloat {
+    0% { opacity:0; transform:translateY(0); }
+    10% { opacity:.8; } 90% { opacity:.4; }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    100% { opacity:0; transform:translateY(-140px); }
+}
+.boot-scanline {
+    position:absolute; left:-20%; right:-20%; height:110px; top:-110px;
+    background: linear-gradient(180deg, transparent, rgba(0,240,255,0.12), transparent);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    animation: scanSweep 3.4s ease-in-out infinite; pointer-events:none;
+}
+@keyframes scanSweep { 0% { top:-110px; } 100% { top:120%; } }
+.boot-logo-wrap { margin-bottom: 14px; }
+.boot-logo-wrap img {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    width:64px; height:64px; border-radius:16px;
+    box-shadow: 0 0 30px rgba(168,85,247,0.55);
+    animation: bootLogoPop .7s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes bootLogoPop { from { opacity:0; transform:scale(.6) rotate(-8deg);} to { opacity:1; transform:scale(1) rotate(0);} }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.boot-brand-text {
+    font-family: var(--font-heading); font-weight:900;
+    font-size: clamp(26px, 8vw, 40px); letter-spacing:2px;
+    background: linear-gradient(120deg, #fff 0%, var(--neon-blue) 45%, var(--neon-purple) 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    filter: drop-shadow(0 0 18px rgba(168,85,247,.45));
+    animation: bootReveal 1.1s .1s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes bootReveal {
+    0% { opacity:0; letter-spacing:12px; transform:scale(.9); }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    100% { opacity:1; letter-spacing:2px; transform:scale(1); }
+}
+.boot-brand-underline {
+    height:2px; margin:10px auto 0; width:0;
+    background: linear-gradient(90deg, transparent, var(--neon-blue), var(--neon-purple), transparent);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    animation: underlineGrow 1s .55s cubic-bezier(0.16,1,0.3,1) both;
+    box-shadow: 0 0 12px rgba(0,240,255,.5);
+}
+@keyframes underlineGrow { to { width:100%; } }
+.boot-tagline {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    margin-top:10px; font-size:11px; letter-spacing:2px; text-transform:uppercase;
+    color:var(--text-muted); opacity:0; animation: fadeInUp .6s .95s ease both;
+}
+@keyframes fadeInUp { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:translateY(0);} }
+.boot-log {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    margin-top:26px; min-height:76px; text-align:left;
+    font-family:var(--font-mono); font-size:11px; color:var(--neon-blue);
+    display:flex; flex-direction:column; gap:4px;
+}
+.boot-log div { opacity:0; animation: fadeInUp .4s ease forwards; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.boot-log .ok { color: var(--neon-green); }
+.boot-progress { margin-top:16px; height:3px; border-radius:99px; overflow:hidden; background:rgba(255,255,255,.08); }
+.boot-progress-fill {
+    height:100%; width:0%;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    box-shadow:0 0 10px var(--neon-blue);
+    transition: width .35s cubic-bezier(0.16,1,0.3,1);
+}
+.boot-pct { margin-top:8px; font-family:var(--font-mono); font-size:11px; color:var(--text-muted); }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.auth-body { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px 16px; }
+.auth-shell { width:min(400px,100%); position:relative; z-index:2; }
+.auth-brand { text-align:center; margin-bottom:22px; }
+.auth-brand .logo-img-wrap { width:56px; height:56px; margin:0 auto 10px; }
+.auth-brand-title { font-family:var(--font-heading); font-weight:900; font-size:19px; letter-spacing:.5px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.auth-brand-sub { font-size:10px; color:var(--text-muted); letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; }
+.form-pane { animation: fadeInUp .45s ease both; }
+.auth-divider { display:flex; align-items:center; gap:10px; margin:14px 0; color:var(--text-muted); font-size:11px; text-transform:uppercase; letter-spacing:1px; }
+.auth-divider::before, .auth-divider::after { content:''; flex:1; height:1px; background:var(--glass-border); }
+.btn-guest { background:transparent; border:1px dashed var(--glass-border-hover); color:var(--text-secondary); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.btn-guest:hover { color:var(--neon-blue); border-color:var(--neon-blue); background:rgba(0,240,255,.06); transform:translateY(-2px); }
+.btn-google { background:#fff; color:#1f1f1f; border:1px solid rgba(0,0,0,.08); }
+.btn-google:hover { background:#f5f5f5; transform:translateY(-2px); }
+
+.gate-icon {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    width:56px; height:56px; border-radius:50%; margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:center; font-size:22px;
+    background: linear-gradient(135deg, var(--neon-purple), #6d28d9); color:#fff;
+    box-shadow:0 8px 22px rgba(168,85,247,.4);
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.guest-login-btn {
+    display:flex; align-items:center; gap:6px;
+    padding:0 16px; height:36px; border-radius:999px;
+    background: linear-gradient(135deg, var(--neon-purple), #6d28d9); color:#fff;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-size:12px; font-weight:700; box-shadow:0 4px 14px rgba(168,85,247,.4);
+    flex-shrink:0; white-space:nowrap;
+}
+
+.banner-slide img { transition: transform .4s ease; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.dash-hero {
+    background:var(--glass-panel); border:1px solid rgba(212,175,55,.35);
+    border-radius:var(--radius-lg); padding:20px; margin-bottom:16px;
+    box-shadow:0 8px 32px rgba(212,175,55,.14), inset 0 1px 0 rgba(255,255,255,.06);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    position:relative; overflow:hidden;
+}
+.dash-hero::after {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(circle at 100% 0%, rgba(212,175,55,.14), transparent 60%);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    pointer-events:none;
+}
+.dash-hero-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; position:relative; }
+.dash-hero-label { font-size:11px; color:var(--text-muted); letter-spacing:.5px; margin-bottom:6px; }
+.dash-hero-amount { font-family:var(--font-mono); font-weight:800; font-size:30px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.dash-hero-status { text-align:right; font-size:11px; }
+.dash-hero-actions { display:flex; gap:8px; margin-top:16px; position:relative; flex-wrap:wrap; }
+.dash-hero-actions .btn { width:auto; padding:9px 16px; font-size:12px; }
+.dash-stats-row { display:flex; gap:10px; margin-bottom:16px; }
+.stat-card { flex:1; background:var(--glass-panel); border:1px solid var(--glass-border); border-radius:var(--radius-md); padding:12px 10px; text-align:center; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.stat-card .stat-icon { font-size:15px; color:var(--neon-purple); margin-bottom:6px; }
+.stat-card .stat-value { font-family:var(--font-mono); font-weight:800; font-size:16px; }
+.stat-card .stat-label { font-size:9.5px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.4px; margin-top:2px; }
+.shortcut-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px; }
+.shortcut-card {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    background:var(--glass-panel); border:1px solid var(--glass-border);
+    border-radius:var(--radius-md); padding:16px 8px;
+    color:var(--text-primary); text-align:center; font-size:11.5px; font-weight:700;
+    transition: transform .25s cubic-bezier(0.175,0.885,0.32,1.275), border-color .25s ease, box-shadow .25s ease;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.shortcut-card:hover { transform:translateY(-3px); border-color:var(--glass-border-hover); box-shadow:var(--glow-shadow); }
+.shortcut-icon { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; background:linear-gradient(135deg,var(--neon-purple),#6d28d9); color:#fff; flex-shrink:0; }
+.shortcut-card[data-c="blue"] .shortcut-icon { background:linear-gradient(135deg,var(--neon-blue),#0891b2); }
+.shortcut-card[data-c="amber"] .shortcut-icon { background:linear-gradient(135deg,var(--neon-amber),#a9822a); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.shortcut-card[data-c="green"] .shortcut-icon { background:linear-gradient(135deg,var(--neon-green),#15803d); }
+.shortcut-card[data-c="pink"] .shortcut-icon { background:linear-gradient(135deg,var(--neon-pink),#be185d); }
+.shortcut-card[data-c="grey"] .shortcut-icon { background:linear-gradient(135deg,#64748b,#334155); }
+.shortcut-card[data-c="purple"] .shortcut-icon { background:linear-gradient(135deg,var(--neon-purple),#6d28d9); }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.profile-hero { text-align:center; margin-bottom:18px; }
+.profile-avatar {
+    width:76px; height:76px; border-radius:50%; margin:0 auto 10px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-heading); font-weight:800; font-size:26px; color:#fff;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background:linear-gradient(135deg,var(--neon-purple),var(--neon-blue));
+    box-shadow:0 8px 24px rgba(168,85,247,.4);
+}
+.profile-name { font-weight:800; font-size:16px; }
+.profile-email { font-size:12px; color:var(--text-muted); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.section-divider { font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--text-muted); margin:18px 4px 10px; display:flex; align-items:center; gap:6px; }
+.field-hint { font-size:11px; color:var(--text-muted); margin-top:-6px; margin-bottom:12px; }
+
+@media (min-width: 900px) {
+    .bottom-tabbar { display:none; }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    body.has-sidebar .term-window, body.has-sidebar .nav-container { margin-left:264px; }
+    body.has-sidebar .drawer-panel {
+        transform: translateX(0) !important;
+        box-shadow:none;
+        border-right:1px solid var(--glass-border);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    }
+    body.has-sidebar .drawer-backdrop { display:none !important; }
+    body.has-sidebar #drawerToggle { visibility:hidden; }
+    .term-window { max-width:640px; }
+    .term-content { padding-bottom:24px; }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    .product-grid { grid-template-columns:repeat(3,1fr); gap:14px; }
+    .shortcut-grid { grid-template-columns:repeat(3,1fr); }
+    .banner-slide img { height:200px; }
+}
+@media (min-width: 1200px) {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    .term-window { max-width:840px; }
+    .product-grid { grid-template-columns:repeat(4,1fr); }
+    .shortcut-grid { grid-template-columns:repeat(6,1fr); }
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.panel {
+    position: relative;
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    box-shadow: var(--glow-shadow), var(--card-shadow), inset 0 1px 0 rgba(255,255,255,0.07);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.panel::before {
+    content:''; position:absolute; inset:0; border-radius:inherit;
+    background: linear-gradient(150deg, rgba(255,255,255,0.06) 0%, transparent 38%);
+    pointer-events:none;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+@keyframes srtCardFloat {
+    0%, 100% { --float-y: 0px; }
+    50% { --float-y: -7px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+@keyframes srtCardFloatSoft {
+    0%, 100% { --float-y: 0px; }
+    50% { --float-y: -5px; }
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.tilt {
+    --rx: 0deg;
+    --ry: 0deg;
+    --mx: 50%;
+    --my: 50%;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --float-y: 0px;
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--float-y)) translateZ(0);
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform .18s cubic-bezier(.16,1,.3,1), box-shadow .25s ease, border-color .25s ease;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.shortcut-card {
+    animation: srtCardFloat 3.8s ease-in-out infinite;
+}
+.product-card {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    animation: srtCardFloatSoft 4.4s ease-in-out infinite;
+}
+.shortcut-card:nth-child(2), .product-card:nth-child(2) { animation-delay: -.7s; }
+.shortcut-card:nth-child(3), .product-card:nth-child(3) { animation-delay: -1.4s; }
+.shortcut-card:nth-child(4), .product-card:nth-child(4) { animation-delay: -2.1s; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.shortcut-card:nth-child(5), .product-card:nth-child(5) { animation-delay: -2.8s; }
+.shortcut-card:nth-child(6), .product-card:nth-child(6) { animation-delay: -3.5s; }
+.tilt::after {
+    content:''; position:absolute; inset:0; border-radius:inherit; z-index:1;
+    background: radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,0.17), transparent 55%);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    opacity:0; transition: opacity .25s ease; pointer-events:none;
+}
+.tilt:hover::after { opacity:1; }
+.product-card, .shortcut-card, .dash-hero, .stat-card, .auth-shell .panel { position: relative; }
+.product-card:hover, .shortcut-card:hover {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-color:var(--glass-border-hover);
+    box-shadow:0 18px 34px rgba(0,0,0,0.45), var(--glow-shadow);
+}
+@media (pointer: coarse) {
+    .tilt { transition: transform .15s ease-out; }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    .tilt:active { transform: perspective(900px) scale(.97) translateY(var(--float-y,0px)); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .shortcut-card, .product-card { animation: none !important; }
+    .tilt { transition: none !important; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.srt-web-canvas {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    width: 100vw; height: 100vh; display: block;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.srt-cursor-dot, .srt-cursor-ring {
+    position: fixed; left: 0; top: 0; pointer-events: none; z-index: 10000;
+    opacity: 0; transform: translate3d(-100px,-100px,0);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.srt-cursor-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--neon-blue); box-shadow: 0 0 12px var(--neon-blue), 0 0 24px rgba(168,85,247,.65);
+    margin: -3.5px 0 0 -3.5px;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.srt-cursor-ring {
+    width: 30px; height: 30px; border: 1px solid rgba(168,85,247,.75);
+    border-radius: 50%; margin: -15px 0 0 -15px;
+    background: radial-gradient(circle, rgba(168,85,247,.08), transparent 65%);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    transition: width .18s ease, height .18s ease, margin .18s ease, border-color .18s ease, background .18s ease;
+}
+.srt-cursor-ring.active {
+    width: 46px; height: 46px; margin: -23px 0 0 -23px;
+    border-color: var(--neon-blue); background: rgba(34,211,238,.08);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+@media (pointer:fine) {
+    body.srt-cursor-ready { cursor: default; }
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.product-thumb::after {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.20) 0%, transparent 32%, transparent 68%, rgba(0,0,0,0.18) 100%);
+    pointer-events:none;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.product-price-badge {
+    position:absolute; right:8px; bottom:8px; z-index:2;
+    background: rgba(4,3,12,0.62); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border:1px solid rgba(212,175,55,0.45);
+    color:var(--neon-amber); font-weight:800; font-size:11px; font-family:var(--font-mono);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding:4px 9px; border-radius:999px;
+}
+
+@keyframes holoShift { 0% { background-position:0% 50%; } 100% { background-position:200% 50%; } }
+.boot-brand-underline {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: linear-gradient(90deg, transparent, var(--neon-blue), var(--neon-purple), var(--neon-pink), var(--neon-blue), transparent);
+    background-size: 250% 100%;
+    animation: underlineGrow 1s .55s cubic-bezier(0.16,1,0.3,1) both, holoShift 3.5s 1.55s linear infinite;
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.boot-logo-wrap img { animation: bootLogoPop .7s cubic-bezier(0.16,1,0.3,1) both, floatY 3.4s .9s ease-in-out infinite; }
+.gate-icon, .profile-avatar { animation: floatY 3.6s ease-in-out infinite; }
+
+.btn .btn-spinner { display: none; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.btn.loading .btn-text { visibility: hidden; }
+.btn.loading .btn-spinner { display: inline-flex !important; visibility: visible; align-items: center; gap: 6px; position:absolute; left:0; right:0; justify-content:center; }
+.btn.loading .btn-spinner.hidden { display: inline-flex !important; }
+.btn.loading .btn-text.hidden { display: none !important; }
+.btn.loading { cursor: wait; opacity: .9; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.btn.loading .btn-spinner .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-top-color: currentColor;
+    border-radius: 50%;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    animation: btnSpin 0.7s linear infinite;
+}
+@keyframes btnSpin { to { transform: rotate(360deg); } }
+
+.reseller-card { margin-bottom: 16px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.reseller-progress-row { display: flex; flex-direction: column; gap: 14px; }
+.reseller-progress-item { display: flex; flex-direction: column; gap: 5px; }
+.rp-label {
+    font-size: 11px; color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: space-between; gap: 6px;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.rp-status { font-size: 13px; color: var(--neon-red, #f87171); transition: color 0.2s ease; }
+.rp-status.rp-status-done { color: var(--neon-green, #4ade80); }
+.rp-bar-track {
+    height: 8px; border-radius: 999px; overflow: hidden;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border);
+}
+.rp-bar-fill {
+    height: 100%; width: 0%; border-radius: 999px;
+    background: linear-gradient(90deg, var(--neon-purple), var(--neon-amber));
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    transition: width 0.5s cubic-bezier(0.16,1,0.3,1), background 0.3s ease;
+}
+.rp-bar-fill.rp-bar-done { background: var(--neon-green, #4ade80); }
+.rp-value { font-size: 11px; font-weight: 700; color: var(--text-primary); align-self: flex-end; }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rp-benefit {
+    margin-top: 14px; padding: 12px 14px; border-radius: 10px;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rp-benefit-label {
+    font-size: 11px; font-weight: 700; color: var(--neon-amber, #fbbf24);
+    display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+}
+.rp-benefit-answer { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rp-benefit-price { display: inline-flex; align-items: center; gap: 5px; margin-left: 2px; white-space: nowrap; }
+.rp-benefit-price s { color: var(--text-muted); }
+.rp-benefit-price b { color: var(--neon-green, #4ade80); font-size: 13px; }
+
+.reseller-shift-btn:disabled {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    opacity: 0.5; cursor: not-allowed;
+    background: rgba(255,255,255,0.06) !important;
+    color: var(--text-secondary) !important;
+    box-shadow: none !important;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.spinner-lg {
+    width: 38px; height: 38px;
+    border: 3px solid rgba(255,255,255,0.15);
+    border-top-color: var(--neon-amber);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-radius: 50%;
+    display: inline-block;
+    animation: btnSpin 0.8s linear infinite;
+}
+.reseller-verify-spinner { display: flex; justify-content: center; padding: 6px 0; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+@media (min-width: 900px) {
+  body.has-sidebar { overflow-x:hidden; }
+  body.has-sidebar .drawer-panel {
+    width:264px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    box-sizing:border-box;
+  }
+  body.has-sidebar .glass-nav-header { padding-left:20px; }
+  body.has-sidebar .nav-container {
+    width:calc(100% - 284px);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    max-width:none;
+    margin:0 20px 0 284px;
+  }
+  body.has-sidebar .term-window {
+    width:calc(100% - 304px);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    max-width:1200px;
+    margin:20px 20px 90px 284px;
+    padding-left:0;
+    padding-right:0;
+  }
+  /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+  body.has-sidebar .term-content { min-width:0; width:100%; }
+  body.has-sidebar .panel,
+  body.has-sidebar .product-card,
+  body.has-sidebar .shortcut-card,
+  body.has-sidebar .stat-card,
+  /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+  body.has-sidebar .log-entry { min-width:0; }
+  body.has-sidebar .product-grid { grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); }
+  body.has-sidebar .shortcut-grid { grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); }
+  body.has-sidebar .product-actions { min-width:0; }
+  body.has-sidebar .product-actions > * { min-width:0; max-width:100%; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.shortcut-card, .product-card {
+  animation-timing-function:cubic-bezier(.37,0,.63,1);
+  animation-fill-mode:both;
+  /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+  will-change:transform;
+}
+@keyframes srtSmoothFloat {
+  0%,100% { transform:translate3d(0,0,0); }
+  50% { transform:translate3d(0,-4px,0); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.shortcut-card { animation-name:srtSmoothFloat; animation-duration:5.2s; }
+.product-card { animation-name:srtSmoothFloat; animation-duration:6.2s; }
+.shortcut-card:nth-child(2), .product-card:nth-child(2) { animation-delay:-1.0s; }
+.shortcut-card:nth-child(3), .product-card:nth-child(3) { animation-delay:-2.0s; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.shortcut-card:nth-child(4), .product-card:nth-child(4) { animation-delay:-3.0s; }
+.shortcut-card:nth-child(5), .product-card:nth-child(5) { animation-delay:-4.0s; }
+.shortcut-card:nth-child(6), .product-card:nth-child(6) { animation-delay:-5.0s; }
+@media (prefers-reduced-motion: reduce) {
+  .shortcut-card, .product-card { animation:none !important; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.leaderboard-list { display:flex; flex-direction:column; gap:8px; }
+.leaderboard-row:hover { border-color:var(--glass-border-hover); background:rgba(255,255,255,0.05); }
+.lb-rank { font-size:15px; font-weight:800; width:26px; text-align:center; flex-shrink:0; color:var(--text-secondary); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.lb-name {
+    flex:1; min-width:0; font-weight:700; font-size:13px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.lb-stats { display:flex; flex-direction:column; align-items:flex-end; gap:2px; font-size:10.5px; flex-shrink:0; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.lb-keys { color:var(--text-muted); }
+.lb-keys i { color:var(--neon-purple); margin-right:3px; }
+.lb-spent { font-family:var(--font-mono); font-weight:700; font-size:12px; }
+.leaderboard-row {
+    display:flex; align-items:center; gap:10px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding:9px 10px; border-radius:var(--radius-sm);
+    background:rgba(255,255,255,0.03); border:1px solid var(--glass-border);
+    transition:all .25s ease;
+    box-sizing:border-box;
+    min-width:0;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    overflow:hidden;
+}
+.lb-view {
+    width:70px !important;
+    min-width:70px !important;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    max-width:70px !important;
+    flex:0 0 70px !important;
+    box-sizing:border-box;
+    flex-shrink:0;
+    padding:6px 8px !important;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-size:11px !important;
+    height:auto !important;
+    white-space:nowrap;
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.op-hero { position:relative; }
+.op-avatar { background:linear-gradient(135deg, var(--neon-purple), var(--neon-blue)); }
+.op-rank-badge {
+    display:inline-block; margin-top:8px; padding:4px 12px; border-radius:999px;
+    font-size:10.5px; font-weight:800; letter-spacing:.4px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background:rgba(168,85,247,0.15); border:1px solid var(--glass-border-hover);
+    color:var(--text-primary);
+}
+.op-info-row {
+    display:flex; align-items:center; gap:10px; padding:10px 2px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    font-size:13px; border-bottom:1px solid var(--glass-border);
+}
+.op-info-row:last-child { border-bottom:none; }
+.op-info-row i { width:18px; text-align:center; color:var(--neon-blue); flex-shrink:0; }
+.op-info-row span, .op-info-row a { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--text-secondary); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.op-info-row a { color:var(--neon-blue); }
+
+.plan-picker-panel { max-height: min(86vh, 720px); overflow-y: auto; }
+.plan-product-name {
+    font-size: 15px; font-weight: 800; color: #fff; margin: -4px 0 12px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding: 10px 12px; border-radius: 12px;
+    background: rgba(0,240,255,.07); border: 1px solid rgba(0,240,255,.18);
+}
+.plan-duration-list { display: grid; gap: 8px; margin-bottom: 14px; }
+.plan-duration {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 12px 13px; border-radius: 12px; cursor: pointer; color: var(--text-primary);
+    background: rgba(255,255,255,.035); border: 1px solid rgba(168,85,247,.22);
+    font-family: inherit; text-align: left; transition: .18s ease;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.plan-duration span { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:700; }
+.plan-duration strong { color: var(--neon-amber); font-family: var(--font-mono); font-size:13px; }
+.plan-duration:hover, .plan-duration.active {
+    border-color: var(--neon-blue); background: rgba(0,240,255,.10);
+    box-shadow: 0 0 14px rgba(0,240,255,.10);
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.plan-duration.active span { color: var(--neon-blue); }
+.product-plan-preview {
+    display:flex; justify-content:space-between; align-items:center; gap:6px;
+    font-size:10px; color:var(--text-muted); margin: 8px 0 7px;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    padding: 7px 9px; border-radius: 9px; background:rgba(255,255,255,.035);
+}
+.product-plan-preview i { color:var(--neon-blue); }
+.product-plan-preview span { color:var(--neon-purple); font-weight:700; }
+.quantity-box {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:12px; margin:10px 0; border-radius:13px;
+    background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.08);
+}
+.quantity-title { font-size:12px; font-weight:800; margin-bottom:3px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.quantity-control { display:flex; align-items:center; gap:10px; }
+.quantity-control button {
+    width:34px; height:34px; border-radius:10px; border:1px solid rgba(0,240,255,.35);
+    background:rgba(0,240,255,.08); color:#fff; font-size:20px; line-height:1; cursor:pointer;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.quantity-control button:hover { background:var(--neon-blue); }
+.quantity-control span {
+    min-width:28px; text-align:center; font-family:var(--font-mono); font-size:16px; font-weight:900; color:var(--neon-amber);
+}
+.plan-total-row, .checkout-grand-total {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:11px 12px; margin:8px 0 12px; border-radius:12px;
+    background:rgba(255,193,7,.06); border:1px solid rgba(255,193,7,.20);
+}
+.plan-total-row strong, .checkout-grand-total strong { color:var(--neon-amber); font-family:var(--font-mono); font-size:17px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.checkout-selected-card {
+    display:grid; gap:8px; margin-bottom:14px; padding:12px; border-radius:13px;
+    background:rgba(255,255,255,.035); border:1px solid rgba(0,240,255,.18);
+}
+.checkout-selected-card > div:not(.checkout-grand-total) { display:flex; justify-content:space-between; gap:12px; font-size:12px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.checkout-selected-card strong { text-align:right; }
+.checkout-grand-total { margin:2px 0 0; }
+@media (max-width: 520px) {
+    .plan-picker-panel { width: calc(100vw - 24px) !important; }
+    .product-plan-preview { font-size:9px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.skeleton-card {
+    background: var(--glass-panel);
+    border: 1px solid var(--glass-border);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+.skeleton-thumb { aspect-ratio: 1.1 / 1; }
+.skeleton-body { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.skeleton-line { height: 10px; border-radius: 4px; }
+.skeleton-line.w-80 { width: 80%; }
+.skeleton-line.w-60 { width: 60%; }
+.skeleton-line.w-40 { width: 40%; margin-top: 4px; }
+.skeleton-btn { height: 30px; border-radius: var(--radius-sm); margin-top: 4px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.skeleton-row { height: 34px; border-radius: var(--radius-sm); margin-bottom: 8px; }
+.skeleton-row:last-child { margin-bottom: 0; }
+
+.skeleton-thumb, .skeleton-line, .skeleton-btn, .skeleton-row {
+    background: linear-gradient(90deg,
+        /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+        rgba(255,255,255,0.05) 25%,
+        rgba(255,255,255,0.12) 37%,
+        rgba(255,255,255,0.05) 63%);
+    background-size: 400% 100%;
+    animation: skeletonShimmer 1.4s ease infinite;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+@keyframes skeletonShimmer {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.srt-low-fx .skeleton-thumb,
+.srt-low-fx .skeleton-line,
+.srt-low-fx .skeleton-btn,
+.srt-low-fx .skeleton-row {
+    animation: none;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: rgba(255,255,255,0.08);
+}
+
+.srt-low-fx .glass-nav-header,
+.srt-low-fx .panel,
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.srt-low-fx .modal-overlay,
+.srt-low-fx .toast,
+.srt-low-fx .drawer-backdrop,
+.srt-low-fx .drawer-panel,
+.srt-low-fx .bottom-tabbar,
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.srt-low-fx .product-tag,
+.srt-low-fx .product-price-badge {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.srt-low-fx .product-card,
+.srt-low-fx .shortcut-card,
+.srt-low-fx body::before,
+.srt-low-fx body::after {
+    animation: none !important;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+
+.avatar-circle, .profile-avatar, .lb-avatar { overflow:hidden; }
+.avatar-circle img, .profile-avatar img, .lb-avatar img {
+    width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.avatar-wrap { position:relative; width:76px; height:76px; margin:0 auto 10px; }
+.avatar-wrap .profile-avatar { margin:0; cursor:pointer; }
+.avatar-edit-btn {
+    position:absolute; right:-4px; bottom:-4px; width:28px; height:28px; border-radius:50%;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    border:2px solid var(--bg-main, #0b0b14); background:var(--neon-blue); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:12px; cursor:pointer;
+    box-shadow:0 4px 12px rgba(0,0,0,.35);
+}
+.avatar-edit-btn:hover { filter:brightness(1.15); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.lb-avatar {
+    width:28px; height:28px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:800; color:#fff;
+    background:linear-gradient(135deg,var(--neon-purple),var(--neon-blue));
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.avatar-editor { max-width:360px; width:100%; max-height:92vh; overflow-y:auto; }
+.avatar-stage {
+    position:relative; width:260px; max-width:100%; aspect-ratio:1/1; margin:0 auto; border-radius:50%;
+    background:
+        /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+        repeating-conic-gradient(rgba(255,255,255,.07) 0% 25%, transparent 0% 50%) 50% / 20px 20px;
+    border:1px dashed var(--glass-border);
+    touch-action:none;
+}
+.avatar-stage canvas { width:100%; height:100%; display:block; border-radius:50%; cursor:grab; touch-action:none; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.avatar-stage canvas:active { cursor:grabbing; }
+.avatar-stage-empty {
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:8px; color:var(--text-muted); font-size:12px; pointer-events:none;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.avatar-stage-empty i { font-size:26px; }
+.avatar-editor input[type=range] { width:100%; accent-color:var(--neon-blue); }
+.avatar-editor select { width:100%; }

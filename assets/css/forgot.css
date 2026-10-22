@@ -1,0 +1,75 @@
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.forgot-body { min-height:100vh; }
+.forgot-shell { width:min(430px,100%); position:relative; z-index:2; }
+.forgot-card { animation:fadeInUp .45s ease both; }
+.forgot-step { animation:fadeInUp .3s ease both; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.forgot-icon {
+  width:58px;height:58px;border-radius:18px;margin:0 auto 14px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:22px;
+  background:linear-gradient(135deg,var(--neon-purple),#6d28d9);
+  /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+  box-shadow:0 10px 28px rgba(168,85,247,.35);
+}
+.forgot-desc { color:var(--text-secondary);font-size:12px;line-height:1.65;margin:0 0 16px;text-align:center; }
+.forgot-card .btn { margin-bottom:9px; }
+.forgot-guide {
+  /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+  margin-top:15px;padding:13px 14px;border:1px solid var(--glass-border);
+  border-radius:var(--radius-md);background:rgba(255,255,255,.025);
+}
+.guide-title { font-size:11px;font-weight:800;letter-spacing:.7px;color:var(--neon-blue);margin-bottom:8px; }
+.forgot-guide ol { margin:0;padding-left:20px;color:var(--text-secondary);font-size:11px;line-height:1.75; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.forgot-guide b { color:var(--text-primary); }
+.forgot-footer { text-align:center;margin-top:15px;font-size:12px; }
+.forgot-footer a { color:var(--neon-blue);text-decoration:none; }
+#forgotOtp { letter-spacing:7px;text-align:center;font-family:var(--font-mono);font-size:20px;font-weight:800; }
+#resendOtpBtn:disabled { opacity:.55;cursor:not-allowed; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.forgot-card { overflow: hidden; }
+.forgot-step { will-change: opacity, transform; }
+.forgot-guide { transition: opacity .28s ease, transform .28s ease, max-height .35s ease; }
+.forgot-guide.hidden { display:none !important; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.guide-sender {
+  margin-top:9px; padding-top:9px; border-top:1px solid var(--glass-border);
+  font-size:11px; color:var(--text-secondary); line-height:1.6;
+}
+.guide-sender i { color:var(--neon-blue); margin-right:5px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.guide-warning {
+  margin-top:9px; padding:9px 10px; border-radius:10px;
+  background:rgba(239,68,68,.07); border:1px solid rgba(239,68,68,.22);
+  color:var(--text-secondary); font-size:10.5px; line-height:1.55;
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.guide-warning i { color:var(--neon-red); margin-right:5px; }
+.password-rules { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.password-rules li {
+  display:flex; align-items:center; gap:8px; color:var(--text-secondary);
+  font-size:10.5px; line-height:1.45; transition:color .2s ease, transform .2s ease;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.password-rules li i { width:13px; color:var(--text-muted); font-size:8px; transition:color .2s ease, transform .2s ease; }
+.password-rules li.valid { color:var(--neon-green); transform:translateX(2px); }
+.password-rules li.valid i { color:var(--neon-green); font-size:11px; }
+.guide-tip {
+  /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+  margin-top:10px; padding-top:9px; border-top:1px solid var(--glass-border);
+  color:var(--text-muted); font-size:10px; line-height:1.5;
+}
+.guide-tip i { color:var(--neon-amber); margin-right:5px; }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@media (min-width: 700px) {
+  .forgot-shell { width:min(560px, calc(100vw - 48px)); }
+  .forgot-card { padding:22px; }
+  .forgot-guide { padding:15px 16px; }
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@media (prefers-reduced-motion: reduce) {
+  .forgot-step, .forgot-guide, .password-rules li { animation:none !important; transition:none !important; }
+}

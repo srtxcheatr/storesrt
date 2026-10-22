@@ -1,0 +1,12 @@
+# src by SRT X CHEATS. Copy right SRT X CHEATS
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /login.php
+# src by SRT X CHEATS. Copy right SRT X CHEATS
+Disallow: /dashboard.php
+Disallow: /profile.php
+Disallow: /includes/
+
+Sitemap: https://srtxcheats.com/sitemap.xml
+# src by SRT X CHEATS. Copy right SRT X CHEATS

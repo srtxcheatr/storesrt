@@ -1,0 +1,338 @@
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.av-badge { position: absolute; top: -7px; right: -7px; z-index: 4; line-height: 0; pointer-events: none; }
+.avatar-wrap .av-badge { top: -6px; right: -8px; }
+.lb-av { position: relative; flex: none; display: block; }
+.lb-av .av-badge { top: -6px; right: -8px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.av-wrap { position: relative; display: block; width: 76px; height: 76px; margin: 0 auto 10px; }
+.av-wrap .profile-avatar { margin: 0; }
+
+.rbadge {
+    --s: 22px; --rim: linear-gradient(160deg,#fff,#888 55%,#ddd); --in: radial-gradient(circle at 50% 30%,#3a3a44,#15151b);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    --fg: #fff; --glow: rgba(255,255,255,.45);
+    position: relative; display: inline-grid; place-items: center; flex: none; vertical-align: middle; isolation: isolate;
+    width: var(--s); height: calc(var(--s) * 1.14);
+    font: 900 calc(var(--s) * .5)/1 var(--font-heading, 'Orbitron', sans-serif);
+    -webkit-filter: drop-shadow(0 0 calc(var(--s) * .16) var(--glow)) drop-shadow(0 1px 1px rgba(0,0,0,.65));
+            /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+            filter: drop-shadow(0 0 calc(var(--s) * .16) var(--glow)) drop-shadow(0 1px 1px rgba(0,0,0,.65));
+}
+.rbadge::before, .rbadge::after {
+    content: ""; position: absolute; z-index: 0;
+    -webkit-clip-path: polygon(50% 0, 100% 15%, 100% 61%, 50% 100%, 0 61%, 0 15%);
+            /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+            clip-path: polygon(50% 0, 100% 15%, 100% 61%, 50% 100%, 0 61%, 0 15%);
+}
+.rbadge::before { top: 0; right: 0; bottom: 0; left: 0; background: var(--rim); }
+.rbadge::after  { top: max(1.5px, calc(var(--s) * .085)); right: max(1.5px, calc(var(--s) * .085)); bottom: max(1.5px, calc(var(--s) * .085)); left: max(1.5px, calc(var(--s) * .085)); background: var(--in); }
+.rb-glow {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    position: absolute; top: -48%; right: -48%; bottom: -48%; left: -48%; z-index: -1; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, var(--glow), transparent 62%); opacity: .5;
+    animation: rbBreathe 2.8s ease-in-out infinite;
+}
+.rb-body { position: relative; z-index: 2; display: grid; place-items: center; color: var(--fg); text-shadow: 0 0 6px var(--glow); font-style: normal; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rb-body svg { width: calc(var(--s) * .56); height: calc(var(--s) * .56); margin-top: -1px; filter: drop-shadow(0 0 3px var(--glow)); }
+.rb-body b { font-style: normal; font-weight: 900; transform: translateY(-4%); }
+.rb-shine {
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 3; overflow: hidden; pointer-events: none;
+    -webkit-clip-path: polygon(50% 0, 100% 15%, 100% 61%, 50% 100%, 0 61%, 0 15%);
+            /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+            clip-path: polygon(50% 0, 100% 15%, 100% 61%, 50% 100%, 0 61%, 0 15%);
+}
+.rb-shine::after {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 55%;
+    background: linear-gradient(105deg, transparent, rgba(255,255,255,.85), transparent);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    transform: translate3d(-130%, 0, 0); animation: rbShine 3.6s ease-in-out infinite;
+}
+.rb-spark { position: absolute; z-index: 4; width: calc(var(--s) * .3); height: calc(var(--s) * .3); top: -8%; right: -12%; pointer-events: none;
+    background: #fff;
+    -webkit-clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+            /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+            clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+    animation: rbTwinkle 2s ease-in-out infinite; }
+@keyframes rbBreathe { 0%, 100% { opacity: .38; transform: scale(.92); } 50% { opacity: .85; transform: scale(1.08); } }
+@keyframes rbShine { 0%, 55% { transform: translate3d(-130%, 0, 0); } 100% { transform: translate3d(260%, 0, 0); } }
+@keyframes rbTwinkle { 0%, 100% { opacity: .15; transform: scale(.5) rotate(0deg); } 50% { opacity: 1; transform: scale(1.1) rotate(45deg); } }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.rbadge-silver_crown { --rim: linear-gradient(160deg,#fff,#8e99aa 45%,#f3f6fb 70%,#a9b3c2); --in: radial-gradient(circle at 50% 25%,#475063,#1b2029); --fg: #f1f5fb; --glow: rgba(215,226,242,.6); }
+.rbadge-gold_crown   { --rim: linear-gradient(160deg,#fff6c8,#d9990d 42%,#ffe488 68%,#b87708); --in: radial-gradient(circle at 50% 25%,#6a4708,#241503); --fg: #ffdc6b; --glow: rgba(255,196,50,.75); }
+.rbadge-diamond      { --rim: linear-gradient(160deg,#e3fbff,#38bdf8 38%,#fff2b8 62%,#0ea5e9); --in: radial-gradient(circle at 50% 25%,#0e4a6c,#041826); --fg: #9aeaff; --glow: rgba(70,205,255,.85); }
+.rbadge-T            { --rim: linear-gradient(160deg,#eadfff,#8b5cf6 42%,#c4b0ff 65%,#3b1a8f); --in: radial-gradient(circle at 50% 25%,#3a1a7a,#0b0618); --fg: #d9c9ff; --glow: rgba(150,100,255,.85); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rbadge-R            { --rim: linear-gradient(160deg,#ffd0d0,#ef3b3b 40%,#ff9d7a 66%,#7a0a0a); --in: radial-gradient(circle at 50% 25%,#6a0e0e,#140202); --fg: #ffb3a8; --glow: rgba(255,60,50,.85); }
+.rbadge-S            { --rim: linear-gradient(160deg,#fff3b0,#ff4fd8 28%,#5de0ff 52%,#ffd34d 76%,#ff4fd8); --in: radial-gradient(circle at 50% 22%,#2b1566,#07030f); --fg: #fff1b8; --glow: rgba(255,120,230,.9); }
+.rbadge-S .rb-glow { animation-duration: 2.2s; background: radial-gradient(circle, rgba(255,110,230,.9), rgba(90,220,255,.45) 40%, transparent 66%); }
+.rbadge-S .rb-body { text-shadow: 0 0 8px rgba(255,200,90,.9), 0 0 16px rgba(255,90,220,.7); }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+/* ===== BANNER / PROFILE EFFECTS v3 — 7 themes =====
+   Only transform + opacity are animated (GPU-composited), so it stays smooth on laptops and low-end phones.
+   Keyframes are prefixed rfx* so they can never collide with fx.css. No individual transform props (translate/scale)
+   are used here, so old browsers/WebViews work too. */
+@keyframes rfxDrift  { from { transform: translate3d(-12%,0,0) scale(1); } to { transform: translate3d(38%,0,0) scale(1.18); } }
+@keyframes rfxSweep  { from { transform: translate3d(-140%,0,0) skewX(-18deg); } to { transform: translate3d(340%,0,0) skewX(-18deg); } }
+@keyframes rfxRise   { from { transform: translate3d(0,0,0); } to { transform: translate3d(0,-56px,0); } }
+@keyframes rfxFall   { from { transform: translate3d(0,-56px,0); } to { transform: translate3d(0,0,0); } }
+@keyframes rfxPulse  { 0%,100% { opacity: .35; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes rfxFade   { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+@keyframes rfxSwim   { 0% { transform: translate3d(0,0,0); } 25% { transform: translate3d(calc(var(--tw) * -.25),3px,0); } 50% { transform: translate3d(calc(var(--tw) * -.5),-3px,0); } 75% { transform: translate3d(calc(var(--tw) * -.75),3px,0); } 100% { transform: translate3d(calc(var(--tw) * -1),0,0); } }
+@keyframes rfxFloat  { 0% { transform: translate3d(0,0,0); } 25% { transform: translate3d(calc(var(--tw) * -.25),-7px,0); } 50% { transform: translate3d(calc(var(--tw) * -.5),3px,0); } 75% { transform: translate3d(calc(var(--tw) * -.75),-6px,0); } 100% { transform: translate3d(calc(var(--tw) * -1),0,0); } }
+@keyframes rfxFlame  { 0% { transform: scale(1,.82) skewX(-2deg); } 50% { transform: scale(.97,1.06) skewX(2deg); } 100% { transform: scale(1.03,.9) skewX(-1deg); } }
+@keyframes rfxStrike { 0%,84%,100% { opacity: 0; transform: translate3d(-120%,0,0) skewX(-30deg); } 86% { opacity: 1; } 88% { opacity: .15; } 90% { opacity: 1; transform: translate3d(330%,0,0) skewX(-30deg); } 92% { opacity: 0; } }
+@keyframes rfxHalo   { 0%,100% { opacity: .55; transform: scale(.92); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes rfxBand   { from { transform: translate3d(0,0,0); } to { transform: translate3d(-80px,0,0); } }
+@keyframes rfxSpin   { to { transform: rotate(360deg); } }
+@keyframes rfxRay    { 0%,100% { opacity: .25; transform: skewX(-14deg) translate3d(-6%,0,0); } 50% { opacity: .6; transform: skewX(-14deg) translate3d(6%,0,0); } }
+
+/* ---- shared structure ---- */
+.fxb, .fxp { --pt: 56px; position: relative; isolation: isolate; overflow: hidden; contain: paint; border: 1px solid var(--bd) !important; background: var(--bg) !important; box-shadow: 0 0 16px var(--glow), inset 0 1px 0 rgba(255,255,255,.18) !important; }
+.fxb { --fa: 60px; --fb: 38px; }
+.fxp { --fa: 160px; --fb: 90px; padding: 30px 14px 24px; border-radius: 22px; }
+.fxb > *, .fxp > * { position: relative; z-index: 3; }
+.fxb > .fxl, .fxp > .fxl { position: absolute; z-index: 1; }
+.fxl { top: 0; right: 0; bottom: 0; left: 0; border-radius: inherit; overflow: hidden; pointer-events: none; display: block; }
+.fxl i, .fxl::before, .fxl::after { position: absolute; display: block; pointer-events: none; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.fxl::before, .fxl::after { content: ""; display: none; }
+.fxl i { display: none; }
+/* L1 glow drift */
+.fxl i:nth-child(1) { display: block; top: -40%; bottom: -40%; left: -20%; width: 70%; background: radial-gradient(ellipse, var(--a1), transparent 68%); animation: rfxDrift 7s ease-in-out infinite alternate; }
+/* L2 shine sweep */
+.fxl i:nth-child(2) { display: block; top: -10%; bottom: -10%; left: 0; width: 34%; background: linear-gradient(105deg, transparent, var(--shine), transparent); animation: rfxSweep 4.4s linear infinite; }
+/* L3 particles */
+.fxl i:nth-child(3) { display: block; top: 0; left: 0; right: 0; height: calc(100% + var(--pt)); background: radial-gradient(circle, var(--pc) 0 1.2px, transparent 2.4px) 8px 6px / 43px 56px, radial-gradient(circle, var(--pc) 0 1px, transparent 2px) 30px 34px / 67px 56px; animation: rfxRise var(--ps,6s) linear infinite; }
+/* L4 / L5 are the signature layers of each theme */
+.fxl i.fx-sw, .fxl i:nth-child(4), .fxl i:nth-child(5) { left: 0; }
+
+.fxb .lb-name { color: var(--name); text-shadow: 0 0 10px var(--glow), 0 1px 3px rgba(0,0,0,.8); }
+.fxb .lb-keys, .fxb .lb-rank { color: var(--name); opacity: .9; }
+.fxb .lb-avatar { box-shadow: 0 0 0 2px var(--bd), 0 0 12px var(--glow); }
+.fxp::before { content: ""; position: absolute; z-index: 1; left: 50%; top: 14px; width: 220px; height: 220px; margin-left: -110px; border-radius: 50%; background: radial-gradient(circle, var(--a1), transparent 66%); animation: rfxHalo 3.4s ease-in-out infinite; pointer-events: none; }
+.fxp .profile-avatar { box-shadow: 0 0 0 3px var(--bd), 0 0 30px var(--glow) !important; }
+.fxp .profile-name { color: var(--name); text-shadow: 0 0 14px var(--glow), 0 1px 3px rgba(0,0,0,.7); -webkit-text-fill-color: currentColor; background: none; animation: none; }
+.fxp .profile-name .rbadge { display: none; }
+.fxp .profile-email, .fxp .op-rank-badge { color: rgba(255,255,255,.88); }
+
+/* ---------- 1. SILVER (m70) ---------- */
+.fx-t-silver { --bg: linear-gradient(105deg,#1a1d24,#4b5262 50%,#1a1d24); --bd: rgba(220,228,240,.85); --glow: rgba(200,215,235,.4); --a1: rgba(235,242,255,.4); --shine: rgba(255,255,255,.8); --pc: rgba(255,255,255,.95); --name: #f4f7fc; --ps: 8s; }
+.fx-t-silver .fxl i:nth-child(4) { display: block; top: -30%; bottom: -30%; width: 22%; left: -30%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent); animation: rfxSweep 6.8s linear infinite; animation-delay: -2.4s; }
+.fx-t-silver .fxl i:nth-child(5) { display: block; top: 0; right: 0; bottom: 0; left: 0; background: repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 5px); opacity: .7; }
+.fx-t-silver .fxl::before { display: block; top: 0; right: 0; bottom: 0; left: 0; background: radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 3px), radial-gradient(circle at 78% 65%, #fff 0 1px, transparent 3px), radial-gradient(circle at 52% 20%, #dfe8f7 0 1px, transparent 3px); animation: rfxFade 2.4s ease-in-out infinite; }
+.fx-t-silver .fxl::after { display: block; top: 0; left: 0; right: 0; height: 45%; background: linear-gradient(180deg, rgba(255,255,255,.22), transparent); }
+
+/* ---------- 2. GOLD (m100) ---------- */
+.fx-t-gold { --bg: linear-gradient(105deg,#2a1b03,#7a550c 50%,#2a1b03); --bd: rgba(255,214,110,.9); --glow: rgba(255,190,50,.5); --a1: rgba(255,215,100,.45); --shine: rgba(255,246,190,.85); --pc: rgba(255,226,130,.95); --name: #fff1bd; --ps: 5s; }
+.fx-t-gold .fxl i:nth-child(4) { display: block; left: 50%; top: 50%; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; opacity: .32; background: repeating-conic-gradient(from 0deg, rgba(255,230,140,.9) 0 6deg, transparent 6deg 24deg); animation: rfxSpin 24s linear infinite; }
+.fx-t-gold .fxl::before { display: block; top: 0; right: 0; bottom: 0; left: 0; background: radial-gradient(circle at 15% 40%, #fff6c0 0 1px, transparent 3px), radial-gradient(circle at 70% 25%, #fff 0 1px, transparent 3px), radial-gradient(circle at 88% 70%, #ffe27a 0 1px, transparent 3px); animation: rfxFade 2s ease-in-out infinite; }
+.fx-t-gold .fxl::after { display: block; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(180deg, rgba(255,240,170,.35), transparent 30%, transparent 75%, rgba(255,190,50,.25)); animation: rfxPulse 3.6s ease-in-out infinite; }
+
+/* ---------- 3. GREEN (m250) ---------- */
+.fx-t-green { --bg: linear-gradient(105deg,#03160c,#0c5a33 50%,#03160c); --bd: rgba(80,255,160,.85); --glow: rgba(40,230,130,.45); --a1: rgba(60,255,160,.5); --shine: rgba(190,255,220,.5); --pc: rgba(170,255,210,.95); --name: #d2ffe6; --ps: 5.5s; }
+.fx-t-green .fxl i:nth-child(4) { display: block; top: 0; bottom: 0; width: calc(100% + 80px); background: repeating-linear-gradient(115deg, transparent 0 22px, rgba(80,255,160,.17) 22px 40px); animation: rfxBand 2.6s linear infinite; }
+.fx-t-green .fxl i:nth-child(5) { display: block; left: -10%; right: -10%; top: 10%; height: 55%; background: radial-gradient(ellipse at 50% 50%, rgba(80,255,170,.42), transparent 68%); animation: rfxRay 6s ease-in-out infinite; }
+.fx-t-green .fxl::before { display: block; left: 0; right: 0; bottom: 0; height: 55%; background: linear-gradient(0deg, rgba(40,230,130,.4), transparent); animation: rfxPulse 3.2s ease-in-out infinite; }
+
+/* ---------- premium realistic themes (4-7): pre-rendered textures, animated with transform/opacity only ---------- */
+@keyframes rfxScrollX { from { transform: translate3d(0,0,0); } to { transform: translate3d(calc(var(--tw) * -1),0,0); } }
+@keyframes rfxScrollY { from { transform: translate3d(0,0,0); } to { transform: translate3d(0,calc(var(--th) * -1),0); } }
+@keyframes rfxBolt { 0%,60%,100% { opacity: 0; transform: translate3d(8%,0,0); } 61% { opacity: 1; transform: translate3d(8%,0,0); } 62% { opacity: .2; } 63% { opacity: 1; transform: translate3d(8%,0,0); } 66% { opacity: 0; }
+  67%,88% { opacity: 0; transform: translate3d(330%,0,0); } 89% { opacity: 1; transform: translate3d(330%,0,0); } 91% { opacity: .15; } 92% { opacity: .9; } 95% { opacity: 0; } }
+@keyframes rfxBreath { 0%,100% { opacity: .55; transform: scale(.94); } 50% { opacity: 1; transform: scale(1.06); } }
+.fxl i.fx-tex, .fx-t-bflame .fxl i, .fx-t-orange .fxl i, .fx-t-ghost .fxl i, .fx-t-crimson .fxl i { background-repeat: repeat; }
+
+/* ---------- 4. BLUE FLAME (m500): realistic blue fire, cyan core, blue embers ---------- */
+.fx-t-bflame { --bg: radial-gradient(ellipse at 50% 112%,#0a4fd6,transparent 70%),linear-gradient(105deg,#020918,#06245a 50%,#020918); --bd: rgba(90,180,255,.92); --glow: rgba(40,130,255,.6); --a1: rgba(60,150,255,.45); --name: #e6f4ff; }
+.fx-t-bflame .fxl::before { display: block; left: -10%; right: -10%; bottom: -35%; top: auto; height: 95%; background: radial-gradient(ellipse at 50% 100%, rgba(40,140,255,.75), transparent 66%); animation: rfxBreath 2.4s ease-in-out infinite; }
+.fx-t-bflame .fxl i:nth-child(2) { display: none; }
+.fx-t-bflame .fxl i:nth-child(3) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 192px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/embers_blue.webp") 0 0 / 128px 128px repeat; opacity: .95; animation: rfxScrollY 5.5s linear infinite; }
+.fx-t-bflame .fxl i:nth-child(4) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 320px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/fire_blue.webp") 0 0 / 320px 320px repeat; opacity: .92; animation: rfxScrollY 1.9s linear infinite; }
+.fx-t-bflame .fxl i:nth-child(5) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 200px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/fire_cyan.webp") 0 0 / 200px 200px repeat; opacity: .8; animation: rfxScrollY 1.15s linear infinite; }
+.fx-t-bflame .fxl::after { display: block; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(180deg, rgba(1,6,18,.92), rgba(1,6,18,.6) 35%, rgba(1,6,18,.12) 72%, transparent); }
+
+/* ---------- 5. ORANGE (m750): realistic fire ---------- */
+.fx-t-orange { --bg: radial-gradient(ellipse at 50% 110%,#a03a05,transparent 70%),linear-gradient(105deg,#1d0900,#5a2203 50%,#1d0900); --bd: rgba(255,150,50,.9); --glow: rgba(255,110,20,.55); --a1: rgba(255,140,40,.45); --name: #fff0d8; }
+.fx-t-orange .fxl::before { display: block; left: -10%; right: -10%; bottom: -35%; top: auto; height: 95%; background: radial-gradient(ellipse at 50% 100%, rgba(255,120,20,.7), transparent 66%); animation: rfxBreath 2.4s ease-in-out infinite; }
+.fx-t-orange .fxl i:nth-child(2) { display: none; }
+.fx-t-orange .fxl i:nth-child(3) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 192px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/embers_orange.webp") 0 0 / 128px 128px repeat; opacity: .95; animation: rfxScrollY 5.5s linear infinite; }
+.fx-t-orange .fxl i:nth-child(4) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 320px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/fire_orange.webp") 0 0 / 320px 320px repeat; opacity: .92; animation: rfxScrollY 1.9s linear infinite; }
+.fx-t-orange .fxl i:nth-child(5) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 200px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/fire_gold.webp") 0 0 / 200px 200px repeat; opacity: .8; animation: rfxScrollY 1.15s linear infinite; }
+.fx-t-orange .fxl::after { display: block; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(180deg, rgba(14,4,0,.92), rgba(14,4,0,.6) 35%, rgba(14,4,0,.12) 72%, transparent); }
+
+/* ---------- 6. BLACK GHOST (m1000): drifting fog, shrouded apparitions ---------- */
+.fx-t-ghost { --bg: radial-gradient(ellipse at 50% 120%,#25134a,transparent 66%),linear-gradient(105deg,#020104,#0f0820 50%,#020104); --bd: rgba(175,150,255,.7); --glow: rgba(130,90,255,.45); --a1: rgba(130,90,255,.32); --name: #ece4ff; }
+.fx-t-ghost .fxl::before { display: block; top: 0; left: 0; bottom: auto; right: auto; --tw: 384px; width: calc(100% + var(--tw)); height: 100%; background: url("../img/fx/fog_ghost_a.webp") 0 0 / 384px 192px repeat; opacity: .5; animation: rfxScrollX 60s linear infinite; }
+.fx-t-ghost .fxl i:nth-child(2) { display: block; top: 0; bottom: auto; left: 0; right: auto; --tw: 480px; width: calc(100% + var(--tw)); height: 100%; background: url("../img/fx/fog_ghost_b.webp") 0 0 / 480px 240px repeat; opacity: .38; animation: rfxScrollX 90s linear infinite reverse; }
+.fx-t-ghost .fxl i:nth-child(3) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 160px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/orbs_ghost.webp") 0 0 / 160px 160px repeat; opacity: .8; animation: rfxScrollY 16s linear infinite reverse; }
+.fx-t-ghost .fxl i:nth-child(5) { display: block; top: 0; bottom: auto; left: 0; right: auto; --tw: calc(var(--fb) * 3.4 * 1.15); width: calc(100% + var(--tw)); height: 100%; background: url("../img/fx/wraith_far.webp") 0 100% / var(--tw) var(--fb) repeat-x; opacity: .85; animation: rfxFloat 70s linear infinite reverse; }
+.fx-t-ghost .fxl i:nth-child(4) { display: block; top: 0; bottom: auto; left: 0; right: auto; --tw: calc(var(--fa) * 3.4 * 1.15); width: calc(100% + var(--tw)); height: 100%; background: url("../img/fx/wraith_near.webp") 0 100% / var(--tw) var(--fa) repeat-x; animation: rfxFloat 52s linear infinite; }
+.fx-t-ghost .fxl::after { display: block; top: 0; right: 0; bottom: 0; left: 0; background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(2,1,6,.7)), linear-gradient(0deg, rgba(120,90,230,.22), transparent 45%); }
+
+/* ---------- 7. RED DARK AURA PRO MAX (m1500): crimson fire, aura smoke, lightning ---------- */
+.fx-t-crimson { --bg: radial-gradient(ellipse at 50% 115%,#6a0509,transparent 66%),linear-gradient(105deg,#080001,#240306 50%,#080001); --bd: rgba(255,50,60,.95); --glow: rgba(255,30,40,.65); --a1: rgba(255,40,50,.5); --name: #ffe0dc; }
+.fx-t-crimson .fxl::before { display: block; left: 50%; top: 50%; bottom: auto; right: auto; width: 120%; height: 150%; margin: -75% 0 0 -60%; background: radial-gradient(circle, rgba(255,40,50,.5), transparent 62%); animation: rfxBreath 2.2s ease-in-out infinite; }
+.fx-t-crimson .fxl i:nth-child(2) { display: block; top: -4%; bottom: -4%; left: 0; right: auto; width: 56px; height: auto; background: url("../img/fx/bolt_red.webp") 0 0 / 100% 100% no-repeat; animation: rfxBolt 6s linear infinite; }
+.fx-t-crimson .fxl i:nth-child(3) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 128px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/embers_red.webp") 0 0 / 128px 128px repeat; opacity: .95; animation: rfxScrollY 4.8s linear infinite; }
+.fx-t-crimson .fxl i:nth-child(4) { display: block; top: 0; bottom: auto; left: 0; right: 0; --th: 320px; width: auto; height: calc(100% + var(--th)); background: url("../img/fx/fire_red.webp") 0 0 / 320px 320px repeat; opacity: .88; animation: rfxScrollY 2.4s linear infinite; }
+.fx-t-crimson .fxl i:nth-child(5) { display: block; top: 0; bottom: auto; left: 0; right: auto; --tw: 384px; width: calc(100% + var(--tw)); height: 100%; background: url("../img/fx/smoke_red.webp") 0 0 / 384px 192px repeat; opacity: .5; animation: rfxScrollX 34s linear infinite reverse; }
+.fx-t-crimson .fxl::after { display: block; top: 0; right: 0; bottom: 0; left: 0; background: linear-gradient(180deg, rgba(8,0,1,.9), rgba(8,0,1,.55) 36%, rgba(8,0,1,.1) 74%, transparent); }
+
+/* ---------- device tiers / accessibility ---------- */
+/* mid (4-core / <=4GB): drop particles + extra glow, keep the signature look */
+html[data-rfx="mid"] .fxl i:nth-child(3), html[data-rfx="mid"] .fxl::before { display: none !important; }
+/* lite (weak): signature layer + base overlay only */
+html[data-rfx="lite"] .fxl i:nth-child(n+2):not(:nth-child(4)), html[data-rfx="lite"] .fxl::before, html[data-rfx="lite"] .fxp::before { display: none !important; }
+html[data-rfx="lite"] .fxl i:nth-child(4) { animation-duration: 3s; }
+html[data-rfx="lite"] .fx-t-ghost .fxl i:nth-child(4) { animation-duration: 70s; }
+/* still: no motion */
+html[data-rfx="still"] .fxb *, html[data-rfx="still"] .fxp *, html[data-rfx="still"] .fxp-page *, html[data-rfx="still"] .fxp-page .fxl::before, html[data-rfx="still"] .fxp-page .fxl::after, html[data-rfx="still"] .fxl::before, html[data-rfx="still"] .fxl::after, html[data-rfx="still"] .fxp::before { animation: none !important; }
+/* off-screen / background tab: paused (class toggled by rewards-ui.js) */
+.fxb.rfx-off *, .fxp.rfx-off *, .fxb.rfx-off .fxl::before, .fxb.rfx-off .fxl::after, .fxp.rfx-off .fxl::before, .fxp.rfx-off .fxl::after, .fxp.rfx-off::before { animation-play-state: paused !important; }
+html.fx-hidden .fxb *, html.fx-hidden .fxp *, html.fx-hidden .fxp-page * { animation-play-state: paused !important; }
+/*END FXNEW*/
+.rw-summary { text-align: center; }
+.rw-total { font: 800 34px/1 var(--font-mono, monospace); margin: 4px 0; }
+.rw-total small { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-left: 4px; }
+.rw-next { font-size: 12px; color: var(--text-secondary); margin-bottom: 10px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rw-bar { height: 8px; border-radius: 99px; background: var(--surface-tint-strong, rgba(255,255,255,.08)); overflow: hidden; }
+.rw-bar > i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue)); transition: width .6s cubic-bezier(.16,1,.3,1); }
+.rw-note { font-size: 10.5px; color: var(--text-muted); margin-top: 8px; }
+
+.rw-mission {
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: var(--glass-panel); border: 1px solid var(--glass-border); border-radius: var(--radius-md, 12px);
+    padding: 12px; margin-bottom: 10px; position: relative; overflow: hidden;
+}
+.rw-mission.ready { border-color: rgba(34,197,94,.6); box-shadow: 0 0 0 1px rgba(34,197,94,.25), 0 0 18px rgba(34,197,94,.15); }
+.rw-mission.done { opacity: .82; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rw-m-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.rw-m-title { font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.rw-m-title .rw-ico { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; color: #fff; background: linear-gradient(135deg, var(--neon-purple), #6d28d9); flex: none; }
+.rw-mission.ready .rw-ico { background: linear-gradient(135deg, var(--neon-green), #15803d); }
+.rw-mission.done .rw-ico { background: linear-gradient(135deg, #64748b, #334155); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rw-m-count { font: 700 12px var(--font-mono, monospace); color: var(--text-secondary); white-space: nowrap; }
+.rw-rewards { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.rw-chip {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 99px;
+    border: 1px solid var(--glass-border); color: var(--text-secondary); background: var(--surface-tint-strong, rgba(255,255,255,.04));
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.rw-chip.cash { color: var(--neon-green); border-color: rgba(34,197,94,.4); }
+.rw-chip .rbadge { --s: 15px; }
+.rw-mission .btn { width: 100%; margin-top: 10px; }
+.rw-mission .btn:disabled { opacity: .55; cursor: not-allowed; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rw-claim-go { animation: rwPulse 1.6s ease-in-out infinite; }
+@keyframes rwPulse { 50% { box-shadow: 0 0 0 5px rgba(34,197,94,.18); } }
+.rw-pop { animation: rwPop .7s cubic-bezier(.16,1,.3,1); }
+@keyframes rwPop { 0% { transform: scale(.96); } 40% { transform: scale(1.025); box-shadow: 0 0 28px rgba(34,197,94,.45); } 100% { transform: scale(1); } }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rw-pick-label { font-size: 11px; font-weight: 800; letter-spacing: .7px; text-transform: uppercase; color: var(--text-muted); margin: 16px 0 8px; display: flex; align-items: center; gap: 6px; }
+.rw-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
+.rw-opt {
+    border: 1px solid var(--glass-border); background: var(--glass-panel); border-radius: 12px; padding: 10px 6px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 6px; font: 700 11px var(--font-body, inherit); color: var(--text-primary); text-align: center; position: relative;
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+}
+.rw-opt:hover:not(:disabled) { border-color: var(--glass-border-hover); }
+.rw-opt.sel { border-color: var(--neon-blue); box-shadow: 0 0 0 2px rgba(34,211,238,.25); }
+.rw-opt:disabled { opacity: .45; cursor: not-allowed; }
+.rw-opt .rw-lock { font-size: 9.5px; font-weight: 600; color: var(--text-muted); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rw-opt .rw-swatch { width: 100%; height: 22px; border-radius: 7px; }
+.rw-opt .rbadge { --s: 28px; }
+.rw-preview { margin-top: 4px; }
+.rw-preview .leaderboard-row { margin-bottom: 10px; }
+.rw-preview .profile-hero { margin-bottom: 0; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.rw-star { border-color: rgba(255,150,235,.45); background: linear-gradient(135deg, rgba(60,20,110,.5), rgba(10,5,28,.7)); box-shadow: 0 0 24px rgba(255,90,220,.18); }
+.rw-star-top { display: flex; gap: 12px; align-items: center; }
+.rw-star-title { font: 900 14px var(--font-heading, 'Orbitron', sans-serif); letter-spacing: 1px; background: linear-gradient(90deg,#ffe58a,#fff,#ffa6ec,#9defff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.rw-star-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.rw-star-stats > div { text-align: center; padding: 8px; border-radius: 10px; background: rgba(255,255,255,.05); }
+.rw-star-stats b { display: block; font: 800 18px var(--font-mono, monospace); }
+.rw-star-stats span { font-size: 10px; color: var(--text-muted); letter-spacing: .5px; text-transform: uppercase; }
+.rw-star .btn { width: 100%; margin-top: 12px; }
+
+
+/* ---- avatar + badge layout (profile / leaderboard) ---- */
+.av-badge { position: absolute; z-index: 4; line-height: 0; pointer-events: none; }
+
+/* Leaderboard row: fixed grid => rank / avatar / name / View button line up on EVERY row, whatever the name length. */
+.leaderboard-row { display: grid; grid-template-columns: 22px 42px minmax(0, 1fr) 58px; grid-template-rows: auto auto; column-gap: 8px; row-gap: 1px; align-items: center; padding: 9px 8px; min-height: 64px; transition: border-color .2s ease, background-color .2s ease; }
+.leaderboard-row > .lb-rank { grid-column: 1; grid-row: 1 / span 2; width: auto; }
+.leaderboard-row > .lb-av { grid-column: 2; grid-row: 1 / span 2; }
+.leaderboard-row > .lb-name-wrap { grid-column: 3; grid-row: 1; align-self: end; display: flex; align-items: center; gap: 6px; min-width: 0; }
+.leaderboard-row > .lb-stats { grid-column: 3; grid-row: 2; align-self: start; flex-direction: row; align-items: center; justify-content: flex-start; gap: 8px; flex-wrap: nowrap; white-space: nowrap; min-width: 0; font-size: 10px; }
+.leaderboard-row > .lb-stats .lb-spent { font-size: 11px; }
+.leaderboard-row > .lb-view { width: 58px !important; min-width: 58px !important; max-width: 58px !important; flex-basis: 58px !important; padding: 6px 4px !important; }
+
+.leaderboard-row > .lb-view { grid-column: 4; grid-row: 1 / span 2; justify-self: end; align-self: center; text-align: center; display: inline-flex; align-items: center; justify-content: center; }
+.lb-name-wrap .lb-name { flex: 0 1 auto; }
+.lb-crown { font-size: 11px; flex: none; }
+
+.profile-avatar, .lb-avatar { animation: none !important; }
+.lb-av { position: relative; flex: none; display: block; width: 42px; height: 42px; }
+.lb-avatar { width: 42px; height: 42px; font-size: 17px; box-shadow: 0 0 0 1.5px rgba(255,255,255,.16); }
+.lb-av .av-badge { top: -5px; right: -7px; }
+.lb-av .rbadge { --s: 14px !important; }
+
+/* Profile: BIG avatar, SMALL badge tucked on the circle edge */
+.av-wrap, .avatar-wrap { position: relative; display: block; width: 128px; height: 128px; margin: 0 auto 14px; }
+.av-wrap .profile-avatar, .avatar-wrap .profile-avatar { width: 128px; height: 128px; margin: 0; font-size: 44px; box-shadow: 0 0 0 3px rgba(255,255,255,.16), 0 10px 30px rgba(0,0,0,.5); }
+.av-wrap .av-badge, .avatar-wrap .av-badge { top: 4px; right: 5px; }
+.av-wrap .rbadge, .avatar-wrap .rbadge { --s: 22px !important; }
+.avatar-wrap .avatar-edit-btn { right: 0; bottom: 0; }
+.profile-avatar img, .lb-avatar img, .avatar-circle img { image-rendering: auto; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.profile-hero { margin-bottom: 16px; }
+.profile-name { font-size: 21px; letter-spacing: .2px; }
+.op-rank-badge { margin-top: 10px; }
+.rw-preview .leaderboard-row { margin-bottom: 10px; }
+
+/* short leaderboard rows: calmer layers so the name + stats stay readable */
+.fxb.fx-t-orange .fxl i:nth-child(4), .fxb.fx-t-crimson .fxl i:nth-child(4), .fxb.fx-t-bflame .fxl i:nth-child(4) { opacity: .7; }
+.fxb.fx-t-orange .fxl i:nth-child(5), .fxb.fx-t-bflame .fxl i:nth-child(5) { opacity: .55; }
+.fxb.fx-t-ghost .fxl i:nth-child(4), .fxb.fx-t-ghost .fxl i:nth-child(5) { opacity: .75; }
+.fxb .lb-spent { color: var(--name) !important; text-shadow: 0 1px 3px rgba(0,0,0,.85), 0 0 8px var(--glow); }
+.fxb .lb-keys i { color: var(--name); }
+.fxb .lb-spent.gold-text { background: none !important; -webkit-background-clip: border-box; background-clip: border-box; -webkit-text-fill-color: var(--name); }
+
+/* ---- reward center: try-on (locked items can be previewed, not saved) ---- */
+.rw-opt.locked { opacity: .8; cursor: pointer; }
+.rw-opt.locked .rw-lock { color: #f5b73b; }
+.rw-opt.locked.sel { border-color: #f5b73b; box-shadow: 0 0 0 2px rgba(245,183,59,.28); }
+.rw-tryon { display: none; margin: 0 0 8px; padding: 6px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; text-align: center; color: #f5b73b; background: rgba(245,183,59,.1); border: 1px solid rgba(245,183,59,.35); }
+.rw-tryon.on { display: block; }
+.rw-preview { position: sticky; top: 64px; z-index: 30; padding: 8px; margin: 0 -4px 6px; border-radius: 16px; background: var(--glass-panel, rgba(14,10,36,.96)); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); }
+.rw-preview .av-wrap, .rw-preview .profile-avatar { width: 72px; height: 72px; font-size: 28px; }
+.rw-preview .av-wrap { margin-bottom: 6px; }
+.rw-preview .fxp { padding: 14px 12px 12px; }
+.rw-preview .profile-name { font-size: 17px; }
+.rw-preview .leaderboard-row, .rw-preview .profile-hero { cursor: pointer; }
+
+/* ---- FULL-PAGE profile effect (header → bottom bar) ---- */
+.fxp-page { --fa: 240px; --fb: 130px; --pt: 56px; position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; pointer-events: none; overflow: hidden; isolation: isolate; contain: paint; background: var(--bg); }
+.fxp-page > .fxl { position: absolute; z-index: 1; }
+html.pgfx-on, html.pgfx-on body { background: transparent !important; background-image: none !important; }
+html.pgfx-on .glass-nav-header, html.pgfx-on .bottom-tabbar { background: rgba(4,4,16,.5) !important; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+/* hero keeps only the theme colours (ring / name glow / halo); its own box + layers are off */
+
+/* full-page layer = calm backdrop; the bright banner box stays on top as before */
+.fxp-page::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 2; background: linear-gradient(180deg, rgba(4,3,14,.72), rgba(4,3,14,.6) 50%, rgba(4,3,14,.74)); }
+.fxp-page .fxl { opacity: .8; }
+.fxp-page.fx-t-orange .fxl::after, .fxp-page.fx-t-crimson .fxl::after, .fxp-page.fx-t-bflame .fxl::after { background: none; }
+html.pgfx-on { --glass-panel: rgba(12,8,30,.9); }
+html.pgfx-on .panel, html.pgfx-on .stat-card { background: rgba(12,8,30,.9) !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+html.pgfx-on .btn-ghost { background: rgba(12,8,30,.9) !important; }
+html.pgfx-on .glass-nav-header, html.pgfx-on .bottom-tabbar { background: rgba(6,4,18,.86) !important; }
+html.pgfx-on .section-divider { text-shadow: 0 1px 4px rgba(0,0,0,.95); }

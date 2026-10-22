@@ -1,0 +1,165 @@
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fxw { position: fixed; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 66px); z-index: 10003; translate: -50% 0; pointer-events: none;
+    display: flex; align-items: center; gap: 12px; padding: 10px 20px 10px 10px; border-radius: 99px; width: max-content; max-width: calc(100vw - 28px);
+    background: rgba(18,14,42,.88); border: 1px solid rgba(168,85,247,.4); color: #f1f5f9;
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    box-shadow: 0 14px 40px rgba(0,0,0,.45), 0 0 30px rgba(168,85,247,.3);
+    animation: fxwIn .7s cubic-bezier(.2,1.4,.3,1) both, fxwOut .5s 2.7s ease-in forwards; }
+.fxw .ic { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; color: #fff; flex: none;
+    background: linear-gradient(135deg, #a855f7, #22d3ee); animation: fxwPulse 1.6s ease-in-out infinite; }
+.fxw b { display: block; font-size: 13px; font-weight: 800; line-height: 1.25; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fxw small { display: block; font-size: 11px; line-height: 1.3; color: #a3acbd; font-weight: 600; margin-top: 2px; }
+@keyframes fxwIn { from { opacity: 0; translate: -50% -34px; scale: .8; } to { opacity: 1; translate: -50% 0; scale: 1; } }
+@keyframes fxwOut { to { opacity: 0; translate: -50% -22px; scale: .92; } }
+@keyframes fxwPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(168,85,247,.55); } 50% { box-shadow: 0 0 0 9px rgba(168,85,247,0); } }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-on .term-window { animation: fxPageIn .6s cubic-bezier(.2,1,.3,1) backwards; }
+@keyframes fxPageIn { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+.fx-on.fx-leaving .term-window { opacity: 0; translate: 0 -12px; scale: .985; transition: opacity .2s ease-in, translate .2s ease-in, scale .2s ease-in; }
+
+.fx-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 9990; transform-origin: 0 50%; scale: 0 1; pointer-events: none;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: linear-gradient(90deg, #a855f7, #22d3ee, #f5b73b, #ec4899); box-shadow: 0 0 12px rgba(34,211,238,.7); }
+.fx-orb { position: fixed; z-index: 0; width: 46vmax; height: 46vmax; border-radius: 50%; pointer-events: none; opacity: .5;
+    translate: var(--ox, 0px) var(--oy, 0px); transition: translate .5s cubic-bezier(.2,.8,.2,1); will-change: translate; }
+.fx-orb.a { left: -14vmax; top: 8vh; background: radial-gradient(circle, rgba(168,85,247,.28), transparent 65%); animation: fxDrift 18s ease-in-out infinite alternate; }
+.fx-orb.b { right: -16vmax; bottom: -10vh; background: radial-gradient(circle, rgba(34,211,238,.22), transparent 65%); animation: fxDrift 22s ease-in-out infinite alternate-reverse; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-orb.c { left: 30vw; top: 40vh; width: 30vmax; height: 30vmax; background: radial-gradient(circle, rgba(236,72,153,.16), transparent 65%); animation: fxDrift 26s ease-in-out infinite alternate; }
+@keyframes fxDrift { from { scale: 1; rotate: 0deg; } to { scale: 1.18; rotate: 14deg; } }
+[data-theme="light"] .fx-orb { opacity: .28; }
+.fx-canvas { position: fixed; inset: 0; z-index: 10001; pointer-events: none; }
+.fx-spot { position: fixed; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; pointer-events: none; z-index: 1; opacity: 0;
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    background: radial-gradient(circle, rgba(168,85,247,.15), rgba(34,211,238,.06) 40%, transparent 68%); transition: opacity .3s; will-change: translate; }
+.fx-pc .fx-spot.on { opacity: 1; }
+
+.fx-on .dash-hero, .fx-on .store-balance-chip { animation: fxGlow 4.5s ease-in-out infinite; }
+@keyframes fxGlow { 0%, 100% { box-shadow: 0 8px 32px rgba(212,175,55,.14), inset 0 1px 0 rgba(255,255,255,.06); } 50% { box-shadow: 0 10px 40px rgba(212,175,55,.34), inset 0 1px 0 rgba(255,255,255,.1); } }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-on .stat-icon i, .fx-on .shortcut-icon i, .fx-on .log-entry-icon i { display: inline-block; animation: fxIcon 3.6s ease-in-out infinite; }
+@keyframes fxIcon { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: 0 -2.5px; rotate: 5deg; } }
+.fx-on .prompt-header { background: linear-gradient(90deg, var(--text-primary), #a855f7, #22d3ee, var(--text-primary)); background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: fxRainbow 7s linear infinite; }
+@keyframes fxRainbow { to { background-position: -300% 0; } }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-on .prompt-header i { -webkit-text-fill-color: initial; display: inline-block; animation: fxWob 2.6s ease-in-out infinite; }
+@keyframes fxWob { 0%, 100% { rotate: -10deg; } 50% { rotate: 12deg; scale: 1.18; } }
+.fx-on .store-balance-chip.fx-flash, .fx-on .dash-hero.fx-flash { animation: fxFlash .9s ease; }
+@keyframes fxFlash { 0%, 100% { scale: 1; } 30% { box-shadow: 0 0 0 3px rgba(34,197,94,.7), 0 0 40px rgba(34,197,94,.55); scale: 1.03; } }
+.fx-on .btn-solid, .fx-on .btn-buy { position: relative; overflow: hidden; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-on .btn-solid::after, .fx-on .btn-buy::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.28) 50%, transparent 60%);
+    translate: -130% 0; animation: fxSheen 4.5s ease-in-out infinite; }
+@keyframes fxSheen { 0%, 55% { translate: -130% 0; } 85%, 100% { translate: 130% 0; } }
+.fx-pc .product-card:hover .product-price-live { animation: fxPrice .5s ease; }
+@keyframes fxPrice { 30% { scale: 1.25; rotate: -4deg; } 60% { scale: .96; rotate: 3deg; } 100% { scale: 1; rotate: 0deg; } }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.fx-on .fx-pre { opacity: 0; filter: blur(6px); translate: 0 34px; scale: .95; }
+.fx-touch.fx-on .fx-pre { translate: var(--fx-from, -50px) 22px; scale: .9; }
+.fx-in { transition: opacity .6s ease, translate .8s cubic-bezier(.2,1.25,.35,1), scale .8s cubic-bezier(.2,1.25,.35,1), filter .5s ease; transition-delay: var(--fx-d, 0ms); }
+.fx-noanim .fx-pre { opacity: 1 !important; filter: none !important; translate: none !important; scale: none !important; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+.fx-e { transition: translate .6s cubic-bezier(.3,1.7,.5,1), scale .6s cubic-bezier(.3,1.7,.5,1), rotate .6s cubic-bezier(.3,1.7,.5,1),
+    border-color .25s, box-shadow .3s, background-color .3s, color .25s, opacity .25s; -webkit-tap-highlight-color: transparent; }
+.fx-e.fx-down { transition-duration: .14s, .14s, .14s, .25s, .3s, .3s, .25s, .25s; transition-timing-function: ease-out; }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+[data-fxe="bounce"].fx-down { scale: .95 1.03; }
+.fx-pc [data-fxe="bounce"]:hover { scale: 1.015; }
+[data-fxe="jelly"].fx-down { scale: .92 .94; }
+.fx-pc [data-fxe="jelly"]:hover { scale: 1.04; }
+[data-fxe="push"].fx-down { translate: calc(var(--px, 0) * -9px) calc(var(--py, 0) * -9px); scale: .95; rotate: calc(var(--px, 0) * 1.6deg); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-pc [data-fxe="push"]:hover { translate: 0 -3px; }
+[data-fxe="pull"].fx-down { scale: .96; }
+.shortcut-card, .how-to-buy-banner, .btn-ghost, .gl-btn.ghost { touch-action: pan-y; -webkit-user-drag: none; user-select: none; -webkit-user-select: none; }
+[data-fxe="squish"].fx-down { scale: 1.025 .94; }
+[data-fxe="slide"].fx-down { translate: 10px 0; scale: .985; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-pc [data-fxe="slide"]:hover { translate: 5px 0; }
+[data-fxe="pop"].fx-down { scale: .86; }
+.fx-pc [data-fxe="pop"]:hover { scale: 1.07; }
+[data-fxe="tab"] i { display: inline-block; transition: translate .5s cubic-bezier(.3,1.9,.5,1), scale .5s cubic-bezier(.3,1.9,.5,1); }
+[data-fxe="tab"].fx-down i { translate: 0 -5px; scale: 1.3; transition-duration: .12s; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+[data-fxe="wobble"].fx-down { scale: .993; }
+
+.fx-ripple { position: absolute; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(255,255,255,.5), rgba(168,85,247,.35) 45%, transparent 70%);
+    translate: -50% -50%; scale: 0; animation: fxRip .65s ease-out forwards; z-index: 5; }
+@keyframes fxRip { to { scale: 1; opacity: 0; } }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-rel { position: relative; overflow: hidden; }
+.fx-tap { position: fixed; z-index: 10001; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; pointer-events: none;
+    border: 2px solid #22d3ee; box-shadow: 0 0 14px rgba(34,211,238,.6); animation: fxTap .6s ease-out forwards; }
+@keyframes fxTap { to { scale: 5.5; opacity: 0; border-width: .5px; } }
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.fx-on .modal-overlay:not(.hidden) > .panel { animation: fxModal .55s cubic-bezier(.2,1.25,.3,1) backwards; }
+@keyframes fxModal { from { opacity: 0; translate: 0 50px; scale: .9; } to { opacity: 1; translate: 0 0; scale: 1; } }
+
+.srt-low-fx .fx-orb, .srt-low-fx .fx-spot { display: none; }
+.srt-low-fx.fx-on .dash-hero, .srt-low-fx.fx-on .store-balance-chip, .srt-low-fx.fx-on .btn-solid::after, .srt-low-fx.fx-on .btn-buy::after { animation: none; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@media (prefers-reduced-motion: reduce) {
+    .fxw, .fx-orb, .fx-spot, .fx-canvas, .fx-tap { display: none !important; }
+    .fx-pre { opacity: 1 !important; translate: none !important; scale: none !important; filter: none !important; }
+}
+
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+@media (hover: none), (pointer: coarse) {
+    *, *::before, *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+    .glass-nav-header, .bottom-tabbar, .drawer-panel { background: color-mix(in srgb, var(--bg-main, #070714) 94%, var(--neon-purple, #a855f7)); }
+    .modal-overlay { background: rgba(4, 3, 12, .86); }
+    .fxw { background: rgba(18, 14, 42, .97); }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+    .product-card { animation: none !important; will-change: auto !important; }
+    .shortcut-card, .srt-low-fx .shortcut-card {
+        animation-name: srtSmoothFloat !important; animation-duration: 5.2s !important;
+        animation-iteration-count: infinite !important; animation-timing-function: cubic-bezier(.37,0,.63,1) !important;
+        /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+        animation-fill-mode: both !important; will-change: transform;
+    }
+    .fx-on .dash-hero, .fx-on .store-balance-chip { animation: none; }
+    .fx-on .btn-solid::after, .fx-on .btn-buy::after { display: none; }
+    .fx-on .stat-icon i, .fx-on .shortcut-icon i, .fx-on .log-entry-icon i, .fx-on .prompt-header i { animation: none; }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    .fx-on .prompt-header { animation: none; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--text-primary); }
+    .fx-orb { animation: none !important; transition: none !important; will-change: auto; opacity: .35; }
+
+    .fx-on .fx-pre, .fx-touch.fx-on .fx-pre { filter: none; translate: 0 16px; scale: 1; }
+    .fx-in { transition: opacity .35s ease, translate .45s cubic-bezier(.2,1,.3,1); }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    .tilt { transform: none; }
+    .product-card { content-visibility: auto; contain-intrinsic-size: auto 330px; }
+
+    .fx-on .term-window { animation: none; }
+    .fx-on.fx-leaving .term-window { opacity: 1; translate: none; scale: none; transition: none; }
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+    html { scroll-behavior: auto; }
+    body { -webkit-overflow-scrolling: touch; overscroll-behavior-y: none; }
+    .fx-tap, .fx-ripple { display: none !important; }
+}
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+
+@media (hover: hover) and (pointer: fine) {
+    .panel, .stat-card, .leaderboard-row, .product-card, .shortcut-card, .dash-hero, .store-balance-chip, .profile-hero {
+        -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    .fx-on .dash-hero, .fx-on .store-balance-chip { animation: none; }
+    .fx-on .prompt-header { animation: none; background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--text-primary); }
+    .fx-orb { animation-duration: 40s; transition: none; will-change: auto; }
+    .fx-spot { will-change: auto; }
+    .fx-progress { will-change: transform; }
+    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    body::before, body::after { animation-duration: 24s; will-change: transform; }
+}
+html.fx-hidden *, html.fx-hidden *::before, html.fx-hidden *::after { animation-play-state: paused !important; }
