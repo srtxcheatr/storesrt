@@ -1,6 +1,6 @@
 <?php // src by SRT X CHEATS. Copy right SRT X CHEATS
-$pageTitle = 'SRT X CHEATS — Nepali Trusted Panel Seller & Glory Bot Seller';
-$metaDescription = 'SRT X CHEATS: Glory Bot and game panels available for iOS, Android (Root & Non-Root) and PC. Browse the full catalog free and buy instantly.';
+$pageTitle = 'SRT X CHEATS — Nepali Panel Seller | Trusted Nepal Panel & Glory Bot Seller';
+$metaDescription = 'SRT X CHEATS is Nepal\'s trusted Nepali panel seller: Glory Bot and game panels for iOS, Android (Root & Non-Root) and PC. Browse the full catalog free and buy instantly.';
 $canonicalPath = '/';
 $indexable = true;
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -26,13 +26,11 @@ require __DIR__ . '/includes/nav.php';
         <?php endif; ?>
 
         <div class="panel panel-premium tilt" style="text-align:center">
-            <div style="font-family:var(--font-heading);font-weight:800;font-size:16px;margin-bottom:4px">
-                Welcome to <span class="neon-cyan">SRT X CHEATS</span>
-            </div>
-            <div class="dim" style="font-size:12px">Browse the full catalog free — login only takes a tap when you're ready to buy.</div>
+            <h1 style="font-family:var(--font-heading);font-weight:800;font-size:16px;margin:0 0 4px">
+                <span class="neon-cyan">SRT X CHEATS</span> — Nepali Panel Seller
+            </h1>
+            <div class="dim" style="font-size:12px">Nepal's trusted panel seller &amp; Glory Bot seller. Browse the full catalog free — login only takes a tap when you're ready to buy.</div>
         </div>
-
-        <h1 style="position:absolute;left:-9999px">SRT X CHEATS — Glory Bot &amp; Panels for iOS, Android and PC</h1>
 
         <div class="prompt-header"><i class="fas fa-gamepad"></i> PRODUCTS CATALOG</div>
         <div style="position:relative;margin-bottom:10px">
@@ -58,7 +56,7 @@ require __DIR__ . '/includes/nav.php';
         <section class="panel" style="margin-top:14px">
             <h2 class="prompt-header"><i class="fas fa-circle-info"></i> ABOUT SRT X CHEATS</h2>
             <p class="dim" style="font-size:12px;line-height:1.7">
-                SRT X CHEATS is a panels hub offering Glory Bot and game panels for every device:
+                SRT X CHEATS is a trusted Nepali panel seller offering Glory Bot and game panels for every device:
                 <strong>iOS</strong>, <strong>Android (Root and Non-Root)</strong> and <strong>PC</strong>.
                 Browse the full product catalog for free, then sign in with Google to purchase.
                 Need help? Follow the how-to-buy guide or contact support from the store page.

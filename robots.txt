@@ -8,5 +8,5 @@ Disallow: /dashboard.php
 Disallow: /profile.php
 Disallow: /includes/
 
-Sitemap: https://srtxcheats.com/sitemap.xml
+Sitemap: https://www.srtxcheats.com/sitemap.xml
 # src by SRT X CHEATS. Copy right SRT X CHEATS
