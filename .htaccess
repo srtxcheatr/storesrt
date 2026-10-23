@@ -5,3 +5,4 @@ RewriteRule ^health/?$ health.php [L]
 RewriteCond %{HTTP_HOST} ^srtxcheats\.com$ [NC]
 RewriteRule ^(.*)$ https://www.srtxcheats.com/$1 [R=301,L]
 
+
