@@ -509,7 +509,7 @@ input:focus, textarea:focus {
 .banner-track { display: flex; transition: transform 0.4s ease-in-out; }
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
 .banner-slide { min-width: 100%; }
-.banner-slide img { width: 100%; height: 160px; object-fit: cover; display: block; }
+.banner-slide img { width: 100%; height: auto; object-fit: contain; display: block; }
 .banner-dots {
     position: absolute;
     bottom: 8px;
@@ -1296,7 +1296,7 @@ body, .glass-nav-header, .bottom-tabbar { transition: background-color .35s ease
     /* src by SRT X CHEATS. Copy right SRT X CHEATS */
     .product-grid { grid-template-columns:repeat(3,1fr); gap:14px; }
     .shortcut-grid { grid-template-columns:repeat(3,1fr); }
-    .banner-slide img { height:200px; }
+    .banner-slide img { height:auto; }
 }
 @media (min-width: 1200px) {
     /* src by SRT X CHEATS. Copy right SRT X CHEATS */
