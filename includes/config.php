@@ -29,7 +29,7 @@ define('WHATSAPP_TOPUP_MESSAGE', $env('WHATSAPP_TOPUP_MESSAGE', 'I am coming fro
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
 define('BANNERS', [
-    ['image' => 'https://i.postimg.cc/0rgvg95j/file-00000000a47882118a513b5f8330bb53.png', 'link' => 'GZOWtlF8OFSeM0E08epGicNHvAh2'],
+    ['image' => 'https://i.postimg.cc/FRYbbqQD/Neon-Tech-Support-Banner.png', 'link' => 'https://www.srtxcheats.com/login.php'],
     ['image' => 'https://i.postimg.cc/RFZ9zPc2/file-000000000e688211a2be320f8de763e4.png', 'link' => 'GZOWtlF8OFSeM0E08epGicNHvAh2'],
 ]);
 // src by SRT X CHEATS. Copy right SRT X CHEATS
