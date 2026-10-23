@@ -1036,7 +1036,7 @@ function hhmm(v) {
 const stamp = (t) => new Date(t || Date.now()).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' });
 const has = (v) => v !== undefined && v !== null && v !== '';
 
-const LOGO_URL = 'https://i.postimg.cc/qqYtBD3k/file-00000000470c8208bd1a0215abff7977.png';
+const LOGO_URL = '/assets/img/logo.png?v=1';
 const logoImg = (cls) => `<img class="${cls}" src="${LOGO_URL}" alt="SRT X CHEATS" loading="lazy" decoding="async">`;
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 function ago(t) {

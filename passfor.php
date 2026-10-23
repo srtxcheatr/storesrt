@@ -8,7 +8,7 @@ require __DIR__ . '/includes/head.php';
 <div class="forgot-shell">
   <div class="auth-brand">
     <div class="logo-img-wrap" style="margin:0 auto">
-      <img src="https://i.postimg.cc/qqYtBD3k/file-00000000470c8208bd1a0215abff7977.png" alt="Logo" class="site-logo">
+      <img src="/assets/img/logo.png?v=1" alt="Logo" class="site-logo">
     </div>
     <div class="auth-brand-title">SRT <span class="neon-cyan">X</span> CHEATS</div>
     <div class="auth-brand-sub">Password Recovery</div>
