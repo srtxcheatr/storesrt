@@ -19,12 +19,12 @@ $env = static fn (string $k, string $d = '') => (($v = getenv($k)) !== false && 
 define('COPYRIGHT_NAME', $env('COPYRIGHT_NAME', 'SRT X CHEATS'));
 define('SITE_NAME', $env('SITE_NAME', 'SRT X CHEATS'));
 define('SITE_URL', rtrim($env('SITE_URL', 'https://www.srtxcheats.com'), '/'));
-define('SITE_ICON', $env('SITE_ICON', 'https://i.postimg.cc/Gpsmfbfj/app-icon-foreground.png'));
-define('DEVELOPER_URL', $env('DEVELOPER_URL', 'https://srtxcheatr.github.io/srtxcheats/'));
+define('SITE_ICON', $env('SITE_ICON', 'https://i.postimg.cc/DZ5ZZfNY/xitexe-logo.png'));
+define('DEVELOPER_URL', $env('DEVELOPER_URL', 'https://about.srtxcheats.com/'));
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 define('BACKEND_URL', rtrim($env('BACKEND_URL', 'https://repromax5.onrender.com'), '/'));
 define('WELCOME_REDIRECT_URL', $env('WELCOME_REDIRECT_URL', 'https://whatsapp.com/channel/0029Vb8nlud3mFY0H8Jfev2e'));
-define('WHATSAPP_TOPUP_NUMBER', $env('WHATSAPP_TOPUP_NUMBER', '9779827260865'));
+define('WHATSAPP_TOPUP_NUMBER', $env('WHATSAPP_TOPUP_NUMBER', '*'));
 define('WHATSAPP_TOPUP_MESSAGE', $env('WHATSAPP_TOPUP_MESSAGE', 'I am coming from admin panel and I want to get deposit balance and get panel key'));
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
