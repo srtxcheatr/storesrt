@@ -188,20 +188,20 @@ a { color: var(--neon-blue); text-decoration: none; transition: all 0.3s ease; }
     width: 36px;
     height: 36px;
     flex-shrink: 0;
-    border-radius: 10px;
-    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
-    padding: 2px;
-    background: linear-gradient(135deg, var(--neon-cyan, #00f0ff), var(--neon-purple));
-    box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+    /* transparent logo: no coloured box behind it */
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
 }
 .site-logo {
     /* src by SRT X CHEATS. Copy right SRT X CHEATS */
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
+    object-fit: contain;
+    border-radius: 0;
     display: block;
-/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+    filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.45));
 }
 .brand-title {
     font-family: var(--font-heading);
@@ -1183,7 +1183,7 @@ body, .glass-nav-header, .bottom-tabbar { transition: background-color .35s ease
 .auth-body { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px 16px; }
 .auth-shell { width:min(400px,100%); position:relative; z-index:2; }
 .auth-brand { text-align:center; margin-bottom:22px; }
-.auth-brand .logo-img-wrap { width:56px; height:56px; margin:0 auto 10px; }
+.auth-brand .logo-img-wrap { width:96px; height:96px; margin:0 auto 10px; }
 .auth-brand-title { font-family:var(--font-heading); font-weight:900; font-size:19px; letter-spacing:.5px; }
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
 .auth-brand-sub { font-size:10px; color:var(--text-muted); letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; }
