@@ -17,7 +17,7 @@ $fxOff    = ($bodyClass ?? '') === 'boot-body';
 $siteUrl   = SITE_URL;
 $siteName  = SITE_NAME;
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-$siteIcon  = SITE_ICON;
+$siteIcon  = $siteUrl . '/assets/img/logo.png';
 $seoDesc   = $metaDescription ?? 'SRT X CHEATS — Nepal\'s trusted panel seller and Glory Bot seller. Android panel, NonRoot panel, Root panel and iOS panel. Buy instantly.';
 $seoPath   = $canonicalPath ?? parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 $seoUrl    = $siteUrl . ($seoPath === '/index.php' ? '/' : $seoPath);
@@ -30,9 +30,12 @@ $seoTitle  = $pageTitle ?? $siteName;
 <meta name="keywords" content="SRT X CHEATS, Nepali panel seller, Nepal trusted panel seller, Android panel, NonRoot panel, iOS panel, Glory bot seller">
 <meta name="application-name" content="<?= $siteName ?>">
 <meta name="theme-color" content="#060a14">
-<link rel="icon" type="image/png" sizes="192x192" href="<?= $siteIcon ?>">
-<link rel="shortcut icon" href="<?= $siteIcon ?>">
-<link rel="apple-touch-icon" href="<?= $siteIcon ?>">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_NP">
 <meta name="geo.region" content="NP">
@@ -51,7 +54,7 @@ $seoTitle  = $pageTitle ?? $siteName;
     '@context' => 'https://schema.org',
     '@graph' => [
         ['@type' => 'WebSite', '@id' => $siteUrl . '/#website', 'url' => $siteUrl . '/', 'name' => $siteName,
-         'alternateName' => ['SRT X CHEATS', 'SRTX CHEATS', 'srtxcheats', 'SRT X CHEATS Nepali Panel Seller'], 'description' => $seoDesc, 'inLanguage' => 'en'],
+         'alternateName' => ['SRTXCHEATS', 'SRTX CHEATS'], 'description' => $seoDesc, 'inLanguage' => 'en'],
         ['@type' => 'Store', '@id' => $siteUrl . '/#store', 'name' => $siteName, 'url' => $siteUrl . '/', 'logo' => $siteIcon, 'image' => $siteIcon, 'description' => 'Nepal trusted panel seller and Glory bot seller', 'areaServed' => 'NP'],
         // src by SRT X CHEATS. Copy right SRT X CHEATS
         ['@type' => 'Organization', '@id' => $siteUrl . '/#org', 'name' => $siteName, 'url' => $siteUrl . '/',
@@ -66,7 +69,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-<link rel="stylesheet" href="/assets/css/terminal.css?v=20260918-1">
+<link rel="stylesheet" href="/assets/css/terminal.css?v=20261023-2">
 <link rel="stylesheet" href="/assets/css/clean.css?v=20261011-2">
 <link rel="stylesheet" href="/assets/css/rewards.css?v=20261026-1">
 <?php if (!$fxOff): ?>
@@ -106,7 +109,7 @@ $seoTitle  = $pageTitle ?? $siteName;
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     window.SRT_FX_PAGE = <?= json_encode($fxPage) ?>;
 </script>
-<script src="/assets/js/fx.js?v=20261018-2"></script>
+<script src="/assets/js/fx.js?v=20261023-1"></script>
 <?php else: ?>
 <script>window.SRT_FX_OFF = true;</script>
 <?php endif; ?>
