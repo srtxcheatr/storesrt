@@ -8,6 +8,32 @@ require __DIR__ . '/includes/head.php';
     <i class="fas fa-circle-notch fa-spin" style="font-size:26px;color:var(--neon-blue)"></i>
 </div>
 
+<style>
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+#authBusy { position: fixed; inset: 0; z-index: 9400; display: flex; align-items: center; justify-content: center; padding: 16px;
+    background: rgba(4, 3, 12, .78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+#authBusy.hidden { display: none !important; }
+#authBusy .box { max-width: 340px; width: 100%; text-align: center; padding: 26px 20px 20px; border-radius: 16px;
+    background: var(--glass-panel, rgba(26, 23, 53, .96)); border: 1px solid var(--glass-border, rgba(168, 85, 247, .35)); box-shadow: 0 14px 50px rgba(0, 0, 0, .55); }
+#authBusy .spin { font-size: 32px; color: var(--neon-blue, #22d3ee); }
+#authBusy .t { margin-top: 14px; font-weight: 800; font-size: 15px; color: var(--text-primary, #f1f5f9); }
+#authBusy .h { margin-top: 6px; min-height: 36px; font-size: 12.5px; line-height: 1.55; color: var(--text-secondary, #94a3b8); }
+#authBusy .bar { margin: 12px 0 14px; height: 4px; border-radius: 999px; overflow: hidden; background: rgba(148, 163, 184, .25); }
+#authBusy .bar i { display: block; height: 100%; width: 40%; border-radius: inherit; background: linear-gradient(90deg, var(--neon-purple, #a855f7), var(--neon-blue, #22d3ee)); animation: authBar 1.3s ease-in-out infinite; }
+@keyframes authBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+#authBusy .btn { width: 100%; }
+@media (prefers-reduced-motion: reduce) { #authBusy .bar i { animation: none; width: 100%; } }
+</style>
+<div id="authBusy" class="hidden" role="alertdialog" aria-live="polite" aria-labelledby="authBusyT">
+    <div class="box">
+        <i class="fas fa-circle-notch fa-spin spin"></i>
+        <div class="t" id="authBusyT">Signing in…</div>
+        <div class="h" id="authBusyH"></div>
+        <div class="bar"><i></i></div>
+        <button type="button" class="btn btn-ghost" id="authBusyCancel"><i class="fas fa-xmark"></i> Cancel</button>
+    </div>
+</div>
+
 <div class="auth-shell hidden" id="authShell">
     <div class="auth-brand">
         <div class="logo-img-wrap" style="margin:0 auto">
@@ -103,9 +129,16 @@ import {
     googleProvider, signInWithPopup, signInWithEmailAndPassword,
     createUserWithEmailAndPassword, sendPasswordResetEmail, getAdditionalUserInfo,
 } from '/assets/js/app.js?v=20261018-2';
+// same Firebase module URL as app.js, so this is the very same instance (no app.js change = no cache problems)
+import { onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
 (async () => {
     // src by SRT X CHEATS. Copy right SRT X CHEATS
+    // coming back from a Google redirect (used when the popup is blocked): finish it here
+    try {
+        const rr = await getRedirectResult(auth);
+        if (rr && rr.user) { googlePending = true; await finishGoogle(rr.user, !!getAdditionalUserInfo(rr)?.isNewUser); return; }
+    } catch (e) { if (e && e.code && e.code !== 'auth/no-auth-event') toast(friendlyAuthError(e), 'error'); }
     const user = await checkAuthOnce();
     if (user) {
         window.location.href = '/dashboard.php';
@@ -185,20 +218,86 @@ document.getElementById('signupBtn').onclick = async () => {
 };
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-document.getElementById('googleBtn').onclick = async () => {
+// ---- Google sign-in, built for slow connections --------------------------------------------------------
+// The Google popup closes as soon as the account is chosen, but Firebase still has to finish the sign-in over the network.
+// On a slow line that can take many seconds, so we (1) show a progress screen at once, (2) wait for the session itself
+// instead of trusting the popup's result alone, and (3) never swallow the outcome silently.
+let googlePending = false, finishing = false, busyToken = 0, hintTimer = null;
+const $ = (id) => document.getElementById(id);
+
+const busy = {
+    show(title, hint) {
+        $('authBusyT').textContent = title; $('authBusyH').textContent = hint || '';
+        $('authBusy').classList.remove('hidden');
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(() => { $('authBusyH').textContent = 'Slow connection detected. Please keep this page open, it can take up to a minute.'; }, 7000);
+    },
+    hide() { clearTimeout(hintTimer); $('authBusy').classList.add('hidden'); },
+};
+function friendlyAuthError(e) {
+    const c = e && e.code;
+    if (c === 'auth/network-request-failed') return 'Your internet is too slow or offline. Please try again.';
+    if (c === 'auth/unauthorized-domain') return 'This domain is not allowed for Google sign-in. Contact support.';
+    if (c === 'auth/too-many-requests') return 'Too many attempts. Please wait a minute and try again.';
+    return (e && e.message) || 'Sign-in failed. Please try again.';
+}
+const isNewGoogleUser = (u) => {                                  // a brand-new account has creation time == first sign-in time
+    const m = (u && u.metadata) || {}, c = Date.parse(m.creationTime), l = Date.parse(m.lastSignInTime);
+    return !isNaN(c) && !isNaN(l) && Math.abs(l - c) < 15000;
+};
+async function finishGoogle(user, isNew) {
+    if (finishing) return;
+    finishing = true;
+    busy.show('Signing you in…', 'Almost done, loading your account.');
+    if (isNew) {
+        try { await backendFetch('/api/user/init', { method: 'POST' }); } catch (e) { console.error(e); }
+        window.location.href = '/profile.php?complete=1';
+        return;
+    }
+    await afterAuth();
+}
+// resolves with the signed-in user as soon as Firebase has one (or null after `ms` / when the user cancels)
+function waitForUser(ms, token) {
+    return new Promise((resolve) => {
+        const t0 = Date.now();
+        const iv = setInterval(() => {
+            if (auth.currentUser) { clearInterval(iv); resolve(auth.currentUser); }
+            else if (token !== busyToken || Date.now() - t0 > ms) { clearInterval(iv); resolve(null); }
+        }, 300);
+    });
+}
+// safety net: if the session appears while a Google sign-in is pending (popup said "closed", promise never answered...), continue
+onAuthStateChanged(auth, (u) => { if (u && googlePending && !finishing) finishGoogle(u, isNewGoogleUser(u)); });
+
+$('authBusyCancel').onclick = () => { busyToken++; googlePending = false; finishing = false; busy.hide(); };
+
+$('googleBtn').onclick = async () => {
+    if (googlePending) return;
+    googlePending = true;
+    const token = ++busyToken;
+    busy.show('Connecting to Google…', 'Choose your account in the Google window.');
     try {
         const result = await signInWithPopup(auth, googleProvider);
-        const isNewUser = !!getAdditionalUserInfo(result)?.isNewUser;
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        if (isNewUser) {
-            try { await backendFetch('/api/user/init', { method: 'POST' }); } catch (e) { console.error(e); }
-            window.location.href = '/profile.php?complete=1';
-            return;
-        }
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        await afterAuth();
+        if (token !== busyToken) return;                          // user cancelled meanwhile
+        await finishGoogle(result.user, !!getAdditionalUserInfo(result)?.isNewUser);
     } catch (e) {
-        if (e.code !== 'auth/popup-closed-by-user') toast(e.message, 'error');
+        if (token !== busyToken) return;
+        const code = e && e.code;
+        if (code === 'auth/popup-blocked') {                      // pop-ups not allowed (in-app browsers): use a full-page redirect instead
+            busy.show('Redirecting to Google…', '');
+            try { await signInWithRedirect(auth, googleProvider); return; } catch (e2) { e = e2; }
+        }
+        if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request' || code === 'auth/network-request-failed' || code === 'auth/timeout') {
+            // On slow connections the popup often closes BEFORE Firebase has finished: give the session time to arrive.
+            busy.show('Finishing sign-in…', 'If you closed the Google window on purpose, tap Cancel.');
+            const u = await waitForUser(20000, token);
+            if (token !== busyToken) return;
+            if (u) { await finishGoogle(u, isNewGoogleUser(u)); return; }
+            if (code !== 'auth/popup-closed-by-user') toast(friendlyAuthError(e), 'error');
+        } else {
+            toast(friendlyAuthError(e), 'error');
+        }
+        googlePending = false; finishing = false; busy.hide();
     }
 };
 // src by SRT X CHEATS. Copy right SRT X CHEATS
