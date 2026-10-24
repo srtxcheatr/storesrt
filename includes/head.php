@@ -76,6 +76,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <link rel="stylesheet" href="/assets/css/fx.css?v=20261018-2">
 <?php endif; ?>
 
+<script src="/assets/js/consent.js?v=20261024-1"></script>
 <script>
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     window.BACKEND_URL = "<?= BACKEND_URL ?>";

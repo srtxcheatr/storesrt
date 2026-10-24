@@ -1,6 +1,6 @@
 <?php // src by SRT X CHEATS. Copy right SRT X CHEATS
 $breadcrumb = $breadcrumb ?? $currentPage;
-$pageTitles = ['dashboard' => 'Dashboard', 'store' => 'Store', 'history' => 'Order History', 'profile' => 'Profile', 'othersprofile' => 'Player Profile', 'apicontact' => 'Reseller API', 'glorybot' => 'FF Glory Bot', 'rewards' => 'Reward Center'];
+$pageTitles = ['dashboard' => 'Dashboard', 'store' => 'Store', 'history' => 'Order History', 'profile' => 'Profile', 'othersprofile' => 'Player Profile', 'apicontact' => 'Reseller API', 'glorybot' => 'FF Glory Bot', 'rewards' => 'Reward Center', 'support' => 'Support'];
 $headerTitle = $pageTitles[$currentPage] ?? 'SRT X CHEATS';
 $isGuestPage = $currentPage === 'home';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -76,7 +76,7 @@ $isGuestPage = $currentPage === 'home';
 
     <div class="drawer-section-label">Account</div>
     <a href="/profile.php" class="drawer-item <?= $currentPage === 'profile' ? 'active' : '' ?>"><i class="fas fa-user-gear"></i> Profile</a>
-    <a href="/store.php#support" class="drawer-item"><i class="fas fa-headset"></i> Support</a>
+    <a href="/support.php" class="drawer-item <?= $currentPage === 'support' ? 'active' : '' ?>"><i class="fas fa-headset"></i> Support</a>
     <a href="<?= htmlspecialchars(DEVELOPER_URL) ?>" target="_blank" class="drawer-item"><i class="fas fa-code"></i> About Developer</a>
 
     <button type="button" class="drawer-logout" id="drawerLogoutBtn">
