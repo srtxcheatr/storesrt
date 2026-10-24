@@ -29,7 +29,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <link rel="canonical" href="<?= htmlspecialchars($seoUrl) ?>">
 <meta name="keywords" content="SRT X CHEATS, Nepali panel seller, Nepal trusted panel seller, Android panel, NonRoot panel, iOS panel, Glory bot seller">
 <meta name="application-name" content="<?= $siteName ?>">
-<meta name="theme-color" content="#060a14">
+<meta name="theme-color" content="#07061a">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96.png">
@@ -75,6 +75,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <?php if (!$fxOff): ?>
 <link rel="stylesheet" href="/assets/css/fx.css?v=20261018-2">
 <?php endif; ?>
+<link rel="stylesheet" href="/assets/css/glass.css?v=20261024-1">
 
 <script src="/assets/js/consent.js?v=20261025-1"></script>
 <script>
