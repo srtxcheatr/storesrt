@@ -90,6 +90,8 @@ export function requireAuth(onReady){
     const cachedProfile=cachePeek('profile'); if(cachedProfile) announce('profile',cachedProfile.value);
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     await ensureSession();
+    // make sure the profile (balance/name/avatar) is loaded on every page; uses the cache when fresh
+    getData('profile').catch(()=>{});
     try{await onReady(user);}catch(e){console.error('[page-init]',e);toast(e.message||'Failed to load page data','error');}
     warmCache();
   });
@@ -363,6 +365,9 @@ export function renderAvatar(el, url, fallbackText = '?') {
 window.addEventListener('srtx:balance', (e) => {
   const p = e.detail || {};
   const label = p.profileName || p.email || 'My Account';
+  // sidebar balance must show on EVERY page, not only Dashboard/Store
+  const bal = document.getElementById('drawerBalance');
+  if (bal && p.balance !== undefined && p.balance !== null) bal.textContent = 'NRP ' + p.balance;
   const name = document.getElementById('drawerUserName');
   if (name && p.profileName) name.textContent = p.profileName;
   // src by SRT X CHEATS. Copy right SRT X CHEATS
