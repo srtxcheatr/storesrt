@@ -289,46 +289,6 @@ html[data-theme="light"]:root .modal-overlay { background: rgba(60, 40, 120, .22
     backdrop-filter: blur(calc(var(--g-blur) + 6px)) saturate(var(--g-sat));
 }
 
-/* ---------- Announcement (modal + dashboard strip) ---------- */
-.ann-card { max-width: 440px; width: 100%; text-align: center; position: relative; overflow: hidden; padding: 26px 20px 20px; }
-/* FIX: the accent line was inheriting the panel's rounded corners and looked cut off */
-:root:root body .ann-card.panel::before {
-    content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; border-radius: 0; opacity: 1;
-    background: linear-gradient(90deg, transparent, var(--g-violet) 25%, var(--g-cyan) 60%, var(--g-gold) 85%, transparent);
-}
-.ann-card::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 140px; pointer-events: none; background: radial-gradient(70% 100% at 50% 0%, rgba(139,92,246,.28), transparent 75%); }
-.ann-card > * { position: relative; z-index: 1; }
-.ann-badge {
-    width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 22px;
-    color: #fff0c2; background: linear-gradient(145deg, rgba(230,195,100,.4), rgba(230,195,100,.1)); border: 1px solid rgba(255,255,255,.22);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 10px 28px rgba(212,175,55,.28); animation: annPulse 3s ease-in-out infinite;
-}
-@keyframes annPulse { 0%, 100% { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 10px 28px rgba(212,175,55,.22); } 50% { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 10px 36px rgba(212,175,55,.5); } }
-.ann-title { font-family: var(--font-heading, 'Orbitron', sans-serif); font-size: 15px; font-weight: 800; letter-spacing: .14em; }
-.ann-sub {
-    display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 10.5px; font-weight: 800; letter-spacing: .1em; color: var(--g-cyan);
-    background: rgba(34,211,238,.1); border: 1px solid rgba(34,211,238,.35); border-radius: 999px; padding: 4px 12px;
-}
-/* message: frosted inset with an inner accent rail (no more border-left crescent) */
-.ann-msg, #noticeText {
-    position: relative; text-align: left; white-space: pre-line; overflow-wrap: anywhere;
-    font: 500 14px/1.7 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--text-primary);
-    background: linear-gradient(160deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
-    border: 1px solid var(--g-line); border-radius: 16px; box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-}
-.ann-msg { margin: 18px 0 16px; padding: 16px 16px 16px 22px; max-height: 46vh; overflow-y: auto; }
-#noticeText { margin-top: 4px; padding: 13px 14px 13px 20px; font-size: 13px; color: var(--text-secondary); }
-.ann-msg::before, #noticeText::before {
-    content: ""; position: absolute; left: 9px; top: 14px; bottom: 14px; width: 3px; border-radius: 3px;
-    background: linear-gradient(180deg, var(--g-gold), var(--g-violet));
-}
-.ann-msg::-webkit-scrollbar { width: 5px; } .ann-msg::-webkit-scrollbar-thumb { background: rgba(255,255,255,.28); border-radius: 999px; }
-.ann-gift { display: none; margin: 0 0 14px; padding: 14px; border-radius: 16px; border: 1px dashed rgba(230,195,100,.55); background: linear-gradient(160deg, rgba(230,195,100,.14), rgba(230,195,100,.04)); }
-.ann-card .btn { width: 100%; }
-html[data-theme="light"] .ann-badge { color: #7a5714; }
-html[data-theme="light"] .ann-sub { color: #0e7490; }
-@media (prefers-reduced-motion: reduce) { .ann-badge { animation: none; } }
-
 /* ---------- Fallbacks ---------- */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     :root { --g-fill-base: rgba(24, 19, 56, .9); --g-fill-strong: rgba(20, 16, 46, .97); }
@@ -343,3 +303,93 @@ html[data-theme="light"] .ann-sub { color: #0e7490; }
 
 /* closed drawer must not bleed its shadow into the viewport (visible as a grey smear in light mode) */
 @media (max-width: 899px) { :root:root .drawer-panel:not(.open) { box-shadow: none; } }
+
+
+/* ==========================================================================
+   v2 — fixes from live feedback
+   ========================================================================== */
+
+/* ---- All pop-ups: solid cards. Page content must never show through text. ---- */
+:root:root .modal-overlay > .panel {
+    background: linear-gradient(180deg, #1b1640 0%, #120e2e 100%);
+    border: 1px solid rgba(255,255,255,.14);
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+html[data-theme="light"]:root .modal-overlay > .panel { background: #ffffff; border-color: rgba(60,30,130,.14); }
+:root:root .modal-overlay { background: rgba(4,3,14,.62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+:root:root .modal-overlay > .panel::before { display: none !important; }
+
+/* ---- Product plan / duration picker ---- */
+:root:root .plan-picker-panel { border-radius: 24px; padding: 20px 18px 18px; max-width: 430px; }
+:root:root .plan-product-name {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 14px; padding: 12px 14px; font-weight: 800; letter-spacing: .2px; color: var(--text-primary);
+}
+html[data-theme="light"]:root .plan-product-name { background: #f1f3f6; border-color: #e1e5eb; }
+:root:root .plan-duration-list { gap: 8px; }
+:root:root .plan-duration {
+    display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 52px;
+    padding: 12px 14px; border-radius: 14px; cursor: pointer; text-align: left;
+    background: #231d4d; color: var(--text-primary);
+    border: 1px solid rgba(255,255,255,.1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+    transition: background .15s, border-color .15s, box-shadow .15s;
+}
+:root:root .plan-duration span { color: var(--text-primary); }
+:root:root .plan-duration span i { color: var(--text-muted); }
+:root:root .plan-duration strong { color: #f3d27a; }
+:root:root .plan-duration:hover { background: #2b2460; border-color: rgba(139,92,246,.55); }
+:root:root .plan-duration.active {
+    background: linear-gradient(180deg, #4b2fb8 0%, #3a22a0 100%);
+    border-color: #a78bfa; box-shadow: 0 0 0 3px rgba(139,92,246,.28);
+}
+:root:root .plan-duration.active span, :root:root .plan-duration.active span i { color: #fff; }
+:root:root .plan-duration.active strong { color: #ffe9a8; }
+html[data-theme="light"]:root .plan-duration { background: #f4f5f8; border-color: #e1e5eb; box-shadow: none; }
+html[data-theme="light"]:root .plan-duration span { color: #1b1730; }
+html[data-theme="light"]:root .plan-duration span i { color: #6f6a8a; }
+html[data-theme="light"]:root .plan-duration strong { color: #8a5a0c; }
+html[data-theme="light"]:root .plan-duration:hover { background: #ece8fb; }
+html[data-theme="light"]:root .plan-duration.active { background: #6d28d9; border-color: #6d28d9; box-shadow: 0 0 0 3px rgba(109,40,217,.2); }
+html[data-theme="light"]:root .plan-duration.active span, html[data-theme="light"]:root .plan-duration.active span i { color: #fff; }
+html[data-theme="light"]:root .plan-duration.active strong { color: #ffe9a8; }
+:root:root .quantity-box, :root:root .plan-total-row { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; }
+html[data-theme="light"]:root .quantity-box, html[data-theme="light"]:root .plan-total-row { background: #f4f5f8; border-color: #e1e5eb; }
+:root:root .plan-picker-panel { scrollbar-width: thin; }
+
+/* ---- Announcement pop-up: classic white card + gray text box (both themes) ---- */
+:root:root .modal-overlay > .panel.ann-card {
+    background: #ffffff; color: #1f2937; text-align: center;
+    border: 1px solid #e5e7eb; border-radius: 20px; padding: 26px 22px 20px;
+    max-width: 420px; width: 100%;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+}
+.ann-card::before, .ann-card::after { display: none !important; }
+.ann-badge {
+    width: 54px; height: 54px; margin: 0 auto 12px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    color: #b8860b; background: #fff7e0; border: 1px solid #f1dca0; animation: none;
+}
+.ann-title { font-family: var(--font-heading, 'Orbitron', sans-serif); font-size: 16px; font-weight: 800; letter-spacing: .12em; color: #111827; }
+.ann-sub {
+    display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 3px 12px; border-radius: 999px;
+    font-size: 10.5px; font-weight: 800; letter-spacing: .08em; color: #0e7490; background: #e6f7fb; border: 1px solid #b6e3ee;
+}
+.ann-msg, #noticeText {
+    position: relative; text-align: left; white-space: pre-line; overflow-wrap: anywhere;
+    font: 500 14px/1.7 'Plus Jakarta Sans', system-ui, sans-serif; color: #1f2937;
+    background: #eef0f3; border: 1px solid #d9dde3; border-radius: 12px; box-shadow: none;
+}
+.ann-msg { margin: 16px 0; padding: 14px 16px; max-height: 46vh; overflow-y: auto; }
+.ann-msg::before, #noticeText::before { display: none; }
+.ann-msg::-webkit-scrollbar { width: 5px; } .ann-msg::-webkit-scrollbar-thumb { background: #b6bcc6; border-radius: 999px; }
+.ann-gift { display: none; margin: 0 0 14px; padding: 12px; border-radius: 12px; border: 1px dashed #d9b44a; background: #fff8e1; color: #1f2937; }
+.ann-card .btn { width: 100%; }
+:root:root .ann-card .btn-ghost, :root:root .ann-card .btn-ghost:hover { background: #111827; color: #fff; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+:root:root .ann-card .btn-ghost:active { background: #000; }
+/* dashboard announcement strip: same gray text box so it matches the popup */
+#noticeText { margin-top: 4px; padding: 12px 14px; font-size: 13px; }
+html:not([data-theme="light"]) #noticeText { background: #2a2f3a; border-color: #3a404d; color: #e5e7eb; }
+html[data-theme="light"]:root .quantity-control button { color: #0e4f63; background: #dff4f8; border-color: #8fd3e3; }
+html[data-theme="light"]:root .quantity-control span { color: #8a5a0c; }
