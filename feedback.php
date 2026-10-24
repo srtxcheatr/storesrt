@@ -76,7 +76,7 @@ require __DIR__ . '/includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, backendFetch, toast, esc, getData, cacheInvalidate } from '/assets/js/app.js?v=20261018-2';
+import { requireAuth, backendFetch, toast, esc, getData, cacheInvalidate } from '/assets/js/app.js?v=20261024-2';
 
 let catalogCache = null;
 // src by SRT X CHEATS. Copy right SRT X CHEATS
