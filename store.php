@@ -700,7 +700,7 @@ function routeHash() {
     if (hash === 'topup') { window.location.href = '/admin/owner.php'; return; }
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     else if (hash === 'redeem') openModal('redeemModal');
-    else if (hash === 'support') openHelpModal();
+    else if (hash === 'support') { window.location.href = '/support.php'; return; }
     else if (hash === 'profile' || hash === 'password') { window.location.href = '/profile.php'; return; }
     history.replaceState(null, '', location.pathname);
 }
