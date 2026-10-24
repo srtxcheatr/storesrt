@@ -150,7 +150,8 @@ const memFallback = new Map();
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 function box(key) {
-  try { return localStorage; } catch (_) { return null; }
+  // without cookie/storage consent the cache lives in memory only (see /assets/js/consent.js)
+  try { return (window.srtxConsent && !window.srtxConsent.allowed()) ? null : localStorage; } catch (_) { return null; }
 }
 function knownUid() {
   if (auth.currentUser?.uid) return auth.currentUser.uid;
@@ -475,7 +476,8 @@ export async function doLogout(){try{localStorage.clear();sessionStorage.clear()
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 window.doLogout=doLogout;
 export function fmtDate(iso){if(!iso)return '';try{return new Date(iso).toLocaleString();}catch{return iso;}}
-export function esc(s){const d=document.createElement('div');d.textContent=s??'';return d.innerHTML;}
+// escapes quotes too, so the result is safe inside HTML attributes (href="...", title="...") and not only in text nodes
+export function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 const SCRAMBLE_CHARS='!<>-_\\/[]{}—=+*^?#________';
 export function setButtonLoading(btn,loading){if(!btn)return;if(loading){if(btn.dataset.origText===undefined)btn.dataset.origText=btn.textContent;btn.disabled=true;let f=0;clearInterval(btn._scrambleTimer);btn._scrambleTimer=setInterval(()=>{f++;const o=btn.dataset.origText||'',n=Math.floor((f/14)*o.length);btn.textContent=[...o].map((ch,i)=>ch===' '? ' ':i<n?ch:SCRAMBLE_CHARS[Math.floor(Math.random()*SCRAMBLE_CHARS.length)]).join('');if(n>=o.length)f=0;},45);}else{clearInterval(btn._scrambleTimer);btn.disabled=false;if(btn.dataset.origText!==undefined)btn.textContent=btn.dataset.origText;}}
 // src by SRT X CHEATS. Copy right SRT X CHEATS
