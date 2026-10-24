@@ -131,31 +131,6 @@ require __DIR__ . '/includes/nav.php';
     </div>
 </div>
 
-<style>
-/* src by SRT X CHEATS. Copy right SRT X CHEATS */
-.ann-card { max-width: 460px; width: 100%; text-align: center; position: relative; overflow: hidden; }
-.ann-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--neon-purple, #a855f7), var(--neon-blue, #22d3ee), var(--neon-amber, #d4af37)); }
-.ann-badge { width: 54px; height: 54px; margin: 6px auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px;
-    color: var(--neon-amber, #d4af37); background: rgba(212, 175, 55, .12); border: 1px solid rgba(212, 175, 55, .45); animation: annPulse 2.4s ease-in-out infinite; }
-@keyframes annPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, .35); } 50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); } }
-.ann-title { font-family: var(--font-heading, 'Orbitron', sans-serif); font-size: 15px; font-weight: 800; letter-spacing: .12em; }
-.ann-sub { display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 800; letter-spacing: .1em; color: var(--neon-blue, #22d3ee);
-    border: 1px solid currentColor; border-radius: 999px; padding: 2px 10px; opacity: .9; }
-/* the message itself: readable text on a soft gray card */
-.ann-msg { margin: 16px 0; padding: 14px 16px; text-align: left; max-height: 46vh; overflow-y: auto;
-    font: 500 14px/1.7 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: normal; word-spacing: normal;
-    white-space: pre-line; overflow-wrap: anywhere; color: #e5e7eb;
-    background: rgba(148, 163, 184, .16); border: 1px solid rgba(148, 163, 184, .30); border-left: 4px solid var(--neon-amber, #d4af37); border-radius: 12px; }
-[data-theme="light"] .ann-msg { color: #1f2937; background: #eceef2; border-color: #d3d7df; border-left-color: var(--neon-amber, #a8791f); }
-.ann-msg::-webkit-scrollbar { width: 5px; } .ann-msg::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, .5); border-radius: 999px; }
-.ann-gift { display: none; margin: 0 0 14px; padding: 12px; border-radius: 12px; border: 1px dashed rgba(212, 175, 55, .6); background: rgba(212, 175, 55, .08); }
-.ann-card .btn { width: 100%; }
-#noticeText { white-space: pre-line; overflow-wrap: anywhere; line-height: 1.65; padding: 10px 12px; border-radius: 10px; margin-top: 6px;
-    background: rgba(148, 163, 184, .14); border: 1px solid rgba(148, 163, 184, .26); border-left: 3px solid var(--neon-amber, #d4af37); }
-[data-theme="light"] #noticeText { background: #eceef2; border-color: #d3d7df; }
-@media (prefers-reduced-motion: reduce) { .ann-badge { animation: none; } }
-</style>
-
 <div id="announceModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="annTitle">
     <div class="panel ann-card">
         <div class="ann-badge"><i class="fas fa-bullhorn"></i></div>
