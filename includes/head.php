@@ -75,7 +75,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <?php if (!$fxOff): ?>
 <link rel="stylesheet" href="/assets/css/fx.css?v=20261018-2">
 <?php endif; ?>
-<link rel="stylesheet" href="/assets/css/glass.css?v=20261024-2">
+<link rel="stylesheet" href="/assets/css/glass.css?v=20261024-3">
 
 <script src="/assets/js/consent.js?v=20261025-1"></script>
 <script>
