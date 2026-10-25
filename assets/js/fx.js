@@ -34,7 +34,7 @@
 
   var PAGE = window.SRT_FX_PAGE || '';
   // src by SRT X CHEATS. Copy right SRT X CHEATS
-  var LOGO = 'https://i.postimg.cc/qqYtBD3k/file-00000000470c8208bd1a0215abff7977.png';
+  var LOGO = '/assets/img/logo.png?v=1';
 
   var GENERIC_STEPS = [['fa-shield-halved', 'Securing connection'], ['fa-database', 'Loading your data'], ['fa-circle-check', 'All set']];
   var PAGES = {
