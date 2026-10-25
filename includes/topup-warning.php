@@ -38,14 +38,30 @@
 (function () {
   var box = document.getElementById('fakePayWarn');
   var topBtn = document.getElementById('fakePayBtn');
+  // The strike warning (banner + the triangle button in the nav) is shown for exactly 1 hour, counted from the moment
+  // this browser FIRST displays it, then it disappears for good. The strike itself stays on the account (3-strike ladder).
+  var SHOW_MS = 3600000;
+  function firstShown(f) {
+    var key = 'srtx_fp_seen:' + (f.lastAt || ('c' + f.count)) + ':' + (f.lastTx || '');   // a NEW strike gets a new key -> a new hour
+    try {
+      var v = Number(localStorage.getItem(key));
+      if (v > 0) return v;
+      v = Date.now(); localStorage.setItem(key, String(v)); return v;
+    } catch (_) {
+      // storage blocked: fall back to counting from when the strike was given
+      var t = f.lastAt ? new Date(f.lastAt).getTime() : NaN;
+      return isNaN(t) ? Date.now() : t;
+    }
+  }
   function render(d) {
     var f = d && d.fakePayment;
-    // the warning only shows for 1 hour after the strike was given (the strike itself stays on the account)
-    var age = (f && f.lastAt) ? Date.now() - new Date(f.lastAt).getTime() : 0;
-    var expired = !!(f && f.lastAt && !isNaN(age) && age > 3600000);
-    var n = (f && f.count && !expired) ? Math.min(Number(f.count), 3) : 0;
+    var n = 0, left = 0;
+    if (f && Number(f.count) > 0) {
+      left = SHOW_MS - (Date.now() - firstShown(f));
+      if (left > 0) n = Math.min(Number(f.count), 3);
+    }
     clearTimeout(window.__fpTimer);
-    if (n && f.lastAt && !isNaN(age)) window.__fpTimer = setTimeout(function () { render(d); }, Math.max(1000, 3600000 - age + 500));
+    if (n) window.__fpTimer = setTimeout(function () { render(d); }, Math.max(1000, left + 300));   // hides itself when the hour is up
     var text = n ? (f.text || 'A payment you submitted was marked as fake.') : '';
     var title = 'Payment verification — fake payment warning ' + n + '/3';
     if (topBtn) {
