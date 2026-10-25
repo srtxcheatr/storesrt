@@ -1119,8 +1119,7 @@ function planRowsHtml(items, gi) {
         <label class="pm2-opt${off ? ' off' : ''}" data-no-busy>
             <input type="radio" name="planOpt" value="${esc(it.sku)}" ${off ? 'disabled' : ''} ${sel ? 'checked' : ''}>
             <span class="pm2-radio"></span>
-            <span class="pm2-opt-txt"><span class="pm2-opt-dur">${esc(it.duration)}</span><span class="pm2-opt-price">Rs ${esc(it.price)}</span></span>
-            ${badge ? `<span class="pm2-badge">${badge}</span>` : ''}
+            <span class="pm2-opt-txt"><span class="pm2-opt-dur">${esc(it.duration)}</span>${badge ? `<span class="pm2-badge">${badge}</span>` : ''}<span class="pm2-opt-price">Rs ${esc(it.price)}</span></span>
         </label>`;
     }).join('') + `</div>`;
 }
