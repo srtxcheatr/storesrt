@@ -75,7 +75,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <?php if (!$fxOff): ?>
 <link rel="stylesheet" href="/assets/css/fx.css?v=20261018-2">
 <?php endif; ?>
-<link rel="stylesheet" href="/assets/css/glass.css?v=20261025-1">
+<link rel="stylesheet" href="/assets/css/glass.css?v=20261025-3">
 
 <script src="/assets/js/consent.js?v=20261025-1"></script>
 <script>
@@ -105,7 +105,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 </script>
 <script src="/assets/js/toast.js?v=20261014-2"></script>
 <script src="/assets/js/ban.js?v=20261014-2"></script>
-<script src="/assets/js/busy.js?v=20261014-4"></script>
+<script src="/assets/js/busy.js?v=20261025-3"></script>
 <?php if (!$fxOff): ?>
 <script>
     // src by SRT X CHEATS. Copy right SRT X CHEATS

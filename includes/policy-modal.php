@@ -35,7 +35,7 @@
 </style>
 
 <script type="module">
-import { backendFetch, getAuthToken, getData, cachePatch } from '/assets/js/app.js?v=20261018-2';
+import { backendFetch, getAuthToken, getData, cachePatch } from '/assets/js/app.js?v=20261025-3';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
 let policyLoaded = false;
