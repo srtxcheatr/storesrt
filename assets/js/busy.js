@@ -36,6 +36,41 @@
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     window.srtxBusyTouch = function (el) { if (el) last = { el: el, t: Date.now() }; };
 
+
+    // ---- circle loader: a loading .btn shrinks into a round spinner (and grows back) ----
+    var MORPH_SEL = '.btn:not([data-no-morph])';
+    var morphTimers = new WeakMap();
+    function morphOn(el) {
+        if (el.classList.contains('is-morph')) return;
+        var t = morphTimers.get(el); if (t) { clearTimeout(t); morphTimers.delete(el); }
+        var fresh = el.__pinT && Date.now() - el.__pinT < 3000;
+        var w = (fresh && el.__pinW) || el.offsetWidth, h = (fresh && el.__pinH) || el.offsetHeight;
+        if (!w || !h) return;
+        el.__origW = w;
+        el.style.width = w + 'px';
+        el.style.setProperty('--mh', Math.max(38, Math.min(h, 54)) + 'px');
+        void el.offsetWidth;                       // commit the pinned width so the transition has a start
+        el.classList.add('is-morph');
+    }
+    function morphOff(el) {
+        if (!el.classList.contains('is-morph')) return;
+        el.classList.remove('is-morph');
+        if (el.__origW) el.style.width = el.__origW + 'px';
+        var t = setTimeout(function () { el.style.width = ''; el.style.removeProperty('--mh'); el.__pinW = el.__pinH = 0; morphTimers.delete(el); }, 420);
+        morphTimers.set(el, t);
+    }
+    window.srtxMorph = function (el, on) { if (!el) return; if (on) { el.__pinW = el.offsetWidth; el.__pinH = el.offsetHeight; el.__pinT = Date.now(); morphOn(el); } else morphOff(el); };
+    if (window.MutationObserver) {
+        new MutationObserver(function (list) {
+            for (var i = 0; i < list.length; i++) {
+                var el = list[i].target;
+                if (!el.matches || !el.matches(MORPH_SEL)) continue;
+                var on = el.classList.contains('loading') || el.classList.contains('srtx-busy');
+                if (on) morphOn(el); else morphOff(el);
+            }
+        }).observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    }
+
     var states = new WeakMap();
     var live = [];
     var last = null;
@@ -45,6 +80,7 @@
         var el = e.target && e.target.closest ? e.target.closest(SEL) : null;
         if (!el || el.disabled || el.hasAttribute('data-no-busy') || el.closest('[data-no-busy]')) { last = null; return; }
         last = { el: el, t: Date.now() };
+        if (el.matches && el.matches(MORPH_SEL)) { el.__pinW = el.offsetWidth; el.__pinH = el.offsetHeight; el.__pinT = Date.now(); }
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     }, true);
 

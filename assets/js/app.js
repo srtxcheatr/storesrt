@@ -479,7 +479,7 @@ export function fmtDate(iso){if(!iso)return '';try{return new Date(iso).toLocale
 // escapes quotes too, so the result is safe inside HTML attributes (href="...", title="...") and not only in text nodes
 export function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 const SCRAMBLE_CHARS='!<>-_\\/[]{}—=+*^?#________';
-export function setButtonLoading(btn,loading){if(!btn)return;if(loading){if(btn.dataset.origText===undefined)btn.dataset.origText=btn.textContent;btn.disabled=true;let f=0;clearInterval(btn._scrambleTimer);btn._scrambleTimer=setInterval(()=>{f++;const o=btn.dataset.origText||'',n=Math.floor((f/14)*o.length);btn.textContent=[...o].map((ch,i)=>ch===' '? ' ':i<n?ch:SCRAMBLE_CHARS[Math.floor(Math.random()*SCRAMBLE_CHARS.length)]).join('');if(n>=o.length)f=0;},45);}else{clearInterval(btn._scrambleTimer);btn.disabled=false;if(btn.dataset.origText!==undefined)btn.textContent=btn.dataset.origText;}}
+export function setButtonLoading(btn,loading){if(!btn)return;if(loading){btn.disabled=true;if(window.srtxMorph)window.srtxMorph(btn,true);btn.classList.add('loading');}else{btn.classList.remove('loading');btn.disabled=false;if(window.srtxMorph)window.srtxMorph(btn,false);}}
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 export function enableTilt(root=document){
   if(!matchMedia('(pointer:fine)').matches)return;
