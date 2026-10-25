@@ -29,39 +29,37 @@ require __DIR__ . '/includes/nav.php';
         </div>
 
         <div class="panel reseller-card hidden" id="resellerCard">
-            <div class="prompt-header"><i class="fas fa-crown" style="color:var(--neon-amber)"></i> RESELLER MODE</div>
+            <div class="prompt-header"><i class="fas fa-crown" style="color:var(--neon-amber)"></i> <span id="rcTitle">UNLOCK RESELLER MODE</span></div>
             <div class="reseller-progress-row">
-                <div class="reseller-progress-item">
+                <div class="reseller-progress-item hidden" id="rcKeysItem">
                     <div class="rp-label">
                         <span><i class="fas fa-key"></i> Keys Bought</span>
                         <span class="rp-status" id="rpKeysStatus"><i class="fas fa-circle-xmark"></i></span>
                     </div>
                     <div class="rp-bar-track"><div class="rp-bar-fill" id="rpKeysBar"></div></div>
-                    <div class="rp-value mono-num" id="rpKeysValue">0 / 8</div>
+                    <div class="rp-value mono-num" id="rpKeysValue">0 / 10</div>
                 </div>
                 <div class="reseller-progress-item">
                     <div class="rp-label">
-                        <span><i class="fas fa-wallet"></i> Balance</span>
-                        <span class="rp-status" id="rpBalanceStatus"><i class="fas fa-circle-xmark"></i></span>
+                        <span><i class="fas fa-wallet"></i> Single Deposit</span>
+                        <span class="rp-status"><i class="fas fa-bolt"></i></span>
                     </div>
-                    <div class="rp-bar-track"><div class="rp-bar-fill" id="rpBalanceBar"></div></div>
-                    <div class="rp-value mono-num" id="rpBalanceValue">NRP 0 / NRP 1500</div>
+                    <div class="rp-value mono-num" id="rpDepositValue">NRP 2000 in one deposit</div>
                 </div>
             </div>
 
             <div class="rp-benefit">
-                <div class="rp-benefit-label"><i class="fas fa-circle-question"></i> What's the benefit of Reseller Mode?</div>
-                <div class="rp-benefit-answer">
+                <div class="rp-benefit-label"><i class="fas fa-circle-question"></i> <span id="rcBenefitLabel">What's the benefit of Reseller Mode?</span></div>
+                <div class="rp-benefit-answer" id="rcBenefit">
                     Resellers buy every product at a discounted price —
                     <span class="rp-benefit-price"><s>NRP 100</s> → <b>NRP 50</b></span>
                 </div>
             </div>
 
-            <button class="btn btn-solid reseller-shift-btn" id="resellerShiftBtn" disabled style="width:100%;margin-top:12px;position:relative">
-                <span class="btn-text"><i class="fas fa-crown"></i> Shift to Reseller Mode</span>
-                <span class="btn-spinner hidden"><span class="spinner"></span></span>
-            </button>
-            <div class="dim" id="resellerHint" style="font-size:11px;margin-top:8px;text-align:center">Buy or sell 8+ keys and hold a balance of NRP 1500+ to unlock reseller mode.</div>
+            <a class="btn btn-solid reseller-shift-btn" id="resellerShiftBtn" href="/admin/owner.php" style="display:block;width:100%;margin-top:12px;text-align:center;text-decoration:none">
+                <span class="btn-text"><i class="fas fa-coins"></i> <span id="rcBtnText">Deposit NRP 2000 to unlock</span></span>
+            </a>
+            <div class="dim" id="resellerHint" style="font-size:11px;margin-top:8px;text-align:center">Make ONE deposit of NRP 2000 or more. Small top-ups (100, 200 ...) are not added together.</div>
         </div>
 
         <div class="dash-stats-row">
@@ -169,16 +167,6 @@ require __DIR__ . '/includes/nav.php';
             </button>
         </div>
         <button class="btn btn-ghost" onclick="dismissAnnouncement()"><i class="fas fa-check"></i> Got it</button>
-    </div>
-</div>
-
-<div id="resellerVerifyModal" class="modal-overlay hidden">
-    <div class="panel" style="max-width:380px;width:100%;text-align:center">
-        <div id="resellerVerifyBody">
-            <div class="reseller-verify-spinner"><span class="spinner spinner-lg"></span></div>
-            <div class="prompt-header" style="justify-content:center;margin-top:14px"><i class="fas fa-crown" style="color:var(--neon-amber)"></i> VERIFYING</div>
-            <div style="font-size:12px;color:var(--text-secondary);margin-top:6px">Checking your keys sold and balance...</div>
-        </div>
     </div>
 </div>
 
@@ -378,111 +366,51 @@ function applyStats(s) {
 
 function renderResellerProgress(profile) {
     if (!profile) return;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    if (profile.minKeys === undefined) {
+    if (profile.resellerDeposit === undefined) {
         backendFetch('/api/user/reseller-progress').then(renderResellerProgress, () => {});
         return;
     }
     try {
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        const d = {
-            ...profile,
-            eligible: (profile.role || 'user') === 'user'
-                && profile.totalKeysBought >= profile.minKeys
-                && profile.balance >= profile.minBalance,
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        };
-        if (d.role === 'reseller' || d.role === 'pro_reseller') { document.getElementById('resellerCard').classList.add('hidden'); return; }
-        document.getElementById('resellerCard').classList.remove('hidden');
+        const role = profile.role || 'user';
+        const card = document.getElementById('resellerCard');
+        if (role === 'pro_reseller') { card.classList.add('hidden'); return; }
+        card.classList.remove('hidden');
+        const $ = (id) => document.getElementById(id);
+        const resDep = Number(profile.resellerDeposit) || 2000;
+        const proDep = Number(profile.proDeposit) || 3500;
+        const minKeys = Number(profile.proMinKeys) || 10;
+        const keys = Number(profile.totalKeysBought) || 0;
 
-        const keysDone = d.totalKeysBought >= d.minKeys;
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        const balDone = d.balance >= d.minBalance;
-        const keysPct = Math.min(100, (d.totalKeysBought / d.minKeys) * 100);
-        const balPct = Math.min(100, (d.balance / d.minBalance) * 100);
-
-        const keysBar = document.getElementById('rpKeysBar');
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        const balBar = document.getElementById('rpBalanceBar');
-        keysBar.style.width = keysPct + '%';
-        balBar.style.width = balPct + '%';
-        keysBar.classList.toggle('rp-bar-done', keysDone);
-        balBar.classList.toggle('rp-bar-done', balDone);
-// src by SRT X CHEATS. Copy right SRT X CHEATS
-
-        document.getElementById('rpKeysValue').textContent = `${d.totalKeysBought} / ${d.minKeys}`;
-        document.getElementById('rpBalanceValue').textContent = `NRP ${d.balance} / NRP ${d.minBalance}`;
-
-        const keysStatus = document.getElementById('rpKeysStatus');
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        const balStatus = document.getElementById('rpBalanceStatus');
-        keysStatus.innerHTML = keysDone ? '<i class="fas fa-circle-check"></i>' : '<i class="fas fa-circle-xmark"></i>';
-        keysStatus.classList.toggle('rp-status-done', keysDone);
-        balStatus.innerHTML = balDone ? '<i class="fas fa-circle-check"></i>' : '<i class="fas fa-circle-xmark"></i>';
-        balStatus.classList.toggle('rp-status-done', balDone);
-// src by SRT X CHEATS. Copy right SRT X CHEATS
-
-        const shiftBtn = document.getElementById('resellerShiftBtn');
-        const hint = document.getElementById('resellerHint');
-        if (d.eligible) {
-            shiftBtn.disabled = false;
-            // src by SRT X CHEATS. Copy right SRT X CHEATS
-            hint.textContent = 'Requirements met! Tap the button above to become a reseller.';
+        if (role === 'user') {
+            // RESELLER = ONE deposit of NRP 2000+
+            $('rcTitle').textContent = 'UNLOCK RESELLER MODE';
+            $('rcKeysItem').classList.add('hidden');
+            $('rpDepositValue').textContent = `NRP ${resDep} in one deposit`;
+            $('rcBtnText').textContent = `Deposit NRP ${resDep} to unlock`;
+            $('resellerHint').textContent = `Make ONE deposit of NRP ${resDep} or more. Small top-ups (100, 200 ...) are not added together.`;
+            $('rcBenefitLabel').textContent = "What's the benefit of Reseller Mode?";
+            $('rcBenefit').innerHTML = 'Resellers buy every product at a discounted price — <span class="rp-benefit-price"><s>NRP 100</s> → <b>NRP 50</b></span>';
         } else {
-            shiftBtn.disabled = true;
-            const remaining = [];
-            if (!keysDone) remaining.push(`${d.minKeys - d.totalKeysBought} more key${d.minKeys - d.totalKeysBought === 1 ? '' : 's'}`);
-            // src by SRT X CHEATS. Copy right SRT X CHEATS
-            if (!balDone) remaining.push(`NRP ${d.minBalance - d.balance} more balance`);
-            hint.textContent = `Still need: ${remaining.join(' and ')}.`;
+            // PRO RESELLER = 10+ keys bought AND ONE new deposit of NRP 3500+
+            const keysDone = keys >= minKeys;
+            $('rcTitle').textContent = 'UNLOCK PRO RESELLER';
+            $('rcKeysItem').classList.remove('hidden');
+            $('rpKeysBar').style.width = Math.min(100, (keys / minKeys) * 100) + '%';
+            $('rpKeysBar').classList.toggle('rp-bar-done', keysDone);
+            $('rpKeysValue').textContent = `${keys} / ${minKeys}`;
+            $('rpKeysStatus').innerHTML = keysDone ? '<i class="fas fa-circle-check"></i>' : '<i class="fas fa-circle-xmark"></i>';
+            $('rpKeysStatus').classList.toggle('rp-status-done', keysDone);
+            $('rpDepositValue').textContent = `NRP ${proDep} in one NEW deposit`;
+            $('rcBtnText').textContent = `Deposit NRP ${proDep} to unlock`;
+            $('resellerHint').textContent = keysDone
+                ? `Make ONE new deposit of NRP ${proDep} or more. Small top-ups (100, 200 ...) are not added together and old balance does not count.`
+                : `Buy ${minKeys - keys} more key${minKeys - keys === 1 ? '' : 's'} first, then make ONE new deposit of NRP ${proDep}+ (a deposit before ${minKeys} keys will not unlock PRO).`;
+            $('rcBenefitLabel').textContent = "What's the benefit of Pro Reseller?";
+            $('rcBenefit').textContent = 'PRO RESELLERS get the lowest prices on every product.';
         }
     } catch (e) {
     }
-// src by SRT X CHEATS. Copy right SRT X CHEATS
 }
-
-document.getElementById('resellerShiftBtn')?.addEventListener('click', async () => {
-    const btn = document.getElementById('resellerShiftBtn');
-    if (btn.disabled) return;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    btn.querySelector('.btn-text').classList.add('hidden');
-    btn.querySelector('.btn-spinner').classList.remove('hidden');
-    btn.disabled = true;
-
-    document.getElementById('resellerVerifyModal').classList.remove('hidden');
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    document.getElementById('resellerVerifyBody').innerHTML = `
-        <div class="reseller-verify-spinner"><span class="spinner spinner-lg"></span></div>
-        <div class="prompt-header" style="justify-content:center;margin-top:14px"><i class="fas fa-crown" style="color:var(--neon-amber)"></i> VERIFYING</div>
-        <div style="font-size:12px;color:var(--text-secondary);margin-top:6px">Checking your keys sold and balance...</div>
-    `;
-// src by SRT X CHEATS. Copy right SRT X CHEATS
-
-    try {
-        await new Promise(r => setTimeout(r, 1400));
-        await backendFetch('/api/user/apply-reseller', { method: 'POST' });
-        cachePatch('profile', { role: 'reseller' });
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        cacheInvalidate('catalog');
-
-        document.getElementById('resellerVerifyBody').innerHTML = `
-            <div style="font-size:40px;color:var(--neon-green)"><i class="fas fa-circle-check"></i></div>
-            <div class="prompt-header" style="justify-content:center;margin-top:14px"><i class="fas fa-crown" style="color:var(--neon-amber)"></i> YOU'RE NOW A RESELLER!</div>
-            <div style="font-size:12px;color:var(--text-secondary);margin-top:6px">Your role has been upgraded. Reload to see reseller pricing and the community link.</div>
-            <button class="btn btn-solid" style="width:100%;margin-top:16px" onclick="location.reload()"><i class="fas fa-rotate-right"></i> Reload Now</button>
-        `;
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        toast('Welcome to the reseller program!', 'success');
-    } catch (e) {
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        document.getElementById('resellerVerifyModal').classList.add('hidden');
-        toast(e.message || 'Could not upgrade right now.', 'error');
-        btn.querySelector('.btn-text').classList.remove('hidden');
-        btn.querySelector('.btn-spinner').classList.add('hidden');
-        getData('profile', { force: true }).then(renderResellerProgress, () => {});
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    }
-});
 
 function renderLeaderboard(rows) {
     const list = document.getElementById('leaderboardList');

@@ -19,7 +19,6 @@ require __DIR__ . '/includes/nav.php';
             <div class="rw-note">Counts every key from your orders (store + reseller API). Claim each mission once.</div>
         </div>
 
-        <div id="rwStar"></div>
 
         <div class="section-divider"><i class="fas fa-bullseye"></i> Missions</div>
         <div id="rwMissions">
@@ -65,7 +64,7 @@ require __DIR__ . '/includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, backendFetch, toast, esc, cachePeek, cacheInvalidate, applyBalanceChange, renderAvatar } from '/assets/js/app.js?v=20261025-4';
+import { requireAuth, backendFetch, toast, esc, cachePeek, cacheInvalidate, renderAvatar } from '/assets/js/app.js?v=20261025-4';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 import { BADGES, BANNERS, PROFILES, badgeHtml, avBadgeHtml, bannerClass, bannerInner, setAvatarBadge, applyProfileEffect, applyPageEffect } from '/assets/js/rewards-ui.js?v=20261026-1';
 
@@ -99,32 +98,7 @@ async function load() {
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 }
 
-function fmtDate(ms) { return new Date(ms).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', timeZone: 'Asia/Kathmandu' }); }
-
-function renderStar() {
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    const st = S.star; if (!st) { $('rwStar').innerHTML = ''; return; }
-    const into = st.newKeys % st.every, pct = st.active ? (into / st.every) * 100 : 0;
-    const date = fmtDate(st.from) + ' 2026, 12:00 AM';
-    let btn;
-    if (!st.active) btn = `<button class="btn btn-ghost" disabled><i class="fas fa-lock"></i> Unlocks ${date}</button>`;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    else if (!st.member) btn = `<button class="btn btn-ghost" disabled><i class="fas fa-lock"></i> Claim the STAR mission (500 keys) first</button>`;
-    else if (st.available > 0) btn = `<button class="btn btn-solid rw-claim-go" data-claim-star="1"><i class="fas fa-gift"></i> CLAIM Rs ${st.available * st.amount}</button>`;
-    else btn = `<button class="btn btn-ghost" disabled><i class="fas fa-key"></i> ${st.every - into} more new key${st.every - into === 1 ? '' : 's'} to unlock</button>`;
-    $('rwStar').innerHTML = `
-    <div class="panel rw-star">
-        <div class="rw-star-top">${badgeHtml('S', 30)}<div><div class="rw-star-title">STAR CASHBACK</div>
-        <div class="dim" style="font-size:11px">Rs ${st.amount} for every ${st.every} NEW keys you buy from ${date}. Keys bought before that are never counted.</div></div></div>
-        <div class="rw-bar" style="margin-top:12px"><i style="width:${pct}%"></i></div>
-        <div class="rw-star-stats"><div><b>${st.active ? st.newKeys : 0}</b><span>new keys counted</span></div><div><b>Rs ${st.earned}</b><span>cashback earned</span></div></div>
-        ${btn}
-    </div>`;
-// src by SRT X CHEATS. Copy right SRT X CHEATS
-}
-
 function render() {
-    renderStar();
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     renderSummary();
     renderMissions();
@@ -136,7 +110,7 @@ function renderSummary() {
     const t = S.totalKeysBought;
     $('rwTotal').textContent = t;
     $('pvRowKeys').textContent = t;
-    const next = S.missions.find((m) => !m.cb && t < m.keys);
+    const next = S.missions.find((m) => t < m.keys);
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     if (!next) {
         $('rwNext').textContent = 'Every mission is complete. Legend!';
@@ -144,7 +118,7 @@ function renderSummary() {
         return;
     }
     // src by SRT X CHEATS. Copy right SRT X CHEATS
-    const prev = [...S.missions].reverse().find((m) => !m.cb && m.keys <= t)?.keys || 0;
+    const prev = [...S.missions].reverse().find((m) => m.keys <= t)?.keys || 0;
     $('rwNext').textContent = `${next.keys - t} more key${next.keys - t === 1 ? '' : 's'} to “${next.title}”`;
     $('rwBar').style.width = Math.max(2, Math.min(100, ((t - prev) / (next.keys - prev)) * 100)) + '%';
 }
@@ -152,7 +126,6 @@ function renderSummary() {
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 function chips(m) {
     const out = [];
-    if (m.cashback) out.push(`<span class="rw-chip cash"><i class="fas fa-money-bill-wave"></i> Cashback Rs ${m.cashback}</span>`);
     if (m.badge) out.push(`<span class="rw-chip">${badgeHtml(m.badge, 15)} ${esc(BADGES[m.badge]?.label || m.badge)}</span>`);
     if (m.banner) out.push(`<span class="rw-chip"><i class="fas fa-ranking-star"></i> ${esc(BANNERS[m.banner]?.label || '')} banner</span>`);
     // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -168,15 +141,12 @@ function renderMissions() {
         const cls = m.claimed ? 'done' : m.ready ? 'ready' : '';
         const ico = m.claimed ? 'fa-check' : m.ready ? 'fa-gift' : 'fa-lock';
         // src by SRT X CHEATS. Copy right SRT X CHEATS
-        const when = fmtDate(m.opensAt) + ' 2026, 12:00 AM';
         const btn = m.claimed
             ? `<button class="btn btn-ghost" disabled><i class="fas fa-circle-check"></i> Claimed</button>`
-            : m.locked
-            ? `<button class="btn btn-ghost" disabled><i class="fas fa-lock"></i> Unlocks ${when}</button>`
             // src by SRT X CHEATS. Copy right SRT X CHEATS
             : m.ready
-            ? `<button class="btn btn-solid rw-claim-go" data-claim="${esc(m.id)}"><i class="fas fa-gift"></i> CLAIM${m.cashback ? ' Rs ' + m.cashback : ''}</button>`
-            : `<button class="btn btn-ghost" disabled><i class="fas fa-lock"></i> ${m.keys - t} more ${m.cb ? 'new ' : ''}key${m.keys - t === 1 ? '' : 's'} to unlock</button>`;
+            ? `<button class="btn btn-solid rw-claim-go" data-claim="${esc(m.id)}"><i class="fas fa-gift"></i> CLAIM</button>`
+            : `<button class="btn btn-ghost" disabled><i class="fas fa-lock"></i> ${m.keys - t} more key${m.keys - t === 1 ? '' : 's'} to unlock</button>`;
         return `
         <div class="rw-mission ${cls}" id="mis-${esc(m.id)}">
             <div class="rw-m-top">
@@ -184,17 +154,13 @@ function renderMissions() {
                 <div class="rw-m-count">${Math.min(t, m.keys)}/${m.keys}</div>
             </div>
             <div class="rw-rewards">${chips(m)}</div>
-            ${m.cb ? `<div class="dim" style="font-size:10.5px;margin-bottom:6px">Counts only keys you buy after ${when}. Old purchases are not counted.</div>` : ''}
             <div class="rw-bar"><i style="width:${pct}%"></i></div>
             ${btn}
         </div>`;
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     };
     // src by SRT X CHEATS. Copy right SRT X CHEATS
-    $('rwMissions').innerHTML =
-        S.missions.filter((m) => !m.cb).map(row).join('') +
-        `<div class="section-divider"><i class="fas fa-money-bill-wave"></i> Cashback — new purchases only</div>` +
-        S.missions.filter((m) => m.cb).map(row).join('');
+    $('rwMissions').innerHTML = S.missions.map(row).join('');
 }
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
@@ -257,8 +223,6 @@ document.addEventListener('click', async (e) => {
         renderPreview();
         return;
     }
-    const cs = e.target.closest('[data-claim-star]');
-    if (cs) return claimStar(cs);
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     const c = e.target.closest('[data-claim]');
     if (c) return claim(c);
@@ -273,9 +237,8 @@ async function claim(btn) {
     try {
         // src by SRT X CHEATS. Copy right SRT X CHEATS
         const r = await backendFetch('/api/rewards/claim', { method: 'POST', body: JSON.stringify({ id }) });
-        if (r.cashback) applyBalanceChange(r.newBalance);
         cacheInvalidate('leaderboard');
-        toast(r.cashback ? `+Rs ${r.cashback} added to your balance 🎉` : 'Reward unlocked 🎉', 'success');
+        toast('Reward unlocked 🎉', 'success');
         if (id === 'm500') toast('★ STAR unlocked — welcome to the top tier!', 'success');
         // src by SRT X CHEATS. Copy right SRT X CHEATS
         await load();
@@ -286,22 +249,6 @@ async function claim(btn) {
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     }
 }
-
-async function claimStar(btn) {
-    btn.disabled = true;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Claiming…';
-    try {
-        const r = await backendFetch('/api/rewards/claim-star', { method: 'POST', body: '{}' });
-        applyBalanceChange(r.newBalance);
-        toast(`+Rs ${r.cashback} STAR cashback added 🎉`, 'success');
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    } catch (err) {
-        toast(err.message || 'Could not claim right now.', 'error');
-    }
-    await load();
-}
-// src by SRT X CHEATS. Copy right SRT X CHEATS
 
 async function save() {
     const b = $('rwSave');
