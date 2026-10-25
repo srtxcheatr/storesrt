@@ -289,9 +289,10 @@ require __DIR__ . '/includes/nav.php';
         <div style="font-size:13px;line-height:1.6;color:var(--text-secondary);margin:14px 0 18px">
             You have <b style="color:var(--text-primary)">0 balance</b> and can't purchase any product — please top up first then try again.
         </div>
-        <a id="topupPromptWaBtn" href="#" target="_blank" rel="noopener" class="btn btn-solid" style="margin-bottom:8px;text-decoration:none;display:block">
-            <i class="fab fa-whatsapp"></i> Add Balance
-        </a>
+        <button type="button" id="topupPromptTgBtn" class="btn btn-solid" style="margin-bottom:8px" data-no-morph>
+            <i class="fab fa-telegram"></i> Deposit via Telegram
+        </button>
+        <a href="/admin/owner.php" class="btn btn-ghost" style="margin-bottom:8px;text-decoration:none"><i class="fas fa-qrcode"></i> Pay with QR</a>
         <button class="btn btn-ghost" onclick="closeModal('topupPromptModal')"><i class="fas fa-times"></i> Not Now</button>
     </div>
 </div>
@@ -1233,17 +1234,24 @@ function renderKeyRows(keys) {
     });
 }
 
-const WHATSAPP_TOPUP_NUMBER = <?= json_encode(WHATSAPP_TOPUP_NUMBER) ?>;
-const WHATSAPP_TOPUP_MESSAGE = <?= json_encode(WHATSAPP_TOPUP_MESSAGE) ?>;
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 let banCountdownInterval = null;
 
 function showTopupPrompt() {
-    const link = `https://wa.me/${WHATSAPP_TOPUP_NUMBER}?text=${encodeURIComponent(WHATSAPP_TOPUP_MESSAGE)}`;
-    document.getElementById('topupPromptWaBtn').href = link;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
     openModal('topupPromptModal');
 }
+document.getElementById('topupPromptTgBtn')?.addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    const tab = window.open('', '_blank');          // opened inside the tap so pop-up blockers allow it
+    btn.disabled = true;
+    try {
+        const r = await backendFetch('/api/user/telegram-deposit-link', { method: 'POST' });
+        if (tab) tab.location.href = r.url; else window.location.href = r.url;
+    } catch (err) {
+        if (tab) tab.close();
+        toast(err.message || 'Could not open Telegram. Please try again.', 'error');
+    } finally { btn.disabled = false; }
+});
 
 function showCheckoutBan(bannedUntil) {
     closeModal('topupPromptModal');
