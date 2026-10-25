@@ -279,3 +279,31 @@ body.fx-wild .modal-overlay .panel::before {
 .btn-confirm-yes::after { display: none; }
 .btn-confirm-yes.is-morph::after { display: block; }
 .btn-confirm-cancel { border-top: 1px solid var(--modal-row-border); margin-top: 12px; border-radius: 0 0 12px 12px; }
+
+/* ---------- loader fix: centered circle + visible spinning ring ---------- */
+.btn.btn-solid.is-morph, .btn.is-morph {
+    display: flex !important;            /* block-level, so margin:auto really centers it */
+    align-items: center; justify-content: center;
+    margin-left: auto !important; margin-right: auto !important;
+    flex: 0 0 var(--mh, 44px) !important;
+}
+.btn.btn-solid.is-morph { background: linear-gradient(135deg, #8b3dff, #ec4899) !important; }
+.btn.is-morph.is-morph::after,
+.fx-on .btn.btn-solid.is-morph::after,
+.fx-on .btn-buy.is-morph::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: auto !important;
+    left: 50% !important; top: 50% !important; right: auto !important; bottom: auto !important;
+    width: 24px !important; height: 24px !important;
+    margin: -12px 0 0 -12px !important;
+    translate: none !important; scale: none !important; rotate: none !important;
+    background: none !important;
+    border-radius: 50% !important;
+    border: 3px solid var(--spin-track) !important;
+    border-top-color: var(--spin-c) !important;
+    opacity: 1 !important;
+    animation: btnSpin .7s linear infinite !important;
+    display: block !important;
+}
+@keyframes btnSpin { to { transform: rotate(360deg); } }
