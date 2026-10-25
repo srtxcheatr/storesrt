@@ -17,10 +17,6 @@ $proCard = !empty($proCard);
 .pro-note{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.35);border-radius:12px;padding:12px;font-size:12.5px;line-height:1.7;margin-top:10px}
 </style>
 
-<?php if ($proCard): ?>
-<div class="panel pro-card hidden" id="proCard"></div>
-<?php endif; ?>
-
 <div id="proFormModal" class="modal-overlay hidden" style="z-index:1200">
   <div class="panel" style="max-width:420px;width:100%">
     <div class="prompt-header"><i class="fas fa-gem" style="color:var(--neon-amber)"></i> PRO RESELLER APPROVAL</div>
@@ -102,6 +98,11 @@ const showActive = () => showInfo({
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     buttons: [{ label: '<i class="fas fa-store"></i> Open Store', solid: true, href: '/store.php' }],
 });
+const showActiveInfo = () => showInfo({
+    icon: '👑', title: 'PRO RESELLER',
+    body: 'You are a <b>PRO RESELLER</b> — you buy keys at the lowest price. Sell them and earn 🤑',
+    buttons: [{ label: '<i class="fas fa-store"></i> Open Store', solid: true, href: '/store.php' }],
+});
 const showRejected = () => showInfo({
     icon: '❌', title: 'NOT APPROVED',
     body: 'Admin could not approve your PRO RESELLER details.<br>You can send a new request with correct details.',
@@ -110,33 +111,23 @@ const showRejected = () => showInfo({
 });
 
 function renderCard(s) {
-    const card = $('proCard'); if (!card) return;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    card.classList.remove('hidden');
-    const head = (pill, cls) => `<div class="pro-title"><i class="fas fa-gem" style="color:var(--neon-amber)"></i> PRO RESELLER${pill ? `<span class="pro-pill ${cls}">${pill}</span>` : ''}</div>`;
+    const btn = $('proCrownBtn'); if (!btn) return;
+    btn.classList.remove('hidden', 'active', 'pending', 'approved', 'idle');
+    btn.onclick = null;
     if (s.status === 'active' || s.role === 'pro_reseller') {
-        card.innerHTML = head('ACTIVE ✓', 'active') + '<div class="pro-sub" style="margin-bottom:0">You are a PRO RESELLER — you are buying keys at the lowest price. Sell them and earn 🤑</div>';
+        btn.classList.add('active'); btn.title = 'PRO RESELLER — Active';
+        btn.onclick = showActiveInfo;
     } else if (s.status === 'pending') {
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        card.innerHTML = head('VERIFYING', 'pending') + '<div class="pro-sub" style="margin-bottom:0"><i class="fas fa-hourglass-half"></i> Your details is verifying by admin. Please wait.</div>';
+        btn.classList.add('pending'); btn.title = 'PRO RESELLER — Verifying';
+        btn.onclick = showVerifying;
     } else if (s.status === 'approved') {
-        const pct = Math.min(100, (s.deposited / s.required) * 100);
-        card.innerHTML = head('VERIFIED ✅', 'approved') +
-            `<div class="pro-sub">Admin approved you. Make a <b>new top-up of ${nrp(s.required)}</b> to unlock PRO RESELLER prices. Old balance does not count.</div>` +
-            // src by SRT X CHEATS. Copy right SRT X CHEATS
-            `<div class="pro-bar"><i style="width:${pct}%"></i></div><div class="dim" style="font-size:11px">${nrp(s.deposited)} / ${nrp(s.required)} new top-up</div>` +
-            `<a class="btn btn-solid" href="/admin/owner.php" style="display:block;text-align:center;margin-top:12px;text-decoration:none"><i class="fas fa-coins"></i> Top up now</a>`;
-    } else if (s.role !== 'reseller') {
-        card.innerHTML = head('LOCKED 🔒', 'pending') +
-            '<div class="pro-sub">PRO RESELLER is locked. <b>Unlock RESELLER mode first</b> (from your Dashboard), then you can send your details for PRO RESELLER approval.</div>' +
-            // src by SRT X CHEATS. Copy right SRT X CHEATS
-            '<a class="btn" href="/dashboard.php" style="display:block;text-align:center;text-decoration:none"><i class="fas fa-crown"></i> Unlock Reseller Mode</a>';
+        btn.classList.add('approved'); btn.title = 'PRO RESELLER — Top up to unlock';
+        btn.onclick = () => showApproved(s);
+    } else if (s.role === 'reseller') {
+        btn.classList.add('idle'); btn.title = 'Apply for PRO RESELLER';
+        btn.onclick = openForm;
     } else {
-        card.innerHTML = head('', '') +
-            '<div class="pro-sub">Buy and sell keys at a <b>low cost</b> and earn money 🤑. Send approval, get verified by admin, then unlock the lowest prices.</div>' +
-            `<button type="button" class="btn btn-solid" id="proOpenForm" style="width:100%"><i class="fas fa-paper-plane"></i> Send approval for PRO RESELLER</button>`;
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        $('proOpenForm').addEventListener('click', openForm);
+        btn.classList.add('hidden');   // plain users: nothing in the top bar
     }
 }
 

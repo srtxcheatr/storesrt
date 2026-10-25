@@ -13,6 +13,7 @@
 .fakepay-warn .fp-dots i.on{background:currentColor}
 .fakepay-warn.hidden{display:none}
 </style>
+<?php if (empty($fpHideBanner)): ?>
 <div id="fakePayWarn" class="fakepay-warn hidden" role="alert">
   <div class="fp-ic">⚠️</div>
   <div>
@@ -21,6 +22,7 @@
     <div class="fp-dots" id="fpDots"><i></i><i></i><i></i></div>
   </div>
 </div>
+<?php endif; ?>
 
 <div id="topupDoneModal" class="modal-overlay hidden" style="z-index:1200">
   <div class="panel" style="max-width:400px;width:100%;text-align:center">
@@ -35,18 +37,30 @@
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 (function () {
   var box = document.getElementById('fakePayWarn');
+  var topBtn = document.getElementById('fakePayBtn');
   function render(d) {
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
     var f = d && d.fakePayment;
-    if (!f || !f.count) { box.classList.add('hidden'); return; }
-    var n = Math.min(Number(f.count), 3);
-    document.getElementById('fpTitle').textContent = 'Payment verification — fake payment warning ' + n + '/3';
-    document.getElementById('fpText').textContent = f.text || 'A payment you submitted was marked as fake.';
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
+    var n = (f && f.count) ? Math.min(Number(f.count), 3) : 0;
+    var text = n ? (f.text || 'A payment you submitted was marked as fake.') : '';
+    var title = 'Payment verification — fake payment warning ' + n + '/3';
+    if (topBtn) {
+      topBtn.classList.toggle('hidden', !n);
+      topBtn.classList.toggle('sev2', n >= 2);
+      topBtn.title = title;
+      topBtn.dataset.msg = title + '. ' + text;
+      var b = topBtn.querySelector('b'); if (b) b.textContent = n || '';
+    }
+    if (!box) return;
+    if (!n) { box.classList.add('hidden'); return; }
+    document.getElementById('fpTitle').textContent = title;
+    document.getElementById('fpText').textContent = text;
     document.querySelectorAll('#fpDots i').forEach(function (el, i) { el.classList.toggle('on', i < n); });
     box.classList.toggle('sev2', n >= 2);
     box.classList.remove('hidden');
   }
+  if (topBtn) topBtn.addEventListener('click', function () {
+    if (typeof window.toast === 'function') window.toast(topBtn.dataset.msg || '', 'error'); else alert(topBtn.dataset.msg || '');
+  });
   window.addEventListener('srtx:balance', function (e) { render(e.detail); });
   // src by SRT X CHEATS. Copy right SRT X CHEATS
   window.srtxRenderFakePay = render;

@@ -19,7 +19,7 @@ $env = static fn (string $k, string $d = '') => (($v = getenv($k)) !== false && 
 define('COPYRIGHT_NAME', $env('COPYRIGHT_NAME', 'SRT X CHEATS'));
 define('SITE_NAME', $env('SITE_NAME', 'SRT X CHEATS'));
 define('SITE_URL', rtrim($env('SITE_URL', 'https://www.srtxcheats.com'), '/'));
-define('SITE_ICON', $env('SITE_ICON', 'https://i.postimg.cc/DZ5ZZfNY/xitexe-logo.png'));
+define('SITE_ICON', $env('SITE_ICON', 'https://www.srtxcheats.com/assets/img/logo.png'));
 define('DEVELOPER_URL', $env('DEVELOPER_URL', 'https://about.srtxcheats.com/'));
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 define('BACKEND_URL', rtrim($env('BACKEND_URL', 'https://repromax5.onrender.com'), '/'));
