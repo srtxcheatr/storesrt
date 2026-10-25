@@ -62,6 +62,20 @@ require __DIR__ . '/includes/nav.php';
     </div>
 </div>
 
+<style>
+/* close (X) button: solid red circle, big white X */
+#planModal .plan-close, #checkoutModal .plan-close {
+    position:absolute !important; right:12px !important; width:38px !important; height:38px !important; padding:0 !important; margin:0 !important;
+    display:flex !important; align-items:center !important; justify-content:center !important; border-radius:50% !important; cursor:pointer;
+    background:#ef4444 !important; border:2px solid #fff !important; color:#fff !important; box-shadow:0 4px 14px rgba(239,68,68,.55) !important; z-index:10 !important;
+}
+#planModal .plan-close { top:50% !important; transform:translateY(-50%); }
+#planModal .pm2-head { position:relative; }
+#checkoutModal .plan-close { top:12px !important; }
+#planModal .plan-close i, #checkoutModal .plan-close i { color:#fff !important; font-size:18px !important; line-height:1 !important; }
+#planModal .plan-close:active, #checkoutModal .plan-close:active { background:#b91c1c !important; transform:translateY(-50%) scale(.94); }
+#checkoutModal .plan-close:active { transform:scale(.94); }
+</style>
 <div id="planModal" class="modal-overlay hidden">
     <div class="panel pm2" role="dialog" aria-modal="true" aria-labelledby="pm2Title">
         <div class="pm2-head"><i class="fas fa-cart-shopping"></i><span id="pm2Title">SELECT PLAN</span>
@@ -1114,7 +1128,7 @@ function planRowsHtml(items, gi) {
         const down = isMaintenanceProduct(it);
         const off = !planAvailable(it);
         const sel = firstOk && it.sku === firstOk.sku;
-        const badge = off ? (down ? 'Maintenance' : 'Sold out') : (sel && items.filter(planAvailable).length > 1 ? 'Best for testing' : '');
+        const badge = off ? (down ? 'Maintenance' : 'Sold out') : '';
         return `
         <label class="pm2-opt${off ? ' off' : ''}" data-no-busy>
             <input type="radio" name="planOpt" value="${esc(it.sku)}" ${off ? 'disabled' : ''} ${sel ? 'checked' : ''}>
