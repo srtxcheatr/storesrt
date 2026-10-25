@@ -1,6 +1,6 @@
 <?php // src by SRT X CHEATS. Copy right SRT X CHEATS
 $pageTitle = 'Store — SRT X CHEATS';
-$metaDescription = 'SRT X CHEATS store: Glory Bot and panels for iOS, Android Root/Non-Root and PC.';
+$metaDescription = 'SRT X CHEATS store: panels for iOS, Android Root/Non-Root and PC.';
 $indexable = true;
 $currentPage = 'store';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -12,7 +12,7 @@ require __DIR__ . '/includes/nav.php';
 <div class="term-window">
     <div class="term-content">
 
-        <?php require __DIR__ . '/includes/topup-warning.php'; ?>
+        <?php $fpHideBanner = true; require __DIR__ . '/includes/topup-warning.php'; ?>
 
         <div class="store-balance-chip tilt">
             <div><i class="fas fa-wallet" style="color:var(--neon-amber)"></i> <span class="mono-num gold-text" id="balAmount" style="font-weight:800;font-size:16px">NRP —</span></div>
@@ -21,17 +21,6 @@ require __DIR__ . '/includes/nav.php';
                 <a href="/admin/owner.php" style="font-size:11px;font-weight:700;color:var(--neon-purple);text-decoration:none"><i class="fas fa-circle-plus"></i> Add Balance</a>
             </div>
         </div>
-
-        <?php $proCard = true; require __DIR__ . '/includes/pro-reseller.php'; ?>
-
-        <a href="/glorybot.php" class="gstock-banner hidden" id="gloryStockBanner">
-            <div class="gsb-icon"><i class="fas fa-robot"></i></div>
-            <div class="gsb-text">
-                <div class="gsb-title">FF Glory Bot</div>
-                <div class="gsb-sub" id="gsbSub">Checking stock…</div>
-            </div>
-            <span class="gsb-pill" id="gsbPill">—</span>
-        </a>
 
         <a href="https://vt.tiktok.com/ZSbLMH1e3/" target="_blank" class="how-to-buy-banner tilt">
             <div class="htb-icon"><i class="fas fa-circle-play"></i></div>
@@ -347,26 +336,6 @@ require __DIR__ . '/includes/nav.php';
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
 }
 
-.gstock-banner {
-    display: flex; align-items: center; gap: 12px; padding: 12px 14px; margin-bottom: 12px;
-    background: linear-gradient(135deg, rgba(16,185,129,0.10), rgba(34,211,238,0.08));
-    /* src by SRT X CHEATS. Copy right SRT X CHEATS */
-    border: 1px solid rgba(16,185,129,0.35); border-radius: var(--radius-lg);
-    text-decoration: none; color: inherit; transition: border-color .2s ease, transform .2s ease;
-}
-.gstock-banner:hover { border-color: #34d399; transform: translateY(-1px); }
-.gstock-banner.hidden { display: none; }
-/* src by SRT X CHEATS. Copy right SRT X CHEATS */
-.gstock-banner.out { border-color: rgba(239,68,68,.4); background: linear-gradient(135deg, rgba(239,68,68,0.10), rgba(0,0,0,0)); }
-.gsb-icon { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(16,185,129,.16); color: #34d399; font-size: 18px; }
-.gstock-banner.out .gsb-icon { background: rgba(239,68,68,.16); color: #f87171; }
-.gsb-text { flex: 1; min-width: 0; }
-.gsb-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
-/* src by SRT X CHEATS. Copy right SRT X CHEATS */
-.gsb-sub { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
-.gsb-pill { flex: 0 0 auto; font-size: 12px; font-weight: 800; padding: 6px 12px; border-radius: 99px; color: #34d399; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.4); white-space: nowrap; }
-.gstock-banner.low .gsb-pill { color: #fbbf24; background: rgba(251,191,36,.12); border-color: rgba(251,191,36,.4); }
-.gstock-banner.out .gsb-pill { color: #f87171; background: rgba(239,68,68,.12); border-color: rgba(239,68,68,.4); }
 .how-to-buy-banner {
     /* src by SRT X CHEATS. Copy right SRT X CHEATS */
     display: flex; align-items: center; gap: 12px;
@@ -769,30 +738,9 @@ window.addEventListener('srtx:data', (e) => {
     }
 });
 
-async function loadGloryStock() {
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    const el = document.getElementById('gloryStockBanner');
-    if (!el) return;
-    try {
-        const d = await backendFetch('/api/glory/regions');
-        const st = d && d.stock;
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        if (!st || !st.enabled) { el.classList.add('hidden'); return; }
-        const out = st.available <= 0;
-        el.classList.remove('hidden', 'low', 'out');
-        if (out) el.classList.add('out'); else if (st.available <= 1) el.classList.add('low');
-        document.getElementById('gsbSub').textContent = out
-            // src by SRT X CHEATS. Copy right SRT X CHEATS
-            ? 'No squads available right now — check back soon'
-            : `${st.available} squad${st.available === 1 ? '' : 's'} available`;
-        document.getElementById('gsbPill').textContent = out ? 'OUT OF STOCK' : `${st.available} available`;
-    } catch (_) { el.classList.add('hidden'); }
-}
-// src by SRT X CHEATS. Copy right SRT X CHEATS
 
 requireAuth(async (user) => {
     currentUid = user.uid;
-    loadGloryStock();
     await Promise.all([loadBalance(), loadCatalog()]);
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     routeHash();

@@ -10,7 +10,6 @@ require __DIR__ . '/includes/nav.php';
     <div class="term-content">
 
         <?php require __DIR__ . '/includes/topup-warning.php'; ?>
-        <?php $proCard = false; require __DIR__ . '/includes/pro-reseller.php'; ?>
 
         <div class="dash-hero tilt">
             <div class="dash-hero-top">
