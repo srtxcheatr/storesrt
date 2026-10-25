@@ -63,27 +63,55 @@ require __DIR__ . '/includes/nav.php';
 </div>
 
 <div id="planModal" class="modal-overlay hidden">
-    <div class="panel plan-popup" style="max-width:430px;width:100%">
-        <button type="button" class="plan-close" data-no-busy aria-label="Close" onclick="closeModal('planModal')"><i class="fas fa-xmark"></i></button>
-        <div class="prompt-header"><i class="fas fa-cart-shopping"></i> SELECT PLAN</div>
-        <div id="planProductName" class="plan-product-name"></div>
-        <div id="planDurationList"></div>
+    <div class="panel pm2" role="dialog" aria-modal="true" aria-labelledby="pm2Title">
+        <div class="pm2-head"><i class="fas fa-cart-shopping"></i><span id="pm2Title">SELECT PLAN</span>
+            <button type="button" class="plan-close" data-no-busy aria-label="Close" onclick="closeModal('planModal')"><i class="fas fa-xmark"></i></button>
+        </div>
+        <div class="pm2-body">
+            <div class="pm2-product">
+                <div class="pm2-thumb"><i id="planThumbIcon" class="fas fa-gamepad"></i></div>
+                <div>
+                    <div class="pm2-label">Product</div>
+                    <div id="planProductName" class="pm2-name"></div>
+                    <div id="planProductSub" class="pm2-sub"></div>
+                </div>
+            </div>
+            <div class="pm2-sect"><h3>Choose Duration</h3><p>Select how long you want to use this product.</p></div>
+            <div id="planDurationList" role="radiogroup" aria-label="Duration"></div>
+        </div>
+        <div class="pm2-foot">
+            <div class="pm2-qtyrow"><span>Quantity</span>
+                <div class="pm2-qty" data-no-busy>
+                    <button type="button" id="planQtyMinus" aria-label="Decrease quantity" data-no-busy>&minus;</button>
+                    <output id="planQty">1</output>
+                    <button type="button" id="planQtyPlus" aria-label="Increase quantity" data-no-busy>+</button>
+                </div>
+            </div>
+            <div class="pm2-buyrow">
+                <div class="pm2-total"><span>Total</span><b id="planTotal">Rs 0.00</b>
+                    <div class="pm2-secure"><i class="fas fa-shield-halved"></i> Secure &amp; Fast Purchase</div></div>
+                <button type="button" class="pm2-buy" id="planBuyBtn" data-no-busy>Buy Now <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
     </div>
 </div>
 
 <div id="checkoutModal" class="modal-overlay hidden">
-    <div class="panel confirm-panel" style="max-width:400px;width:100%">
-        <div class="confirm-title">CONFIRM PURCHASE?</div>
-        <div id="checkoutSummary" class="confirm-lines"></div>
+    <div class="panel confirm-panel pm2c" role="dialog" aria-modal="true" aria-labelledby="pm2cTitle">
+        <button type="button" class="plan-close" data-no-busy aria-label="Close" onclick="closeModal('checkoutModal')"><i class="fas fa-xmark"></i></button>
+        <div class="pm2c-icon"><i class="fas fa-cart-shopping"></i></div>
+        <h2 class="pm2c-title confirm-title" id="pm2cTitle" style="font-size:26px;letter-spacing:0;text-transform:none;margin:0">Confirm Purchase?</h2>
+        <p class="pm2c-sub">Please review your order details before proceeding.</p>
+        <div id="checkoutSummary"></div>
         <div id="payFields" class="confirm-fields hidden">
             <div class="field"><label><i class="fas fa-user"></i> Your Name</label><input type="text" id="payName" placeholder="Full name"></div>
             <div class="field"><label><i class="fab fa-whatsapp"></i> WhatsApp Number</label><input type="text" id="payWA" placeholder="98xxxxxxxx"></div>
         </div>
         <button class="btn btn-solid btn-confirm-yes" id="confirmBuyBtn" style="position:relative">
-            <span class="btn-text">YES, CONFIRM</span>
+            <span class="btn-text"><i class="fas fa-shield-halved"></i><span class="mid">YES, CONFIRM</span><i class="fas fa-arrow-right"></i></span>
             <span class="btn-spinner hidden"><span class="spinner"></span></span>
         </button>
-        <button type="button" class="btn-confirm-cancel" data-no-busy onclick="closeModal('checkoutModal')">CANCEL</button>
+        <button type="button" class="btn-confirm-cancel" data-no-busy onclick="closeModal('checkoutModal')"><i class="far fa-circle-xmark"></i> CANCEL</button>
     </div>
 </div>
 
@@ -1077,47 +1105,84 @@ let pendingPlan = null;
 let purchaseQuantity = 1;
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
+let planState = { gi: -1, sku: null, qty: 1 };
+const planAvailable = (it) => !isMaintenanceProduct(it) && !isOutOfStockProduct(it);
+
 function planRowsHtml(items, gi) {
-    return `<div class="plan-rows">` + items.map(it => {
+    const firstOk = items.find(planAvailable);
+    return `<div class="pm2-opts">` + items.map(it => {
         const down = isMaintenanceProduct(it);
-        const out = !down && isOutOfStockProduct(it);
-        const off = down || out;
+        const off = !planAvailable(it);
+        const sel = firstOk && it.sku === firstOk.sku;
+        const badge = off ? (down ? 'Maintenance' : 'Sold out') : (sel && items.filter(planAvailable).length > 1 ? 'Best for testing' : '');
         return `
-        <div class="plan-row${off ? ' off' : ''}">
-            <div class="pr-info">
-                <span class="pr-dur">${esc(it.duration)}</span>
-                <span class="pr-price">${off ? (down ? 'Maintenance' : 'Sold out') : `Rs ${esc(it.price)}`}</span>
-            </div>
-            ${off ? '' : `<input class="pr-qty" type="number" inputmode="numeric" min="1" max="10" value="1" aria-label="Quantity" data-no-busy>`}
-            <button type="button" class="pr-buy" data-no-busy ${off ? 'disabled' : `onclick="window.__buyRow('${esc(it.sku)}', this)"`}>${off ? '<i class="fas fa-lock"></i>' : 'BUY'}</button>
-        </div>`;
+        <label class="pm2-opt${off ? ' off' : ''}" data-no-busy>
+            <input type="radio" name="planOpt" value="${esc(it.sku)}" ${off ? 'disabled' : ''} ${sel ? 'checked' : ''}>
+            <span class="pm2-radio"></span>
+            <span class="pm2-opt-txt"><span class="pm2-opt-dur">${esc(it.duration)}</span><span class="pm2-opt-price">Rs ${esc(it.price)}</span></span>
+            ${badge ? `<span class="pm2-badge">${badge}</span>` : ''}
+        </label>`;
     }).join('') + `</div>`;
+}
+
+function planUpdateTotal() {
+    const raw = catalog[planState.sku];
+    const total = raw ? Number(raw.price) * planState.qty : 0;
+    document.getElementById('planTotal').textContent = `Rs ${total.toFixed(2)}`;
+    document.getElementById('planQty').textContent = planState.qty;
+    document.getElementById('planBuyBtn').disabled = !raw;
+}
+
+function productIconClass(row, items) {
+    const t = tagsOf(row, items)[0];
+    return t === 'PC' ? 'fas fa-desktop' : t === 'IOS' ? 'fab fa-apple' : (t === 'ROOT' || t === 'NONROOT') ? 'fas fa-mobile-screen-button' : 'fas fa-gamepad';
 }
 
 function openPlanPicker(gi) {
     const group = lastGroups[gi];
     if (!group) return;
-    if (!group.items.some(it => !isMaintenanceProduct(it) && !isOutOfStockProduct(it))) return toast('This product is currently unavailable.', 'error');
+    if (!group.items.some(planAvailable)) return toast('This product is currently unavailable.', 'error');
+    const first = group.items[0] || {};
+    const sub = String(first.subtitle || first.tagline || first.description || '').trim();
     document.getElementById('planProductName').textContent = group.row;
+    document.getElementById('planProductSub').textContent = sub.slice(0, 80);
+    document.getElementById('planThumbIcon').className = productIconClass(group.row, group.items);
     document.getElementById('planDurationList').innerHTML = planRowsHtml(group.items, gi);
+    const firstOk = group.items.find(planAvailable);
+    planState = { gi, sku: firstOk ? firstOk.sku : null, qty: 1 };
+    planUpdateTotal();
     openModal('planModal');
 }
 window.__buySelected = (gi) => openPlanPicker(gi);
 
-window.__buyRow = (sku, btn) => {
+document.getElementById('planDurationList').addEventListener('change', (e) => {
+    if (e.target.name !== 'planOpt') return;
+    planState.sku = e.target.value;
+    planUpdateTotal();
+});
+document.getElementById('planQtyMinus').addEventListener('click', () => { planState.qty = Math.max(1, planState.qty - 1); planUpdateTotal(); });
+document.getElementById('planQtyPlus').addEventListener('click', () => { planState.qty = Math.min(10, planState.qty + 1); planUpdateTotal(); });
+document.getElementById('planBuyBtn').addEventListener('click', () => window.__buyRow(planState.sku, planState.qty));
+
+window.__buyRow = (sku, qtyIn) => {
     const raw = catalog[sku];
-    if (!raw || isMaintenanceProduct(raw) || isOutOfStockProduct(raw)) return toast('This plan is currently unavailable.', 'error');
-    const qIn = btn.closest('.plan-row')?.querySelector('.pr-qty');
-    const qty = Math.max(1, Math.min(10, parseInt(qIn?.value, 10) || 1));
-    if (qIn) qIn.value = qty;
+    if (!raw || !planAvailable(raw)) return toast('This plan is currently unavailable.', 'error');
+    const qty = Math.max(1, Math.min(10, parseInt(qtyIn, 10) || 1));
     const p = { ...raw, sku };
     purchaseQuantity = qty;
     pendingCheckout = { sku, ...p, quantity: qty };
+    const grp = lastGroups[planState.gi];
+    const icon = grp ? productIconClass(grp.row, grp.items) : 'fas fa-gamepad';
     document.getElementById('checkoutSummary').innerHTML = `
-        <div>Product: <b>${esc(p.row || p.name)}</b></div>
-        <div>Duration: <b>${esc(p.duration)}</b></div>
-        <div>Quantity: <b>${qty}</b></div>
-        <div class="cl-total">Total: <b>Rs ${(Number(p.price) * qty).toFixed(2)}</b></div>`;
+        <div class="pm2c-card">
+            <div class="pm2c-prod">
+                <div class="pm2-thumb"><i class="${icon}"></i></div>
+                <div style="text-align:left"><div class="pm2-label">Product</div><div class="pm2-name">${esc(p.row || p.name)}</div></div>
+            </div>
+            <div class="pm2c-line"><i class="far fa-clock"></i><span>Duration</span><b class="acc">${esc(p.duration)}</b></div>
+            <div class="pm2c-line"><i class="fas fa-cube"></i><span>Quantity</span><b>${qty}</b></div>
+        </div>
+        <div class="pm2c-total"><i class="fas fa-wallet"></i><span>Total</span><b>Rs ${(Number(p.price) * qty).toFixed(2)}</b></div>`;
     // name + WhatsApp come from the profile; only ask when missing
     const nameEl = document.getElementById('payName'), waEl = document.getElementById('payWA');
     document.getElementById('payFields').classList.toggle('hidden', !!(nameEl.value.trim() && waEl.value.trim()));
