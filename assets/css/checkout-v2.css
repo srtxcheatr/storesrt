@@ -10,9 +10,15 @@
 /* ================= SELECT PLAN ================= */
 .pm2 { max-width:380px; padding:0 !important; overflow:hidden; display:flex; flex-direction:column;
     max-height:calc(100vh - 24px); max-height:calc(100dvh - 24px); border-radius:16px !important; }
-.pm2 .plan-close { position:absolute !important; top:9px; right:10px; width:28px; height:28px; font-size:13px; border-radius:8px; background:transparent; border:0; }
+/* clearly visible close (X) button */
+.pm2 .plan-close, .pm2c .plan-close { position:absolute !important; width:36px; height:36px; padding:0; font-size:17px; border-radius:50%; cursor:pointer; z-index:5 !important;
+    display:flex; align-items:center; justify-content:center; color:#fff; background:rgba(239,68,68,.22) !important; border:1.5px solid rgba(239,68,68,.75) !important; box-shadow:0 0 0 3px rgba(239,68,68,.12); }
+.pm2 .plan-close { top:7px; right:10px; }
+.pm2c .plan-close { top:10px; right:10px; }
+[data-theme="light"] .pm2 .plan-close, [data-theme="light"] .pm2c .plan-close { color:#b91c1c; }
+.pm2 .plan-close:hover, .pm2c .plan-close:hover, .pm2 .plan-close:active, .pm2c .plan-close:active { background:#ef4444 !important; color:#fff; border-color:#ef4444 !important; }
 
-.pm2-head { display:flex; align-items:center; gap:9px; padding:12px 44px 11px 14px; border-bottom:1px solid var(--modal-row-border);
+.pm2-head { display:flex; align-items:center; gap:9px; padding:12px 56px 11px 14px; border-bottom:1px solid var(--modal-row-border);
     font-family:var(--font-heading); font-weight:800; letter-spacing:.8px; font-size:13px; color:var(--on-glass); flex:none; }
 .pm2-head i { color:var(--pm-accent2); font-size:14px; }
 
@@ -71,7 +77,6 @@
 .pm2c { max-width:360px; padding:20px 16px 14px !important; text-align:center; border-radius:18px !important;
     max-height:calc(100vh - 24px); max-height:calc(100dvh - 24px); overflow-y:auto; -webkit-overflow-scrolling:touch; }
 .pm2c::-webkit-scrollbar { width:0; }
-.pm2c .plan-close { position:absolute !important; top:10px; right:10px; width:28px; height:28px; font-size:13px; background:transparent; border:0; }
 .pm2c-icon { width:46px; height:46px; margin:0 auto 8px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:19px; color:#fff;
     background:linear-gradient(135deg,#2f6bff,#7c4dff); box-shadow:0 6px 18px rgba(79,83,255,.42); }
 .pm2c .pm2c-title { font-family:var(--font-heading); font-size:19px !important; line-height:1.2; font-weight:800; color:var(--on-glass); margin:0 !important; letter-spacing:.2px !important; text-transform:none !important; }
