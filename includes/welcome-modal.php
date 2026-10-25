@@ -36,7 +36,7 @@
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { auth, backendFetch, cachePatch, getData, toast } from '/assets/js/app.js?v=20261018-2';
+import { auth, backendFetch, cachePatch, getData, toast } from '/assets/js/app.js?v=20261025-1';
 
 let busy = false;
 const okUrl = (u) => /^https?:\/\//i.test(u || '');

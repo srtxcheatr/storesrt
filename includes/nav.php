@@ -47,7 +47,7 @@ $isGuestPage = $currentPage === 'home';
     <div class="drawer-header">
         <div class="drawer-brand">
             <div class="logo-img-wrap" style="width:32px;height:32px">
-                <img src="https://i.postimg.cc/qqYtBD3k/file-00000000470c8208bd1a0215abff7977.png" alt="SRT X CHEATS Logo" class="site-logo">
+                <img src="/assets/img/logo.png?v=1" alt="SRT X CHEATS Logo" class="site-logo">
             </div>
             <div class="brand-title" style="font-size:14px">SRT <span class="neon-cyan">X</span> CHEATS</div>
         </div>
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 // Order-status icon: visible only when the user has a shop-project order; opens the live tracker.
-import { backendFetch } from '/assets/js/app.js?v=20261018-2';
+import { backendFetch } from '/assets/js/app.js?v=20261025-1';
 
 const btn = document.getElementById('orderStatusBtn');
 const dot = document.getElementById('orderStatusDot');
