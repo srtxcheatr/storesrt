@@ -658,7 +658,7 @@ import {
     requireAuth, backendFetch, toast, esc, getAuthToken, enableTilt,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     getData, refreshData, cachePeek, cacheInvalidate, applyBalanceChange, recordPurchase,
-} from '/assets/js/app.js?v=20261024-2';
+} from '/assets/js/app.js?v=20261025-1';
 
 window.openModal = (id) => document.getElementById(id)?.classList.remove('hidden');
 window.closeModal = (id) => document.getElementById(id)?.classList.add('hidden');
@@ -730,7 +730,7 @@ document.getElementById('redeemSubmitBtn').onclick = async () => {
         const d = await backendFetch('/api/user/redeem', { method: 'POST', body: JSON.stringify({ code }) });
         // src by SRT X CHEATS. Copy right SRT X CHEATS
         toast(`Rs ${d.amountCredited} credited!`, 'success');
-        document.getElementById('balAmount').textContent = d.newBalance;
+        document.getElementById('balAmount').textContent = 'NRP ' + d.newBalance;
         applyBalanceChange(d.newBalance);
         input.value = '';
         closeModal('redeemModal');
@@ -813,7 +813,7 @@ async function loadBalance() {
 function applyBalanceLight(d) {
     userState = d;
     // src by SRT X CHEATS. Copy right SRT X CHEATS
-    document.getElementById('balAmount').textContent = d.balance;
+    document.getElementById('balAmount').textContent = 'NRP ' + d.balance;
     const drawerBal = document.getElementById('drawerBalance');
     if (drawerBal) drawerBal.textContent = 'NRP ' + d.balance;
 }
@@ -821,7 +821,7 @@ function applyBalanceLight(d) {
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 function applyBalance(d) {
         userState = d;
-        document.getElementById('balAmount').textContent = d.balance;
+        document.getElementById('balAmount').textContent = 'NRP ' + d.balance;
         const drawerBal = document.getElementById('drawerBalance');
         if (drawerBal) drawerBal.textContent = 'NRP ' + d.balance;
         // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -1472,7 +1472,7 @@ async function runPurchase() {
 
         // src by SRT X CHEATS. Copy right SRT X CHEATS
         if (lastBalance !== undefined) {
-            document.getElementById('balAmount').textContent = lastBalance;
+            document.getElementById('balAmount').textContent = 'NRP ' + lastBalance;
         }
     } catch (e) {
         closeModal('deliveryModal');

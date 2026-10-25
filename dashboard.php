@@ -12,7 +12,9 @@ require __DIR__ . '/includes/nav.php';
         <?php require __DIR__ . '/includes/topup-warning.php'; ?>
         <?php $proCard = false; require __DIR__ . '/includes/pro-reseller.php'; ?>
 
-        <div class="dash-hero tilt">
+        <div class="dash-grid">
+
+        <div class="dash-hero">
             <div class="dash-hero-top">
                 <div>
                     <div class="dash-hero-label"><i class="fas fa-wallet" style="color:var(--neon-amber)"></i> BALANCE</div>
@@ -29,7 +31,7 @@ require __DIR__ . '/includes/nav.php';
             </div>
         </div>
 
-        <div class="panel reseller-card hidden" id="resellerCard">
+        <div class="panel reseller-card hidden dash-wide" id="resellerCard">
             <div class="prompt-header"><i class="fas fa-crown" style="color:var(--neon-amber)"></i> RESELLER MODE</div>
             <div class="reseller-progress-row">
                 <div class="reseller-progress-item">
@@ -78,11 +80,7 @@ require __DIR__ . '/includes/nav.php';
             </div>
         </div>
 
-        <div class="panel" id="noticePanel">
-            <div class="prompt-header"><i class="fas fa-bullhorn"></i> ANNOUNCEMENT</div>
-            <div id="noticeText" style="font-size:12px;color:var(--text-secondary)">Loading announcements...</div>
-        </div>
-
+        <div class="dash-main">
         <div class="prompt-header"><i class="fas fa-trophy"></i> TOP 10 LEADERBOARD</div>
         <div class="panel" id="leaderboardPanel">
             <div id="leaderboardList" class="leaderboard-list">
@@ -91,42 +89,52 @@ require __DIR__ . '/includes/nav.php';
                 <div class="skeleton-row"></div>
             </div>
         </div>
+        </div>
+
+        <div class="dash-side">
+        <div class="panel" id="noticePanel">
+            <div class="prompt-header"><i class="fas fa-bullhorn"></i> ANNOUNCEMENT</div>
+            <div id="noticeText" style="font-size:12px;color:var(--text-secondary)">Loading announcements...</div>
+        </div>
 
         <div class="prompt-header"><i class="fas fa-bolt"></i> QUICK ACCESS</div>
         <div class="shortcut-grid">
-            <a href="/store.php" class="shortcut-card tilt">
+            <a href="/store.php" class="shortcut-card">
                 <div class="shortcut-icon"><i class="fas fa-store"></i></div>
                 Store
             </a>
-            <a href="/glorybot.php" class="shortcut-card tilt" data-c="purple">
+            <a href="/glorybot.php" class="shortcut-card" data-c="purple">
                 <div class="shortcut-icon"><i class="fas fa-robot"></i></div>
                 FF Glory Bot
             </a>
-            <a href="/history.php" class="shortcut-card tilt" data-c="blue">
+            <a href="/history.php" class="shortcut-card" data-c="blue">
                 <div class="shortcut-icon"><i class="fas fa-clock-rotate-left"></i></div>
                 History
             </a>
-            <a href="/rewards.php" class="shortcut-card tilt" data-c="green">
+            <a href="/rewards.php" class="shortcut-card" data-c="green">
                 <div class="shortcut-icon"><i class="fas fa-gift"></i></div>
                 Reward Center
             </a>
-            <a href="/admin/owner.php" class="shortcut-card tilt" data-c="amber">
+            <a href="/admin/owner.php" class="shortcut-card" data-c="amber">
                 <div class="shortcut-icon"><i class="fas fa-coins"></i></div>
                 Top Up
             </a>
-            <a href="/profile.php" class="shortcut-card tilt" data-c="green">
+            <a href="/profile.php" class="shortcut-card" data-c="green">
                 <div class="shortcut-icon"><i class="fas fa-user-gear"></i></div>
                 Profile
             </a>
-            <a href="/store.php#support" class="shortcut-card tilt" data-c="pink">
+            <a href="/store.php#support" class="shortcut-card" data-c="pink">
                 <div class="shortcut-icon"><i class="fas fa-headset"></i></div>
                 Support
             </a>
-            <a href="<?= htmlspecialchars(DEVELOPER_URL) ?>" target="_blank" class="shortcut-card tilt" data-c="grey">
+            <a href="<?= htmlspecialchars(DEVELOPER_URL) ?>" target="_blank" class="shortcut-card" data-c="grey">
                 <div class="shortcut-icon"><i class="fas fa-code"></i></div>
                 Developer
             </a>
         </div>
+        </div>
+
+        </div><!-- /dash-grid -->
 
     </div>
 </div>
@@ -164,7 +172,7 @@ import {
     requireAuth, backendFetch, toast, enableTilt, esc,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     getData, cachePeek, cachePatch, cacheInvalidate, applyBalanceChange, statsFromHistory,
-} from '/assets/js/app.js?v=20261024-2';
+} from '/assets/js/app.js?v=20261025-1';
 import { avBadgeHtml, bannerClass, bannerInner, CROWNS } from '/assets/js/rewards-ui.js?v=20261026-1';
 
 const MEDALS = [

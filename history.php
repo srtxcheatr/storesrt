@@ -128,7 +128,7 @@ require __DIR__ . '/includes/nav.php';
 </style>
 
 <script type="module">
-import { requireAuth, backendFetch, toast, fmtDate, esc, getData, cachePeek } from '/assets/js/app.js?v=20261024-2';
+import { requireAuth, backendFetch, toast, fmtDate, esc, getData, cachePeek } from '/assets/js/app.js?v=20261025-1';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
 requireAuth(async () => {

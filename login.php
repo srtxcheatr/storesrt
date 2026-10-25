@@ -35,6 +35,23 @@ require __DIR__ . '/includes/head.php';
 </div>
 
 <div class="auth-shell hidden" id="authShell">
+  <aside class="auth-aside" aria-label="About SRT X CHEATS">
+    <div class="auth-aside-brand">
+        <div class="logo-img-wrap"><img src="/assets/img/logo.png?v=1" alt="" class="site-logo"></div>
+        <div class="auth-aside-name">SRT <span>X</span> CHEATS</div>
+    </div>
+    <div class="auth-aside-body">
+        <h2>Nepal's trusted <em>panel</em> store.</h2>
+        <p class="lead">Android, NonRoot, Root and iOS panels with instant key delivery &mdash; one account, one balance, every product.</p>
+        <ul class="auth-feats">
+            <li><span class="ic"><i class="fas fa-bolt"></i></span><div><b>Instant delivery</b><span class="d">Your key appears the moment your order is confirmed.</span></div></li>
+            <li><span class="ic"><i class="fas fa-layer-group"></i></span><div><b>Every platform covered</b><span class="d">Android, NonRoot, Root, iOS and PC panels in one catalog.</span></div></li>
+            <li><span class="ic"><i class="fas fa-shield-halved"></i></span><div><b>Verified reviews</b><span class="d">Only real buyers can rate a product, so ratings stay honest.</span></div></li>
+        </ul>
+    </div>
+    <div class="auth-aside-foot">&copy; <?= date('Y') ?> SRT X CHEATS. All rights reserved.</div>
+  </aside>
+  <div class="auth-main">
     <div class="auth-brand">
         <div class="logo-img-wrap" style="margin:0 auto">
             <img src="/assets/img/logo.png?v=1" alt="Logo" class="site-logo">
@@ -46,8 +63,9 @@ require __DIR__ . '/includes/head.php';
         </div>
     </div>
 
-    <div class="panel tilt form-pane" id="loginPane">
-        <div class="prompt-header"><i class="fas fa-right-to-bracket"></i> ACCOUNT LOGIN</div>
+    <div class="panel form-pane" id="loginPane">
+        <h1 class="auth-title">Sign in</h1>
+        <p class="auth-sub">Access your keys, balance and orders.</p>
         <div class="field">
             <label><i class="fas fa-envelope"></i> Email</label>
             <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="username">
@@ -70,8 +88,9 @@ require __DIR__ . '/includes/head.php';
         </div>
     </div>
 
-    <div class="panel tilt form-pane hidden" id="regPane">
-        <div class="prompt-header"><i class="fas fa-user-plus"></i> REGISTER ACCOUNT</div>
+    <div class="panel form-pane hidden" id="regPane">
+        <h1 class="auth-title">Create your account</h1>
+        <p class="auth-sub">It takes less than a minute.</p>
         <div class="field">
             <label><i class="fas fa-user"></i> Username</label>
             <input type="text" id="regName" placeholder="Your name" autocomplete="name">
@@ -106,12 +125,10 @@ require __DIR__ . '/includes/head.php';
         </div>
     </div>
 
-    <div class="panel" style="text-align:center;border-color:var(--neon-red)">
-        <a href="https://youtube.com/shorts/-2dt10F2smM?si=yysjGONTDh5ComlY" target="_blank" style="color:var(--neon-red);font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px">
-            <i class="fab fa-youtube" style="font-size:22px"></i>
-            <span>Watch: How to buy or add balance <i class="fas fa-coins"></i></span>
-        </a>
-    </div>
+    <a class="auth-help" href="https://youtube.com/shorts/-2dt10F2smM?si=yysjGONTDh5ComlY" target="_blank" rel="noopener">
+        <i class="fab fa-youtube"></i> <span>Watch: How to buy or add balance</span>
+    </a>
+  </div><!-- /auth-main -->
 </div>
 
 <style>
@@ -128,7 +145,7 @@ import {
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     googleProvider, signInWithPopup, signInWithEmailAndPassword,
     createUserWithEmailAndPassword, sendPasswordResetEmail, getAdditionalUserInfo,
-} from '/assets/js/app.js?v=20261024-2';
+} from '/assets/js/app.js?v=20261025-1';
 // same Firebase module URL as app.js, so this is the very same instance (no app.js change = no cache problems)
 import { onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 

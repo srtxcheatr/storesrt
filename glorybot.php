@@ -730,7 +730,7 @@ html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, getAuthToken, toast, esc, fmtDate, getData, cachePeek, applyBalanceChange } from '/assets/js/app.js?v=20261024-2';
+import { requireAuth, getAuthToken, toast, esc, fmtDate, getData, cachePeek, applyBalanceChange } from '/assets/js/app.js?v=20261025-1';
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 const $ = (id) => document.getElementById(id);
