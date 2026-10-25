@@ -228,6 +228,18 @@ $('txSendBtn').addEventListener('click', async () => {
         // src by SRT X CHEATS. Copy right SRT X CHEATS
         openOv('topupPendingModal');
         setTimeout(() => { try { window.srtFxConfetti && window.srtFxConfetti(); } catch (_) {} }, 250);
+        // ~5 s after sending, re-read the account: if the payment was checked and found fake, the strike warning shows now
+        // (same as when an admin presses Cancel). A real payment changes nothing here.
+        setTimeout(async () => {
+            const before = Number(profileCache?.fakePayment?.count || 0);
+            try {
+                profileCache = await getData('profile', { force: true, strict: true });
+                if ($('ownerBalance')) $('ownerBalance').textContent = profileCache?.balance ?? 0;
+                if (window.srtxRenderFakePay) window.srtxRenderFakePay(profileCache);
+                const f = profileCache?.fakePayment;
+                if (f && Number(f.count) > before) toast(f.text || 'Your payment was marked as fake.', 'error');
+            } catch (_) {}
+        }, 5000);
     } catch (e) {
         showTxErr(e.message || 'Could not send. Try again.');   // e.g. the server's "Payment rejected: ..." for a fake code
         toast(e.message || 'Could not send. Try again.', 'error');
