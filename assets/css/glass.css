@@ -1,231 +1,151 @@
-/* ==========================================================================
-   SRT X CHEATS — Frosted layer  (loads LAST, after fx.css)
-   Design rules (kept deliberately plain, like a hand-built site):
-   - Frosted, NOT see-through: surfaces are ~92% opaque so text behind a card or
-     the header can never show through. Blur is only a soft extra.
-   - One accent: violet. Cyan = focus/info. Gold = money only. Green/red = status.
-   - Your original animations (floating cards, hero glow, tilt, orbs) are untouched.
-   ========================================================================== */
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+/* Frosted-glass modals (plan picker, checkout, all pop-ups) + light-mode text fixes. Loaded LAST. */
 
 :root {
-    --g-violet: #8b5cf6;
-    --g-cyan: #22d3ee;
-    --g-gold: #e6c364;
-
-    --s-card: rgba(25, 21, 54, .92);          /* panels, stat cards, hero */
-    --s-card-2: rgba(255, 255, 255, .045);    /* rows/tiles inside a card */
-    --s-bar: rgba(14, 11, 32, .97);           /* header + bottom bar */
-    --s-line: rgba(255, 255, 255, .09);
-    --s-line-strong: rgba(255, 255, 255, .16);
-    --s-shadow: 0 6px 22px rgba(2, 1, 12, .38);
-    --s-blur: blur(14px) saturate(1.2);
-
-    /* re-map the old tokens so every existing component picks up the same palette */
-    --glass-bg: var(--s-bar);
-    --glass-panel: var(--s-card);
-    --glass-border: var(--s-line);
-    --glass-border-hover: rgba(139, 92, 246, .5);
-    --neon-purple: var(--g-violet);
-    --neon-blue: var(--g-cyan);
-    --neon-amber: var(--g-gold);
-    --text-primary: #f3f4fb;
-    --text-secondary: #b4bbd0;
-    --text-muted: #8f98b3;
-    --glow-shadow: none;
-    --card-shadow: var(--s-shadow);
-    --surface-tint: rgba(255,255,255,.06);
-    --surface-tint-strong: rgba(255,255,255,.1);
-    --input-bg: rgba(8, 6, 22, .45);
-    --cyan-glow: 0 0 0 3px rgba(139, 92, 246, .22);
-    --radius-lg: 18px;
-    --radius-md: 13px;
+    --modal-scrim: rgba(6, 4, 18, .42);
+    --modal-glass: rgba(24, 20, 50, .52);
+    --modal-glass-border: rgba(255, 255, 255, .20);
+    --modal-glass-shine: rgba(255, 255, 255, .16);
+    --modal-row: rgba(255, 255, 255, .07);
+    --modal-row-border: rgba(255, 255, 255, .14);
+    --modal-shadow: 0 24px 70px rgba(0, 0, 0, .55), 0 0 40px rgba(168, 85, 247, .18);
+    --on-glass: #f4f6fb;
 }
-html[data-theme="light"] {
-    --s-card: rgba(255, 255, 255, .94);
-    --s-card-2: rgba(60, 30, 130, .04);
-    --s-bar: rgba(255, 255, 255, .97);
-    --s-line: rgba(40, 25, 90, .11);
-    --s-line-strong: rgba(40, 25, 90, .2);
-    --s-shadow: 0 4px 18px rgba(70, 40, 140, .12);
-    --glass-border-hover: rgba(109, 40, 217, .4);
-    --neon-purple: #6d28d9;
-    --neon-blue: #0e7490;
-    --neon-amber: #9a6b12;
-    --gold-shine: linear-gradient(135deg, #b8801c 0%, #8a5a0c 55%, #6b4306 100%);
-    --text-primary: #1b1730;
-    --text-secondary: #4a4566;
-    --text-muted: #6f6a8a;
-    --input-bg: rgba(60, 30, 130, .045);
-    --surface-tint: rgba(60, 30, 130, .05);
-    --surface-tint-strong: rgba(60, 30, 130, .08);
+[data-theme="light"] {
+    --modal-scrim: rgba(235, 231, 250, .38);
+    --modal-glass: rgba(255, 255, 255, .58);
+    --modal-glass-border: rgba(255, 255, 255, .85);
+    --modal-glass-shine: rgba(255, 255, 255, .9);
+    --modal-row: rgba(255, 255, 255, .55);
+    --modal-row-border: rgba(88, 28, 135, .16);
+    --modal-shadow: 0 24px 60px rgba(60, 40, 120, .22), 0 2px 0 rgba(255, 255, 255, .8) inset;
+    --on-glass: #1e1b2e;
 }
 
-/* ---------- Surfaces ---------- */
-:root:root .panel,
-:root:root .stat-card,
-:root:root .dash-hero,
-:root:root .profile-hero,
-:root:root .store-balance-chip,
-:root:root .gb-card,
-:root:root .support-ticket {
-    background: var(--s-card);
-    border: 1px solid var(--s-line);
-    box-shadow: var(--s-shadow);
-    -webkit-backdrop-filter: var(--s-blur); backdrop-filter: var(--s-blur);
-}
-:root:root .panel:hover { border-color: var(--s-line-strong); }
-/* remove the diagonal sheen overlay that made cards look "plastic" */
-:root:root .panel::before { display: none !important; }
-
-/* rows / tiles inside cards */
-:root:root .leaderboard-row:not(.fxb), :root:root .log-entry {
-    background: var(--s-card-2); border: 1px solid var(--s-line); box-shadow: none;
-    -webkit-backdrop-filter: none; backdrop-filter: none;
-}
-:root:root .leaderboard-row:not(.fxb):hover { background: rgba(139,92,246,.1); border-color: rgba(139,92,246,.45); }
-/* product + shortcut cards: solid, and their ORIGINAL floating animation keeps running */
-:root:root .shortcut-card, :root:root .product-card {
-    background: var(--s-card); border: 1px solid var(--s-line); box-shadow: var(--s-shadow);
-    -webkit-backdrop-filter: none; backdrop-filter: none;
-}
-:root:root .shortcut-card:hover, :root:root .product-card:hover { border-color: rgba(139,92,246,.5); }
-
-/* hero: same card, violet tint on top, gold only on the amount */
-:root:root .dash-hero {
-    background: linear-gradient(160deg, rgba(139,92,246,.22) 0%, transparent 55%), var(--s-card);
-    border: 1px solid rgba(139, 92, 246, .38);
-}
-:root:root .dash-hero::after { background: radial-gradient(circle at 100% 0%, rgba(139,92,246,.18), transparent 60%); }
-:root:root .stat-card .stat-label { font-size: 10.5px; color: var(--text-muted); }
-
-/* ---------- Header, drawer, bottom bar — opaque enough to read over scrolling content ---------- */
-:root:root .glass-nav-header {
-    background: var(--s-bar);
-    border-bottom: 1px solid var(--s-line);
-    box-shadow: 0 4px 16px rgba(2,1,12,.3);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2);
-}
-:root:root .bottom-tabbar {
-    background: var(--s-bar);
-    border-top: 1px solid var(--s-line);
-    box-shadow: 0 -4px 18px rgba(2,1,12,.3);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2);
-}
-:root:root .drawer-panel {
-    background: var(--s-bar); border-right: 1px solid var(--s-line);
-    -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
-}
-:root:root .drawer-backdrop { background: rgba(4,3,14,.55); }
-:root:root .drawer-item { min-height: 44px; border-radius: 12px; }
-:root:root .drawer-item:hover, :root:root .drawer-item.active { background: rgba(139,92,246,.18); box-shadow: inset 3px 0 0 var(--g-violet); }
-@media (max-width: 899px) { :root:root .drawer-panel:not(.open) { box-shadow: none; } }
-
-:root:root .tab-item { min-height: 48px; justify-content: center; }
-:root:root .tab-item.active { color: var(--g-violet); }
-html:not([data-theme="light"]):root .tab-item.active { color: #b79cff; }
-:root:root .icon-btn, :root:root .theme-toggle-btn, :root:root .reseller-community-btn, :root:root .order-status-btn { width: 40px; height: 40px; }
-
-/* ---------- Buttons / inputs / chips ---------- */
-:root:root .btn { min-height: 44px; }
-:root:root .btn-solid { background: linear-gradient(135deg, #8b5cf6, #6d28d9); box-shadow: 0 4px 14px rgba(109,40,217,.4); }
-:root:root .btn-ghost { background: var(--s-card-2); border: 1px solid var(--s-line-strong); }
-:root:root .btn-ghost:hover { background: rgba(139,92,246,.14); border-color: rgba(139,92,246,.55); color: var(--text-primary); }
-:root:root .lb-view { min-height: 0 !important; }
-:root:root input:focus, :root:root textarea:focus, :root:root select:focus { border-color: rgba(139,92,246,.8); box-shadow: 0 0 0 3px rgba(139,92,246,.22); }
-:root:root .cat-filter.active, :root:root .cat-filter:hover, :root:root .tab-pill.active { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: #fff; border-color: transparent; }
-a:focus-visible, button:focus-visible, .btn:focus-visible { outline: 2px solid var(--g-cyan); outline-offset: 3px; }
-:root:root .toast { background: var(--s-bar); border: 1px solid var(--s-line-strong); box-shadow: var(--s-shadow); }
-html[data-theme="light"] body::before, html[data-theme="light"] body::after { display: none !important; }
-
-@media (prefers-reduced-transparency: reduce) {
-    :root:root *, :root:root *::before { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+/* ---------- overlay: blurred, see-through backdrop ---------- */
+.modal-overlay {
+    background: var(--modal-scrim) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(140%) !important;
+    backdrop-filter: blur(14px) saturate(140%) !important;
 }
 
-/* ==========================================================================
-   v2 — fixes from live feedback
-   ========================================================================== */
+/* ---------- glass card ---------- */
+.modal-overlay > .panel,
+.modal-overlay .panel {
+    position: relative;
+    color: var(--on-glass);
+    background: var(--modal-glass) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(185%) !important;
+    backdrop-filter: blur(28px) saturate(185%) !important;
+    border: 1px solid var(--modal-glass-border) !important;
+    box-shadow: var(--modal-shadow), inset 0 1px 0 var(--modal-glass-shine) !important;
+    max-height: 90vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+/* soft liquid highlight, no hard edges (this was causing the pixel/moire glitch) */
+.modal-overlay .panel::before,
+body.fx-wild .modal-overlay .panel::before {
+    display: block !important;
+    content: '';
+    position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: linear-gradient(145deg, var(--modal-glass-shine) 0%, rgba(255,255,255,0) 34%);
+    opacity: .55;
+}
+.modal-overlay .panel > * { position: relative; z-index: 1; }
+.modal-overlay .panel:hover { border-color: var(--modal-glass-border) !important; }
+.modal-overlay .panel::-webkit-scrollbar { width: 0; }
 
-/* ---- All pop-ups: solid cards. Page content must never show through text. ---- */
-:root:root .modal-overlay > .panel {
-    background: linear-gradient(180deg, #1b1640 0%, #120e2e 100%);
-    border: 1px solid rgba(255,255,255,.14);
-    -webkit-backdrop-filter: none; backdrop-filter: none;
+.modal-overlay .prompt-header { color: var(--on-glass); }
+.modal-overlay .dim, .modal-overlay .field label { color: var(--text-secondary); }
+.modal-overlay .field input,
+.modal-overlay .field select,
+.modal-overlay .field textarea {
+    color: var(--on-glass);
+    background: var(--modal-row) !important;
+    border: 1px solid var(--modal-row-border) !important;
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
-html[data-theme="light"]:root .modal-overlay > .panel { background: #ffffff; border-color: rgba(60,30,130,.14); }
-:root:root .modal-overlay { background: rgba(4,3,14,.62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-:root:root .modal-overlay > .panel::before { display: none !important; }
+.modal-overlay .field input::placeholder { color: var(--text-muted); opacity: .9; }
 
-/* ---- Product plan / duration picker ---- */
-:root:root .plan-picker-panel { border-radius: 24px; padding: 20px 18px 18px; max-width: 430px; }
-:root:root .plan-product-name {
-    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-    border-radius: 14px; padding: 12px 14px; font-weight: 800; letter-spacing: .2px; color: var(--text-primary);
+/* ---------- plan picker rows ---------- */
+.plan-product-name {
+    color: var(--on-glass) !important;
+    background: var(--modal-row) !important;
+    border: 1px solid var(--modal-row-border) !important;
 }
-html[data-theme="light"]:root .plan-product-name { background: #f1f3f6; border-color: #e1e5eb; }
-:root:root .plan-duration-list { gap: 8px; }
-:root:root .plan-duration {
-    display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 52px;
-    padding: 12px 14px; border-radius: 14px; cursor: pointer; text-align: left;
-    background: #231d4d; color: var(--text-primary);
-    border: 1px solid rgba(255,255,255,.1);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
-    -webkit-backdrop-filter: none; backdrop-filter: none;
-    transition: background .15s, border-color .15s, box-shadow .15s;
+.plan-duration {
+    color: var(--on-glass) !important;
+    background: var(--modal-row) !important;
+    border: 1px solid var(--modal-row-border) !important;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
 }
-:root:root .plan-duration span { color: var(--text-primary); }
-:root:root .plan-duration span i { color: var(--text-muted); }
-:root:root .plan-duration strong { color: #f3d27a; }
-:root:root .plan-duration:hover { background: #2b2460; border-color: rgba(139,92,246,.55); }
-:root:root .plan-duration.active {
-    background: linear-gradient(180deg, #4b2fb8 0%, #3a22a0 100%);
-    border-color: #a78bfa; box-shadow: 0 0 0 3px rgba(139,92,246,.28);
+.plan-duration span { color: var(--on-glass); }
+.plan-duration:hover, .plan-duration.active {
+    background: rgba(34, 211, 238, .16) !important;
+    border-color: var(--neon-blue) !important;
 }
-:root:root .plan-duration.active span, :root:root .plan-duration.active span i { color: #fff; }
-:root:root .plan-duration.active strong { color: #ffe9a8; }
-html[data-theme="light"]:root .plan-duration { background: #f4f5f8; border-color: #e1e5eb; box-shadow: none; }
-html[data-theme="light"]:root .plan-duration span { color: #1b1730; }
-html[data-theme="light"]:root .plan-duration span i { color: #6f6a8a; }
-html[data-theme="light"]:root .plan-duration strong { color: #8a5a0c; }
-html[data-theme="light"]:root .plan-duration:hover { background: #ece8fb; }
-html[data-theme="light"]:root .plan-duration.active { background: #6d28d9; border-color: #6d28d9; box-shadow: 0 0 0 3px rgba(109,40,217,.2); }
-html[data-theme="light"]:root .plan-duration.active span, html[data-theme="light"]:root .plan-duration.active span i { color: #fff; }
-html[data-theme="light"]:root .plan-duration.active strong { color: #ffe9a8; }
-:root:root .quantity-box, :root:root .plan-total-row { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; }
-html[data-theme="light"]:root .quantity-box, html[data-theme="light"]:root .plan-total-row { background: #f4f5f8; border-color: #e1e5eb; }
-:root:root .plan-picker-panel { scrollbar-width: thin; }
+.plan-duration.active span { color: var(--neon-blue); }
+.plan-duration strong, .plan-total-row strong, .checkout-grand-total strong { color: var(--neon-amber); }
 
-/* ---- Announcement pop-up: classic white card + gray text box (both themes) ---- */
-:root:root .modal-overlay > .panel.ann-card {
-    background: #ffffff; color: #1f2937; text-align: center;
-    border: 1px solid #e5e7eb; border-radius: 20px; padding: 26px 22px 20px;
-    max-width: 420px; width: 100%;
-    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+.quantity-box, .checkout-selected-card, .product-plan-preview {
+    background: var(--modal-row) !important;
+    border: 1px solid var(--modal-row-border) !important;
+    color: var(--on-glass);
 }
-.ann-card::before, .ann-card::after { display: none !important; }
-.ann-badge {
-    width: 54px; height: 54px; margin: 0 auto 12px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; font-size: 22px;
-    color: #b8860b; background: #fff7e0; border: 1px solid #f1dca0; animation: none;
+.quantity-title, .checkout-selected-card strong, .checkout-selected-card span { color: var(--on-glass); }
+.checkout-selected-card .dim, .checkout-selected-card > div > span:first-child { color: var(--text-secondary); }
+.quantity-control button {
+    color: var(--on-glass) !important;
+    background: var(--modal-row) !important;
+    border-color: var(--modal-row-border) !important;
 }
-.ann-title { font-family: var(--font-heading, 'Orbitron', sans-serif); font-size: 16px; font-weight: 800; letter-spacing: .12em; color: #111827; }
-.ann-sub {
-    display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; padding: 3px 12px; border-radius: 999px;
-    font-size: 10.5px; font-weight: 800; letter-spacing: .08em; color: #0e7490; background: #e6f7fb; border: 1px solid #b6e3ee;
+.quantity-control button:hover { background: var(--neon-blue) !important; color: #fff !important; }
+.plan-total-row, .checkout-grand-total {
+    background: rgba(212, 175, 55, .14) !important;
+    border: 1px solid rgba(212, 175, 55, .35) !important;
+    color: var(--on-glass);
 }
-.ann-msg, #noticeText {
-    position: relative; text-align: left; white-space: pre-line; overflow-wrap: anywhere;
-    font: 500 14px/1.7 'Plus Jakarta Sans', system-ui, sans-serif; color: #1f2937;
-    background: #eef0f3; border: 1px solid #d9dde3; border-radius: 12px; box-shadow: none;
+.modal-overlay .btn:not(.btn-solid):not(.btn-danger) {
+    color: var(--on-glass);
+    background: var(--modal-row);
+    border: 1px solid var(--modal-row-border);
 }
-.ann-msg { margin: 16px 0; padding: 14px 16px; max-height: 46vh; overflow-y: auto; }
-.ann-msg::before, #noticeText::before { display: none; }
-.ann-msg::-webkit-scrollbar { width: 5px; } .ann-msg::-webkit-scrollbar-thumb { background: #b6bcc6; border-radius: 999px; }
-.ann-gift { display: none; margin: 0 0 14px; padding: 12px; border-radius: 12px; border: 1px dashed #d9b44a; background: #fff8e1; color: #1f2937; }
-.ann-card .btn { width: 100%; }
-:root:root .ann-card .btn-ghost, :root:root .ann-card .btn-ghost:hover { background: #111827; color: #fff; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
-:root:root .ann-card .btn-ghost:active { background: #000; }
-/* dashboard announcement strip: same gray text box so it matches the popup */
-#noticeText { margin-top: 4px; padding: 12px 14px; font-size: 13px; }
-html:not([data-theme="light"]) #noticeText { background: #2a2f3a; border-color: #3a404d; color: #e5e7eb; }
-html[data-theme="light"]:root .quantity-control button { color: #0e4f63; background: #dff4f8; border-color: #8fd3e3; }
-html[data-theme="light"]:root .quantity-control span { color: #8a5a0c; }
+
+/* ---------- LIGHT MODE: text that used to be hard-coded white ---------- */
+[data-theme="light"] .product-price-live { color: var(--text-primary) !important; }
+[data-theme="light"] .dur-chip { background: rgba(88, 28, 135, .06); color: var(--text-secondary); }
+[data-theme="light"] .dur-chip.active { color: #3b1a86 !important; background: linear-gradient(135deg, rgba(14,116,144,.18), rgba(124,58,237,.18)); }
+[data-theme="light"] .cat-filter { color: var(--text-secondary); }
+[data-theme="light"] .cat-filter.active, [data-theme="light"] .cat-filter:hover { color: #fff; }
+[data-theme="light"] .maintenance-note { color: #92400e; }
+[data-theme="light"] .maintenance-badge.stock-badge { color: #7a5714; background: rgba(212,175,55,.2); }
+[data-theme="light"] .store-balance-chip { color: var(--text-primary); }
+[data-theme="light"] .gold-text { color: var(--neon-amber); -webkit-text-fill-color: currentColor; background: none; }
+[data-theme="light"] .product-title, [data-theme="light"] .product-body { color: var(--text-primary); }
+[data-theme="light"] .product-desc, [data-theme="light"] .product-meta { color: var(--text-secondary); }
+[data-theme="light"] .dim { color: var(--text-secondary); }
+[data-theme="light"] .term-window, [data-theme="light"] .term-content { color: var(--text-primary); }
+[data-theme="light"] .warning-banner strong, [data-theme="light"] .fakepay-warn b { color: var(--text-primary); }
+[data-theme="light"] .fakepay-warn { color: #92400e; }
+[data-theme="light"] .fakepay-warn.sev2 { color: #b91c1c; }
+[data-theme="light"] .contact-limited-banner { color: #92400e; }
+[data-theme="light"] .warning-banner { color: #b91c1c; }
+[data-theme="light"] .pro-pill.pending { color: #7a5714; }
+[data-theme="light"] .pro-note { color: var(--text-primary); }
+[data-theme="light"] .clear-cache-btn { color: #1e3a8a; background: #dbeafe; border-color: #93c5fd; }
+[data-theme="light"] .qr-full { background: #f5f6fa; }
+[data-theme="light"] .pay-or, [data-theme="light"] .qr-top .hint { color: var(--text-secondary); }
+[data-theme="light"] input, [data-theme="light"] select, [data-theme="light"] textarea { color: var(--text-primary); }
+[data-theme="light"] input::placeholder, [data-theme="light"] textarea::placeholder { color: var(--text-muted); }
+/* drawer balance card keeps white text on its blue gradient in both themes */
+.drawer-balance-card, .drawer-balance-card * { color: #fff; }
+.drawer-balance-card .dbc-btn { color: #fff; }
+
+/* low-FX devices have no backdrop blur: keep the card readable */
+.srt-low-fx .modal-overlay .panel { background: rgba(24, 20, 50, .94) !important; }
+[data-theme="light"] .srt-low-fx .modal-overlay .panel { background: rgba(255, 255, 255, .96) !important; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .modal-overlay .panel { background: rgba(24, 20, 50, .94) !important; }
+    [data-theme="light"] .modal-overlay .panel { background: rgba(255, 255, 255, .96) !important; }
+}
