@@ -640,7 +640,7 @@ import {
     requireAuth, backendFetch, toast, esc, getAuthToken, enableTilt,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     getData, refreshData, cachePeek, cacheInvalidate, applyBalanceChange, recordPurchase,
-} from '/assets/js/app.js?v=20261025-4';
+} from '/assets/js/app.js?v=20261026-1';
 
 window.openModal = (id) => document.getElementById(id)?.classList.remove('hidden');
 window.closeModal = (id) => document.getElementById(id)?.classList.add('hidden');
@@ -917,6 +917,10 @@ function starsHtml(rating, reviewCount) {
 }
 
 function renderCatalog() {
+    // skip identical re-renders (cache paint + stale + data event + final render used to rebuild the grid 3-4x = visible reloading)
+    const __sig = activeTag + '|' + searchQuery + '|' + JSON.stringify(catalog);
+    if (__sig === window.__catSig) return;
+    window.__catSig = __sig;
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     const groups = {};
     for (const [sku, p] of Object.entries(catalog)) {
@@ -1114,7 +1118,7 @@ function planRowsHtml(items, gi) {
         const down = isMaintenanceProduct(it);
         const off = !planAvailable(it);
         const sel = firstOk && it.sku === firstOk.sku;
-        const badge = off ? (down ? 'Maintenance' : 'Sold out') : (sel && items.filter(planAvailable).length > 1 ? 'Best for testing' : '');
+        const badge = off ? (down ? 'Maintenance' : 'Sold out') : '';
         return `
         <label class="pm2-opt${off ? ' off' : ''}" data-no-busy>
             <input type="radio" name="planOpt" value="${esc(it.sku)}" ${off ? 'disabled' : ''} ${sel ? 'checked' : ''}>
