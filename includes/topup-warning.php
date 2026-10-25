@@ -40,7 +40,12 @@
   var topBtn = document.getElementById('fakePayBtn');
   function render(d) {
     var f = d && d.fakePayment;
-    var n = (f && f.count) ? Math.min(Number(f.count), 3) : 0;
+    // the warning only shows for 1 hour after the strike was given (the strike itself stays on the account)
+    var age = (f && f.lastAt) ? Date.now() - new Date(f.lastAt).getTime() : 0;
+    var expired = !!(f && f.lastAt && !isNaN(age) && age > 3600000);
+    var n = (f && f.count && !expired) ? Math.min(Number(f.count), 3) : 0;
+    clearTimeout(window.__fpTimer);
+    if (n && f.lastAt && !isNaN(age)) window.__fpTimer = setTimeout(function () { render(d); }, Math.max(1000, 3600000 - age + 500));
     var text = n ? (f.text || 'A payment you submitted was marked as fake.') : '';
     var title = 'Payment verification — fake payment warning ' + n + '/3';
     if (topBtn) {
