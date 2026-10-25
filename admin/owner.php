@@ -138,7 +138,7 @@ require_once __DIR__ . '/../includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, getData, toast, backendFetch, cacheClear } from '/assets/js/app.js?v=20261024-2';
+import { requireAuth, getData, toast, backendFetch, cacheClear } from '/assets/js/app.js?v=20261025-1';
 
 const OWNER_WA_NUMBER = <?= json_encode(WHATSAPP_TOPUP_NUMBER) ?>;
 
