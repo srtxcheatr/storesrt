@@ -181,8 +181,8 @@ body.fx-wild .modal-overlay .panel::before {
 .btn.is-morph .btn-text.hidden { display: none !important; }
 .btn.is-morph::before { display: none !important; }
 .btn.is-morph::after {
-    content: ''; position: absolute; left: 50%; top: 50%;
-    width: 46%; height: 46%; margin: -23% 0 0 -23%;
+    content: ''; position: absolute; inset: 0; box-sizing: border-box;
+    width: 46%; height: 46%; margin: auto;
     border-radius: 50%;
     border: 3px solid var(--spin-track);
     border-top-color: var(--spin-c);
@@ -293,10 +293,11 @@ body.fx-wild .modal-overlay .panel::before {
 .fx-on .btn-buy.is-morph::after {
     content: '' !important;
     position: absolute !important;
-    inset: auto !important;
-    left: 50% !important; top: 50% !important; right: auto !important; bottom: auto !important;
+    /* true centering: pseudo-elements are NOT border-box by default, so the old -12px margin left the ring ~3px off-center */
+    box-sizing: border-box !important;
+    inset: 0 !important;
     width: 24px !important; height: 24px !important;
-    margin: -12px 0 0 -12px !important;
+    margin: auto !important;
     translate: none !important; scale: none !important; rotate: none !important;
     background: none !important;
     border-radius: 50% !important;
