@@ -224,7 +224,6 @@ html.fx-hidden .fxb *, html.fx-hidden .fxp *, html.fx-hidden .fxp-page * { anima
     border: 1px solid var(--glass-border); color: var(--text-secondary); background: var(--surface-tint-strong, rgba(255,255,255,.04));
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
 }
-.rw-chip.cash { color: var(--neon-green); border-color: rgba(34,197,94,.4); }
 .rw-chip .rbadge { --s: 15px; }
 .rw-mission .btn { width: 100%; margin-top: 10px; }
 .rw-mission .btn:disabled { opacity: .55; cursor: not-allowed; }
@@ -254,15 +253,7 @@ html.fx-hidden .fxb *, html.fx-hidden .fxp *, html.fx-hidden .fxp-page * { anima
 .rw-preview .profile-hero { margin-bottom: 0; }
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
 
-.rw-star { border-color: rgba(255,150,235,.45); background: linear-gradient(135deg, rgba(60,20,110,.5), rgba(10,5,28,.7)); box-shadow: 0 0 24px rgba(255,90,220,.18); }
-.rw-star-top { display: flex; gap: 12px; align-items: center; }
-.rw-star-title { font: 900 14px var(--font-heading, 'Orbitron', sans-serif); letter-spacing: 1px; background: linear-gradient(90deg,#ffe58a,#fff,#ffa6ec,#9defff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.rw-star-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
-.rw-star-stats > div { text-align: center; padding: 8px; border-radius: 10px; background: rgba(255,255,255,.05); }
-.rw-star-stats b { display: block; font: 800 18px var(--font-mono, monospace); }
-.rw-star-stats span { font-size: 10px; color: var(--text-muted); letter-spacing: .5px; text-transform: uppercase; }
-.rw-star .btn { width: 100%; margin-top: 12px; }
 
 
 /* ---- avatar + badge layout (profile / leaderboard) ---- */
