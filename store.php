@@ -834,15 +834,21 @@ document.getElementById('amountChipRow').addEventListener('click', (e) => {
 });
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-async function loadCatalog() {
+window.__retryCatalog = () => {
+    window.__catSig = null;
+    document.getElementById('catalogList').innerHTML = '<div class="dim" style="text-align:center;padding:30px;grid-column:1/-1"><i class="fas fa-circle-notch fa-spin"></i> Loading…</div>';
+    loadCatalog(true);
+};
+
+async function loadCatalog(force = false) {
     try {
-        const d = await getData('catalog', { onStale: (old) => { if (old?.catalog) { catalog = old.catalog; renderCatalog(); } } });
+        const d = await getData('catalog', { force, onStale: (old) => { if (old?.catalog) { catalog = old.catalog; renderCatalog(); } } });
         catalog = d.catalog || {};
         renderCatalog();
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     } catch (e) {
         if (Object.keys(catalog).length) return;
-        document.getElementById('catalogList').innerHTML = `<div class="dim" style="text-align:center;padding:30px;grid-column:1/-1;color:var(--neon-red)"><i class="fas fa-exclamation-triangle"></i> Failed to load catalog<br><small>${esc(e.message)}</small></div>`;
+        document.getElementById('catalogList').innerHTML = `<div class="dim" style="text-align:center;padding:30px;grid-column:1/-1;color:var(--neon-red)"><i class="fas fa-exclamation-triangle"></i> Failed to load catalog<br><small>${esc(e.message)}</small><br><button type="button" class="btn btn-solid" style="margin-top:12px;width:auto;padding:0 22px" onclick="window.__retryCatalog()">Retry</button></div>`;
     }
 }
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -917,10 +923,21 @@ function starsHtml(rating, reviewCount) {
 }
 
 function renderCatalog() {
-    // skip identical re-renders (cache paint + stale + data event + final render used to rebuild the grid 3-4x = visible reloading)
-    const __sig = activeTag + '|' + searchQuery + '|' + JSON.stringify(catalog);
-    if (__sig === window.__catSig) return;
-    window.__catSig = __sig;
+    // skip identical re-renders, but only remember a render that really finished (a failed one must be retried, never left as skeletons)
+    let __sig = '';
+    try { __sig = activeTag + '|' + searchQuery + '|' + JSON.stringify(catalog); } catch (_) {}
+    if (__sig && __sig === window.__catSig) return;
+    try {
+        renderCatalogInner();
+        window.__catSig = __sig;
+    } catch (e) {
+        window.__catSig = null;
+        console.error('[render-catalog]', e);
+        document.getElementById('catalogList').innerHTML = `<div class="dim" style="text-align:center;padding:30px;grid-column:1/-1;color:var(--neon-red)"><i class="fas fa-exclamation-triangle"></i> Could not show products<br><small>${esc(e.message || e)}</small><br><button type="button" class="btn btn-solid" style="margin-top:12px;width:auto;padding:0 22px" onclick="window.__retryCatalog()">Retry</button></div>`;
+    }
+}
+
+function renderCatalogInner() {
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     const groups = {};
     for (const [sku, p] of Object.entries(catalog)) {
