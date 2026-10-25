@@ -63,6 +63,8 @@ $seoTitle  = $pageTitle ?? $siteName;
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?></script>
 <?php endif; ?>
 
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preconnect" href="<?= htmlspecialchars(rtrim(BACKEND_URL, '/')) ?>" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -76,7 +78,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <link rel="stylesheet" href="/assets/css/fx.css?v=20261018-2">
 <?php endif; ?>
 <link rel="stylesheet" href="/assets/css/glass.css?v=20261025-6">
-<link rel="stylesheet" href="/assets/css/checkout-v2.css?v=20261025-2">
+<link rel="stylesheet" href="/assets/css/checkout-v2.css?v=20261026-1">
 
 <script src="/assets/js/consent.js?v=20261025-1"></script>
 <script>
