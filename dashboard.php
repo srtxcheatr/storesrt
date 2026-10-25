@@ -12,9 +12,7 @@ require __DIR__ . '/includes/nav.php';
         <?php require __DIR__ . '/includes/topup-warning.php'; ?>
         <?php $proCard = false; require __DIR__ . '/includes/pro-reseller.php'; ?>
 
-        <div class="dash-grid">
-
-        <div class="dash-hero">
+        <div class="dash-hero tilt">
             <div class="dash-hero-top">
                 <div>
                     <div class="dash-hero-label"><i class="fas fa-wallet" style="color:var(--neon-amber)"></i> BALANCE</div>
@@ -31,7 +29,7 @@ require __DIR__ . '/includes/nav.php';
             </div>
         </div>
 
-        <div class="panel reseller-card hidden dash-wide" id="resellerCard">
+        <div class="panel reseller-card hidden" id="resellerCard">
             <div class="prompt-header"><i class="fas fa-crown" style="color:var(--neon-amber)"></i> RESELLER MODE</div>
             <div class="reseller-progress-row">
                 <div class="reseller-progress-item">
@@ -80,7 +78,11 @@ require __DIR__ . '/includes/nav.php';
             </div>
         </div>
 
-        <div class="dash-main">
+        <div class="panel" id="noticePanel">
+            <div class="prompt-header"><i class="fas fa-bullhorn"></i> ANNOUNCEMENT</div>
+            <div id="noticeText" style="font-size:12px;color:var(--text-secondary)">Loading announcements...</div>
+        </div>
+
         <div class="prompt-header"><i class="fas fa-trophy"></i> TOP 10 LEADERBOARD</div>
         <div class="panel" id="leaderboardPanel">
             <div id="leaderboardList" class="leaderboard-list">
@@ -89,55 +91,70 @@ require __DIR__ . '/includes/nav.php';
                 <div class="skeleton-row"></div>
             </div>
         </div>
-        </div>
-
-        <div class="dash-side">
-        <div class="panel" id="noticePanel">
-            <div class="prompt-header"><i class="fas fa-bullhorn"></i> ANNOUNCEMENT</div>
-            <div id="noticeText" style="font-size:12px;color:var(--text-secondary)">Loading announcements...</div>
-        </div>
 
         <div class="prompt-header"><i class="fas fa-bolt"></i> QUICK ACCESS</div>
         <div class="shortcut-grid">
-            <a href="/store.php" class="shortcut-card">
+            <a href="/store.php" class="shortcut-card tilt">
                 <div class="shortcut-icon"><i class="fas fa-store"></i></div>
                 Store
             </a>
-            <a href="/glorybot.php" class="shortcut-card" data-c="purple">
+            <a href="/glorybot.php" class="shortcut-card tilt" data-c="purple">
                 <div class="shortcut-icon"><i class="fas fa-robot"></i></div>
                 FF Glory Bot
             </a>
-            <a href="/history.php" class="shortcut-card" data-c="blue">
+            <a href="/history.php" class="shortcut-card tilt" data-c="blue">
                 <div class="shortcut-icon"><i class="fas fa-clock-rotate-left"></i></div>
                 History
             </a>
-            <a href="/rewards.php" class="shortcut-card" data-c="green">
+            <a href="/rewards.php" class="shortcut-card tilt" data-c="green">
                 <div class="shortcut-icon"><i class="fas fa-gift"></i></div>
                 Reward Center
             </a>
-            <a href="/admin/owner.php" class="shortcut-card" data-c="amber">
+            <a href="/admin/owner.php" class="shortcut-card tilt" data-c="amber">
                 <div class="shortcut-icon"><i class="fas fa-coins"></i></div>
                 Top Up
             </a>
-            <a href="/profile.php" class="shortcut-card" data-c="green">
+            <a href="/profile.php" class="shortcut-card tilt" data-c="green">
                 <div class="shortcut-icon"><i class="fas fa-user-gear"></i></div>
                 Profile
             </a>
-            <a href="/store.php#support" class="shortcut-card" data-c="pink">
+            <a href="/store.php#support" class="shortcut-card tilt" data-c="pink">
                 <div class="shortcut-icon"><i class="fas fa-headset"></i></div>
                 Support
             </a>
-            <a href="<?= htmlspecialchars(DEVELOPER_URL) ?>" target="_blank" class="shortcut-card" data-c="grey">
+            <a href="<?= htmlspecialchars(DEVELOPER_URL) ?>" target="_blank" class="shortcut-card tilt" data-c="grey">
                 <div class="shortcut-icon"><i class="fas fa-code"></i></div>
                 Developer
             </a>
         </div>
-        </div>
-
-        </div><!-- /dash-grid -->
 
     </div>
 </div>
+
+<style>
+/* src by SRT X CHEATS. Copy right SRT X CHEATS */
+.ann-card { max-width: 460px; width: 100%; text-align: center; position: relative; overflow: hidden; }
+.ann-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--neon-purple, #a855f7), var(--neon-blue, #22d3ee), var(--neon-amber, #d4af37)); }
+.ann-badge { width: 54px; height: 54px; margin: 6px auto 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px;
+    color: var(--neon-amber, #d4af37); background: rgba(212, 175, 55, .12); border: 1px solid rgba(212, 175, 55, .45); animation: annPulse 2.4s ease-in-out infinite; }
+@keyframes annPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, .35); } 50% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); } }
+.ann-title { font-family: var(--font-heading, 'Orbitron', sans-serif); font-size: 15px; font-weight: 800; letter-spacing: .12em; }
+.ann-sub { display: inline-block; margin-top: 6px; font-size: 10.5px; font-weight: 800; letter-spacing: .1em; color: var(--neon-blue, #22d3ee);
+    border: 1px solid currentColor; border-radius: 999px; padding: 2px 10px; opacity: .9; }
+/* the message itself: readable text on a soft gray card */
+.ann-msg { margin: 16px 0; padding: 14px 16px; text-align: left; max-height: 46vh; overflow-y: auto;
+    font: 500 14px/1.7 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: normal; word-spacing: normal;
+    white-space: pre-line; overflow-wrap: anywhere; color: #e5e7eb;
+    background: rgba(148, 163, 184, .16); border: 1px solid rgba(148, 163, 184, .30); border-left: 4px solid var(--neon-amber, #d4af37); border-radius: 12px; }
+[data-theme="light"] .ann-msg { color: #1f2937; background: #eceef2; border-color: #d3d7df; border-left-color: var(--neon-amber, #a8791f); }
+.ann-msg::-webkit-scrollbar { width: 5px; } .ann-msg::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, .5); border-radius: 999px; }
+.ann-gift { display: none; margin: 0 0 14px; padding: 12px; border-radius: 12px; border: 1px dashed rgba(212, 175, 55, .6); background: rgba(212, 175, 55, .08); }
+.ann-card .btn { width: 100%; }
+#noticeText { white-space: pre-line; overflow-wrap: anywhere; line-height: 1.65; padding: 10px 12px; border-radius: 10px; margin-top: 6px;
+    background: rgba(148, 163, 184, .14); border: 1px solid rgba(148, 163, 184, .26); border-left: 3px solid var(--neon-amber, #d4af37); }
+[data-theme="light"] #noticeText { background: #eceef2; border-color: #d3d7df; }
+@media (prefers-reduced-motion: reduce) { .ann-badge { animation: none; } }
+</style>
 
 <div id="announceModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="annTitle">
     <div class="panel ann-card">
@@ -172,7 +189,7 @@ import {
     requireAuth, backendFetch, toast, enableTilt, esc,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     getData, cachePeek, cachePatch, cacheInvalidate, applyBalanceChange, statsFromHistory,
-} from '/assets/js/app.js?v=20261025-1';
+} from '/assets/js/app.js?v=20261018-2';
 import { avBadgeHtml, bannerClass, bannerInner, CROWNS } from '/assets/js/rewards-ui.js?v=20261026-1';
 
 const MEDALS = [

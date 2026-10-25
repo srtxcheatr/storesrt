@@ -259,7 +259,7 @@ require __DIR__ . '/includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, backendFetch, toast, fmtDate, esc } from '/assets/js/app.js?v=20261025-1';
+import { requireAuth, backendFetch, toast, fmtDate, esc } from '/assets/js/app.js?v=20261018-2';
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 const ENDPOINT_PATH = '/api/reseller/v1';

@@ -76,7 +76,7 @@ require __DIR__ . '/includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, backendFetch, toast, esc, getData, cacheInvalidate } from '/assets/js/app.js?v=20261025-1';
+import { requireAuth, backendFetch, toast, esc, getData, cacheInvalidate } from '/assets/js/app.js?v=20261018-2';
 
 let catalogCache = null;
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -240,7 +240,7 @@ function renderAllFeedback(feedback) {
                 <h3>${esc(row)}</h3>
                 <div class="fb-product-avg">${starsHtml(Math.round(avg))} <span>${avg.toFixed(1)} · ${items.length} review${items.length === 1 ? '' : 's'}</span></div>
             </div>
-            <div class="fb-grid">${items.map(f => `
+            ${items.map(f => `
                 <div class="fb-card">
                     <div class="fb-card-top">
                         <span class="fb-author">${esc(f.authorName || 'Anonymous')}</span>
@@ -249,7 +249,7 @@ function renderAllFeedback(feedback) {
                     ${f.comment ? `<div class="fb-comment">${esc(f.comment)}</div>` : ''}
                     <div class="fb-date"><i class="far fa-clock"></i> ${fmtDate(f.createdAt)}</div>
                 </div>
-            `).join('')}</div>
+            `).join('')}
         </div>`;
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     }).join('');

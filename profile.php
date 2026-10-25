@@ -18,10 +18,8 @@ require __DIR__ . '/includes/nav.php';
             <div class="profile-email" id="profDisplayEmail">—</div>
         </div>
 
-        <div class="pf-grid">
-        <section>
         <div class="section-divider"><i class="fas fa-id-card"></i> Account Details</div>
-        <div class="panel">
+        <div class="panel tilt">
             <div class="field"><label><i class="fas fa-user"></i> Name</label><input type="text" id="profName" placeholder="Your Full Name" maxlength="60">
                 <div class="field-hint lock-hint" id="hintName" data-field="name" data-every="7 days"></div></div>
             <div class="field"><label><i class="fab fa-whatsapp"></i> Phone / WhatsApp Number</label><input type="text" id="profPhone" placeholder="98xxxxxxxx" maxlength="30">
@@ -43,10 +41,9 @@ require __DIR__ . '/includes/nav.php';
                 </div>
             </div>
         </div>
-        </section>
-        <section>
+
         <div class="section-divider"><i class="fas fa-shield-halved"></i> Security</div>
-        <div class="panel">
+        <div class="panel tilt">
             <div class="field"><label>Current Password</label><input type="password" id="curPass" autocomplete="current-password"></div>
             <div class="field"><label>New Password (min 6 chars)</label><input type="password" id="newPass" autocomplete="new-password"></div>
             <button class="btn btn-solid" id="savePassword" style="margin-bottom:8px;position:relative">
@@ -58,8 +55,7 @@ require __DIR__ . '/includes/nav.php';
                 <i class="fas fa-key"></i> Forgot Password?
             </a>
         </div>
-        </section>
-        </div>
+
     </div>
 </div>
 
@@ -118,7 +114,7 @@ import {
     requireAuth, backendFetch, toast, setButtonLoading, enableTilt,
     getData, cachePeek, cacheInvalidate, applyProfileChange, renderAvatar,
     auth, EmailAuthProvider, reauthenticateWithCredential, updatePassword,
-} from '/assets/js/app.js?v=20261025-1';
+} from '/assets/js/app.js?v=20261018-2';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 import { setAvatarBadge, applyProfileEffect, applyPageEffect } from '/assets/js/rewards-ui.js?v=20261026-1';
 
