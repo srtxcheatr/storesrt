@@ -12,7 +12,10 @@ import {
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 export const app = initializeApp(window.FIREBASE_CONFIG);
 // Session-only login: closing the tab/browser logs the user out; nothing persists in localStorage/IndexedDB
-export const auth = initializeAuth(app, { persistence: browserSessionPersistence, popupRedirectResolver: browserPopupRedirectResolver });
+// The popup/redirect resolver makes Firebase load an extra auth iframe + gapi on EVERY page (slow on phones).
+// Only the login/home pages sign in with Google, so only they get it.
+const NEEDS_POPUP = /^\/(?:(?:login|home|index)(?:\.php)?)?$/.test(location.pathname);
+export const auth = initializeAuth(app, NEEDS_POPUP ? { persistence: browserSessionPersistence, popupRedirectResolver: browserPopupRedirectResolver } : { persistence: browserSessionPersistence });
 export const googleProvider = new GoogleAuthProvider();
 export { onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword,
   signInWithPopup, sendPasswordResetEmail, EmailAuthProvider, reauthenticateWithCredential, updatePassword,
