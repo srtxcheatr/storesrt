@@ -46,6 +46,12 @@ require __DIR__ . '/includes/head.php';
         </div>
     </div>
 
+    <div id="authError" class="auth-error hidden" role="alert" aria-live="assertive">
+        <i class="fas fa-triangle-exclamation"></i>
+        <span id="authErrorMsg"></span>
+        <button type="button" id="authErrorClose" aria-label="Dismiss"><i class="fas fa-xmark"></i></button>
+    </div>
+
     <div class="panel tilt form-pane" id="loginPane">
         <div class="prompt-header"><i class="fas fa-right-to-bracket"></i> ACCOUNT LOGIN</div>
         <div class="field">
@@ -118,6 +124,13 @@ require __DIR__ . '/includes/head.php';
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
 body.auth-body{flex-direction:column}
 .auth-shell{width:min(400px,100%);max-width:100%}
+.auth-error{display:flex;align-items:flex-start;gap:10px;margin:0 0 12px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:600;
+    color:#fecaca;background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.55);box-shadow:0 6px 24px rgba(239,68,68,.18)}
+.auth-error.hidden{display:none!important}
+.auth-error>i:first-child{margin-top:2px;color:#f87171}
+.auth-error span{flex:1}
+.auth-error button{background:none;border:0;color:inherit;cursor:pointer;padding:2px 4px;font-size:14px;opacity:.8}
+[data-theme="light"] .auth-error{color:#991b1b;background:rgba(239,68,68,.1)}
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
 
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
@@ -128,17 +141,18 @@ import {
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     googleProvider, signInWithPopup, signInWithEmailAndPassword,
     createUserWithEmailAndPassword, sendPasswordResetEmail, getAdditionalUserInfo,
-} from '/assets/js/app.js?v=20261025-3';
+} from '/assets/js/app.js?v=20261025-4';
 // same Firebase module URL as app.js, so this is the very same instance (no app.js change = no cache problems)
 import { onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
+let bootError = null;
 (async () => {
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     // coming back from a Google redirect (used when the popup is blocked): finish it here
     try {
         const rr = await getRedirectResult(auth);
         if (rr && rr.user) { googlePending = true; await finishGoogle(rr.user, !!getAdditionalUserInfo(rr)?.isNewUser); return; }
-    } catch (e) { if (e && e.code && e.code !== 'auth/no-auth-event') toast(friendlyAuthError(e), 'error'); }
+    } catch (e) { if (e && e.code && e.code !== 'auth/no-auth-event') bootError = friendlyAuthError(e); }
     const user = await checkAuthOnce();
     if (user) {
         window.location.href = '/dashboard.php';
@@ -148,6 +162,8 @@ import { onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'https
     document.getElementById('authChecking').classList.add('hidden');
     document.getElementById('authShell').classList.remove('hidden');
     enableTilt();
+    if (bootError) showAuthError(bootError);
+    else if (!navigator.onLine) showAuthError('You are offline. Please check your internet connection.');
 })();
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -178,13 +194,16 @@ document.getElementById('loginBtn').onclick = async () => {
     if (!email || !pass) return toast('Fill both fields', 'error');
     const btn = document.getElementById('loginBtn');
     // src by SRT X CHEATS. Copy right SRT X CHEATS
+    hideAuthError();
+    if (!navigator.onLine) return showAuthError('You are offline. Please check your internet connection and try again.');
     setButtonLoading(btn, true);
     try {
-        await signInWithEmailAndPassword(auth, email, pass);
+        await withSlowGuard(signInWithEmailAndPassword(auth, email, pass), 'login');
         await afterAuth();
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     } catch (e) {
-        toast(e.message, 'error');
+        if (auth.currentUser && e && e.code === 'auth/timeout') { await afterAuth(); return; }   // it did finish, just late
+        showAuthError(friendlyAuthError(e));
         setButtonLoading(btn, false);
     }
 };
@@ -206,13 +225,16 @@ document.getElementById('signupBtn').onclick = async () => {
     if (pass !== passConfirm) return toast('Passwords do not match', 'error');
     const btn = document.getElementById('signupBtn');
     // src by SRT X CHEATS. Copy right SRT X CHEATS
+    hideAuthError();
+    if (!navigator.onLine) return showAuthError('You are offline. Please check your internet connection and try again.');
     setButtonLoading(btn, true);
     try {
-        await createUserWithEmailAndPassword(auth, email, pass);
+        await withSlowGuard(createUserWithEmailAndPassword(auth, email, pass), 'signup');
         await afterAuth({ name, phone, tiktokName, tiktokUser });
     } catch (e) {
+        if (auth.currentUser && e && e.code === 'auth/timeout') { await afterAuth({ name, phone, tiktokName, tiktokUser }); return; }
         // src by SRT X CHEATS. Copy right SRT X CHEATS
-        toast(e.message, 'error');
+        showAuthError(friendlyAuthError(e));
         setButtonLoading(btn, false);
     }
 };
@@ -236,10 +258,36 @@ const busy = {
 };
 function friendlyAuthError(e) {
     const c = e && e.code;
-    if (c === 'auth/network-request-failed') return 'Your internet is too slow or offline. Please try again.';
+    if (c === 'auth/network-request-failed') return 'Poor or no internet connection. Login failed, please check your network and try again.';
+    if (c === 'auth/timeout') return 'Your network is too slow, login did not finish. Please try again.';
+    if (c === 'auth/invalid-credential' || c === 'auth/wrong-password' || c === 'auth/user-not-found' || c === 'auth/invalid-login-credentials') return 'Login failed: wrong email or password.';
+    if (c === 'auth/invalid-email') return 'Please enter a valid email address.';
+    if (c === 'auth/email-already-in-use') return 'This email is already registered. Please log in instead.';
+    if (c === 'auth/weak-password') return 'Password is too weak. Use at least 6 characters.';
+    if (c === 'auth/user-disabled') return 'This account has been disabled. Contact support.';
     if (c === 'auth/unauthorized-domain') return 'This domain is not allowed for Google sign-in. Contact support.';
     if (c === 'auth/too-many-requests') return 'Too many attempts. Please wait a minute and try again.';
-    return (e && e.message) || 'Sign-in failed. Please try again.';
+    if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request') return 'Sign-in did not finish. The Google window was closed, or your network is slow. Please try again.';
+    if (c === 'auth/popup-blocked') return 'The sign-in window was blocked by your browser. Please allow pop-ups and try again.';
+    if (!navigator.onLine) return 'You are offline. Please check your internet connection.';
+    return (e && e.message && !/^Firebase:/i.test(e.message) ? e.message : 'Login failed. Please try again.');
+}
+// Visible, persistent error (a toast alone disappears in a few seconds and is easy to miss on a slow connection)
+function showAuthError(msg) {
+    const box = $('authError');
+    if (!box) { toast(msg, 'error'); return; }
+    $('authErrorMsg').textContent = msg;
+    box.classList.remove('hidden');
+    try { box.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (_) {}
+    toast(msg, 'error');
+}
+function hideAuthError() { const b = $('authError'); if (b) b.classList.add('hidden'); }
+$('authErrorClose').onclick = hideAuthError;
+// never let a request hang forever on a bad network: fail with a clear message after `ms`
+function withSlowGuard(promise, _what, ms = 30000) {
+    let t;
+    const timeout = new Promise((_, rej) => { t = setTimeout(() => rej(Object.assign(new Error('timeout'), { code: 'auth/timeout' })), ms); });
+    return Promise.race([promise, timeout]).finally(() => clearTimeout(t));
 }
 const isNewGoogleUser = (u) => {                                  // a brand-new account has creation time == first sign-in time
     const m = (u && u.metadata) || {}, c = Date.parse(m.creationTime), l = Date.parse(m.lastSignInTime);
@@ -270,9 +318,12 @@ function waitForUser(ms, token) {
 onAuthStateChanged(auth, (u) => { if (u && googlePending && !finishing) finishGoogle(u, isNewGoogleUser(u)); });
 
 $('authBusyCancel').onclick = () => { busyToken++; googlePending = false; finishing = false; busy.hide(); };
+window.addEventListener('offline', () => { if (!$('authBusy').classList.contains('hidden')) $('authBusyH').textContent = 'You went offline. Reconnect and keep this page open, or tap Cancel.'; });
 
 $('googleBtn').onclick = async () => {
     if (googlePending) return;
+    hideAuthError();
+    if (!navigator.onLine) return showAuthError('You are offline. Please check your internet connection and try again.');
     googlePending = true;
     const token = ++busyToken;
     busy.show('Connecting to Google…', 'Choose your account in the Google window.');
@@ -290,12 +341,17 @@ $('googleBtn').onclick = async () => {
         if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request' || code === 'auth/network-request-failed' || code === 'auth/timeout') {
             // On slow connections the popup often closes BEFORE Firebase has finished: give the session time to arrive.
             busy.show('Finishing sign-in…', 'If you closed the Google window on purpose, tap Cancel.');
-            const u = await waitForUser(20000, token);
-            if (token !== busyToken) return;
+            const u = await waitForUser(45000, token);
+            if (token !== busyToken) return;                      // user tapped Cancel on purpose: stay quiet
             if (u) { await finishGoogle(u, isNewGoogleUser(u)); return; }
-            if (code !== 'auth/popup-closed-by-user') toast(friendlyAuthError(e), 'error');
+            // timed out: ALWAYS tell the user it failed (before, a closed popup just made the screen vanish)
+            googlePending = false; finishing = false; busy.hide();
+            showAuthError(code === 'auth/popup-closed-by-user' ? friendlyAuthError({ code: 'auth/timeout' }) : friendlyAuthError(e));
+            return;
         } else {
-            toast(friendlyAuthError(e), 'error');
+            googlePending = false; finishing = false; busy.hide();
+            showAuthError(friendlyAuthError(e));
+            return;
         }
         googlePending = false; finishing = false; busy.hide();
     }
