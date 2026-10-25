@@ -62,44 +62,19 @@ require __DIR__ . '/includes/nav.php';
     </div>
 </div>
 
-<div id="planModal" class="modal-overlay hidden">
-    <div class="panel plan-picker-panel" style="max-width:430px;width:100%">
-        <div class="prompt-header"><i class="fas fa-cart-shopping"></i> SELECT PRODUCT PLAN</div>
-        <div id="planProductName" class="plan-product-name"></div>
-        <div id="planDurationList" class="plan-duration-list"></div>
-
-        <div class="quantity-box">
-            <div>
-                <div class="quantity-title"><i class="fas fa-layer-group"></i> Quantity</div>
-                <div class="dim" style="font-size:10px">How many keys do you want?</div>
-            </div>
-            <div class="quantity-control">
-                <button type="button" id="qtyMinus" aria-label="Decrease quantity">−</button>
-                <span id="qtyValue">1</span>
-                <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
-            </div>
-        </div>
-
-        <div class="plan-total-row">
-            <span>Total</span><strong id="planTotal">Rs 0</strong>
-        </div>
-        <button class="btn btn-solid" id="planConfirmBtn" style="margin-bottom:8px"><i class="fas fa-check-circle"></i> Confirm Selection</button>
-        <button class="btn btn-ghost" onclick="closeModal('planModal')"><i class="fas fa-xmark"></i> Cancel</button>
-    </div>
-</div>
-
 <div id="checkoutModal" class="modal-overlay hidden">
-    <div class="panel" style="max-width:400px;width:100%">
-        <div class="prompt-header"><i class="fas fa-cart-shopping"></i> CONFIRM PURCHASE</div>
-        <div id="checkoutSummary" style="font-size:13px;margin-bottom:14px"></div>
-        <div class="field"><label><i class="fas fa-user"></i> Your Name</label><input type="text" id="payName" placeholder="Full name"></div>
-        <div class="field"><label><i class="fab fa-whatsapp"></i> WhatsApp Number</label><input type="text" id="payWA" placeholder="98xxxxxxxx"></div>
-
-        <button class="btn btn-solid" id="confirmBuyBtn" style="margin-bottom:8px;position:relative">
-            <span class="btn-text"><i class="fas fa-check-circle"></i> Confirm Order</span>
+    <div class="panel confirm-panel" style="max-width:400px;width:100%">
+        <div class="confirm-title">CONFIRM PURCHASE?</div>
+        <div id="checkoutSummary" class="confirm-lines"></div>
+        <div id="payFields" class="confirm-fields hidden">
+            <div class="field"><label><i class="fas fa-user"></i> Your Name</label><input type="text" id="payName" placeholder="Full name"></div>
+            <div class="field"><label><i class="fab fa-whatsapp"></i> WhatsApp Number</label><input type="text" id="payWA" placeholder="98xxxxxxxx"></div>
+        </div>
+        <button class="btn btn-solid btn-confirm-yes" id="confirmBuyBtn" style="position:relative">
+            <span class="btn-text">YES, CONFIRM</span>
             <span class="btn-spinner hidden"><span class="spinner"></span></span>
         </button>
-        <button class="btn btn-ghost" onclick="closeModal('checkoutModal')"><i class="fas fa-xmark"></i> Cancel</button>
+        <button type="button" class="btn-confirm-cancel" data-no-busy onclick="closeModal('checkoutModal')">CANCEL</button>
     </div>
 </div>
 
@@ -627,7 +602,7 @@ import {
     requireAuth, backendFetch, toast, esc, getAuthToken, enableTilt,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     getData, refreshData, cachePeek, cacheInvalidate, applyBalanceChange, recordPurchase,
-} from '/assets/js/app.js?v=20261018-2';
+} from '/assets/js/app.js?v=20261025-3';
 
 window.openModal = (id) => document.getElementById(id)?.classList.remove('hidden');
 window.closeModal = (id) => document.getElementById(id)?.classList.add('hidden');
@@ -1015,16 +990,8 @@ function renderCatalog() {
                 <div class="product-rating">${starsHtml(defaultItem?.rating, defaultItem?.reviewCount)}</div>
                 ${maintenance ? `<div class="maintenance-note"><i class="fas fa-triangle-exclamation"></i> ${esc(maintenanceText)}</div>` : ''}
                 ${soldOut ? `<div class="maintenance-note"><i class="fas fa-triangle-exclamation"></i> All durations are currently out of stock.</div>` : ''}
-                <div class="product-plan-preview">
-                    <i class="fas fa-clock"></i> ${items.filter(it => !isMaintenanceProduct(it) && !isOutOfStockProduct(it)).length} duration${items.filter(it => !isMaintenanceProduct(it) && !isOutOfStockProduct(it)).length === 1 ? '' : 's'} available
-                    <span>Tap Buy to select</span>
-                </div>
-                <div class="product-price-live">${locked && !defaultItem ? 'Unavailable' : `From Rs ${defaultItem.price}`}</div>
+                ${planRowsHtml(items, gi)}
                 <div class="product-actions">
-                    ${locked
-                        // src by SRT X CHEATS. Copy right SRT X CHEATS
-                        ? `<button class="btn-buy btn-maintenance" type="button" disabled><i class="fas fa-lock"></i> ${maintenance ? 'Maintenance' : 'Sold Out'}</button>`
-                        : `<button class="btn-buy" onclick="window.__buySelected(${gi})"><i class="fas fa-cart-shopping"></i> Buy</button>`}
                     ${maintenance ? `
                         <button class="btn-download btn-download-disabled" type="button" disabled aria-disabled="true" title="Download unavailable during maintenance">
                             <i class="fas fa-lock"></i> Download Disabled
@@ -1092,89 +1059,43 @@ let pendingPlan = null;
 let purchaseQuantity = 1;
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-function updatePlanTotal() {
-    const total = pendingPlan?.item ? Number(pendingPlan.item.price || 0) * purchaseQuantity : 0;
-    const totalEl = document.getElementById('planTotal');
-    if (totalEl) totalEl.textContent = `Rs ${total}`;
-}
-// src by SRT X CHEATS. Copy right SRT X CHEATS
-
-function setPurchaseQuantity(value) {
-    purchaseQuantity = Math.max(1, Math.min(10, Number(value) || 1));
-    const el = document.getElementById('qtyValue');
-    if (el) el.textContent = purchaseQuantity;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    updatePlanTotal();
-}
-
-document.getElementById('qtyMinus').onclick = () => setPurchaseQuantity(purchaseQuantity - 1);
-document.getElementById('qtyPlus').onclick = () => setPurchaseQuantity(purchaseQuantity + 1);
-// src by SRT X CHEATS. Copy right SRT X CHEATS
-
-function openPlanPicker(gi) {
-    const group = lastGroups[gi];
-    if (!group) return;
-    const buyable = group.items.filter(it => !isMaintenanceProduct(it) && !isOutOfStockProduct(it));
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    if (!buyable.length) return toast('This product is currently unavailable.', 'error');
-
-    pendingPlan = { group, item: buyable[0] };
-    purchaseQuantity = 1;
-    document.getElementById('planProductName').textContent = group.row;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    document.getElementById('qtyValue').textContent = '1';
-    document.getElementById('planDurationList').innerHTML = group.items.map((it, i) => {
+function planRowsHtml(items, gi) {
+    return `<div class="plan-rows">` + items.map(it => {
         const down = isMaintenanceProduct(it);
         const out = !down && isOutOfStockProduct(it);
-        const disabled = down || out;
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        const reasonLabel = down ? 'Maintenance' : out ? 'Sold out' : '';
+        const off = down || out;
         return `
-        <button type="button" class="plan-duration${!disabled && it.sku === buyable[0].sku ? ' active' : ''}${disabled ? ' plan-duration-disabled' : ''}"
-            data-sku="${esc(it.sku)}" ${disabled ? 'disabled' : `onclick="window.__choosePlan('${esc(it.sku)}', this)"`}>
-            <span><i class="fas fa-clock"></i> ${esc(it.duration)}</span>
-            <strong>${disabled ? reasonLabel : `Rs ${esc(it.price)}`}</strong>
-        </button>`;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    }).join('');
-    updatePlanTotal();
-    openModal('planModal');
-// src by SRT X CHEATS. Copy right SRT X CHEATS
+        <div class="plan-row${off ? ' off' : ''}">
+            <div class="pr-info">
+                <span class="pr-dur">${esc(it.duration)}</span>
+                <span class="pr-price">${off ? (down ? 'Maintenance' : 'Sold out') : `Rs ${esc(it.price)}`}</span>
+            </div>
+            ${off ? '' : `<input class="pr-qty" type="number" inputmode="numeric" min="1" max="10" value="1" aria-label="Quantity" data-no-busy>`}
+            <button type="button" class="pr-buy" data-no-busy ${off ? 'disabled' : `onclick="window.__buyRow('${esc(it.sku)}', this)"`}>${off ? '<i class="fas fa-lock"></i>' : 'BUY'}</button>
+        </div>`;
+    }).join('') + `</div>`;
 }
 
-window.__choosePlan = (sku, btn) => {
+window.__buyRow = (sku, btn) => {
     const raw = catalog[sku];
-    if (!raw || isMaintenanceProduct(raw) || isOutOfStockProduct(raw)) return;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    const it = { ...raw, sku };
-    pendingPlan = { ...(pendingPlan || {}), item: it, sku };
-    document.querySelectorAll('#planDurationList .plan-duration').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    updatePlanTotal();
-// src by SRT X CHEATS. Copy right SRT X CHEATS
-};
-
-window.__buySelected = (gi) => openPlanPicker(gi);
-
-document.getElementById('planConfirmBtn').onclick = () => {
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    if (!pendingPlan?.item) return toast('Please select a duration', 'error');
-    const p = pendingPlan.item;
-    pendingCheckout = { sku: p.sku, ...p, quantity: purchaseQuantity };
+    if (!raw || isMaintenanceProduct(raw) || isOutOfStockProduct(raw)) return toast('This plan is currently unavailable.', 'error');
+    const qIn = btn.closest('.plan-row')?.querySelector('.pr-qty');
+    const qty = Math.max(1, Math.min(10, parseInt(qIn?.value, 10) || 1));
+    if (qIn) qIn.value = qty;
+    const p = { ...raw, sku };
+    purchaseQuantity = qty;
+    pendingCheckout = { sku, ...p, quantity: qty };
     document.getElementById('checkoutSummary').innerHTML = `
-        <div class="checkout-selected-card">
-            <div><span class="dim">Product</span><strong>${esc(p.name)}</strong></div>
-            <div><span class="dim">Duration</span><strong>${esc(p.duration)}</strong></div>
-            <div><span class="dim">Quantity</span><strong>${purchaseQuantity}</strong></div>
-            <div class="checkout-grand-total"><span>Total</span><strong>Rs ${Number(p.price) * purchaseQuantity}</strong></div>
-        </div>
-    `;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    closeModal('planModal');
+        <div>Product: <b>${esc(p.row || p.name)}</b></div>
+        <div>Duration: <b>${esc(p.duration)}</b></div>
+        <div>Quantity: <b>${qty}</b></div>
+        <div class="cl-total">Total: <b>Rs ${(Number(p.price) * qty).toFixed(2)}</b></div>`;
+    // name + WhatsApp come from the profile; only ask when missing
+    const nameEl = document.getElementById('payName'), waEl = document.getElementById('payWA');
+    document.getElementById('payFields').classList.toggle('hidden', !!(nameEl.value.trim() && waEl.value.trim()));
     openModal('checkoutModal');
 };
 
-// src by SRT X CHEATS. Copy right SRT X CHEATS
 document.getElementById('catalogSearch').value = searchQuery;
 document.getElementById('catalogSearch').addEventListener('input', (e) => {
     searchQuery = e.target.value;

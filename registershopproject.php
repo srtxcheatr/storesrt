@@ -114,7 +114,7 @@ require __DIR__ . '/includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, backendFetch, toast, esc } from '/assets/js/app.js?v=20261018-2';
+import { requireAuth, backendFetch, toast, esc } from '/assets/js/app.js?v=20261025-3';
 
 const $ = (id) => document.getElementById(id);
 const orderId = new URLSearchParams(location.search).get('order') || '';

@@ -81,7 +81,7 @@ require __DIR__ . '/includes/nav.php';
 import {
     optionalAuth, fetchPublicCatalog, toast, esc, enableTilt,
     auth, googleProvider, signInWithPopup, backendFetch,
-} from '/assets/js/app.js?v=20261018-2';
+} from '/assets/js/app.js?v=20261025-3';
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 window.openModal = (id) => document.getElementById(id)?.classList.remove('hidden');
