@@ -63,18 +63,21 @@ require __DIR__ . '/includes/nav.php';
 </div>
 
 <style>
-/* close (X) button: solid red circle, big white X */
+/* close (X) button: small, clean red-tinted circle */
 #planModal .plan-close, #checkoutModal .plan-close {
-    position:absolute !important; right:12px !important; width:38px !important; height:38px !important; padding:0 !important; margin:0 !important;
+    position:absolute !important; right:12px !important; width:32px !important; height:32px !important; padding:0 !important; margin:0 !important;
     display:flex !important; align-items:center !important; justify-content:center !important; border-radius:50% !important; cursor:pointer;
-    background:#ef4444 !important; border:2px solid #fff !important; color:#fff !important; box-shadow:0 4px 14px rgba(239,68,68,.55) !important; z-index:10 !important;
+    background:rgba(239,68,68,.16) !important; border:1px solid rgba(239,68,68,.55) !important; color:#ff6b6b !important; box-shadow:none !important; z-index:10 !important;
+    transition:background .15s, color .15s, transform .15s;
 }
-#planModal .plan-close { top:50% !important; transform:translateY(-50%); }
+#planModal .plan-close { top:50% !important; transform:translateY(-50%) !important; }
 #planModal .pm2-head { position:relative; }
 #checkoutModal .plan-close { top:12px !important; }
-#planModal .plan-close i, #checkoutModal .plan-close i { color:#fff !important; font-size:18px !important; line-height:1 !important; }
-#planModal .plan-close:active, #checkoutModal .plan-close:active { background:#b91c1c !important; transform:translateY(-50%) scale(.94); }
-#checkoutModal .plan-close:active { transform:scale(.94); }
+#planModal .plan-close i, #checkoutModal .plan-close i { color:inherit !important; font-size:15px !important; line-height:1 !important; }
+#planModal .plan-close:hover, #checkoutModal .plan-close:hover { background:#ef4444 !important; color:#fff !important; border-color:#ef4444 !important; }
+#planModal .plan-close:active { transform:translateY(-50%) scale(.92) !important; }
+#checkoutModal .plan-close:active { transform:scale(.92) !important; }
+[data-theme="light"] #planModal .plan-close, [data-theme="light"] #checkoutModal .plan-close { color:#dc2626 !important; }
 </style>
 <div id="planModal" class="modal-overlay hidden">
     <div class="panel pm2" role="dialog" aria-modal="true" aria-labelledby="pm2Title">
@@ -278,7 +281,7 @@ require __DIR__ . '/includes/nav.php';
                 <i class="fas fa-triangle-exclamation"></i>
                 Pay from eSewa and enter the right amount. Wrong amount = order cancelled — no refunds.
             </div>
-            <div class="field"><label><i class="fas fa-hashtag"></i> Transaction Code</label><input type="text" id="topupTx" placeholder="e.g. JRJDHD"></div>
+            <div class="field"><label><i class="fas fa-hashtag"></i> Transaction Code</label><input type="text" id="topupTx" placeholder="e.g. 1U7HMDY"></div>
             <button class="btn btn-solid" id="submitTopup" style="margin-bottom:8px;position:relative">
                 <span class="btn-text"><i class="fas fa-paper-plane"></i> Submit Topup</span>
                 <span class="btn-spinner hidden"><span class="spinner"></span></span>
@@ -1587,6 +1590,14 @@ topupBtn.onclick = async () => {
     const txCode = document.getElementById('topupTx').value.trim();
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     if (!amount || !esewaId || !txCode) return toast('Fill all fields', 'error');
+    // eSewa tx code = exactly 7 chars, CAPITAL letters + digits, always starts with 1 (e.g. 1U7HMDY)
+    const txProblem = !txCode ? 'Enter your eSewa transaction code (example: 1U7HMDY).'
+        : /[a-z]/.test(txCode) ? 'Transaction code must be in CAPITAL letters only (example: 1U7HMDY).'
+        : /[^A-Z0-9]/.test(txCode) ? 'Transaction code can only contain capital letters (A-Z) and numbers (0-9) - no spaces or symbols.'
+        : txCode.length < 7 ? `Transaction code is too short - it must be exactly 7 characters (you entered ${txCode.length}). Example: 1U7HMDY`
+        : txCode.length > 7 ? `Transaction code is too long - it must be exactly 7 characters (you entered ${txCode.length}). Example: 1U7HMDY`
+        : txCode[0] !== '1' ? 'Transaction code always starts with the number 1 (example: 1U7HMDY). Please check your eSewa receipt.' : '';
+    if (txProblem) return toast(txProblem, 'error');
     setLoading(topupBtn, true);
     try {
         await backendFetch('/api/user/topup', { method: 'POST', body: JSON.stringify({ amount, esewaId, txCode }) });
