@@ -88,6 +88,9 @@ export function requireAuth(onReady){
     bindUid(user.uid);
     startSync();
     const cachedProfile=cachePeek('profile'); if(cachedProfile) announce('profile',cachedProfile.value);
+    // Make sure every page loads the profile (balance + name) in the background, even pages that never ask for it themselves.
+    // Deduplicated with the page's own getData('profile') call, so it costs no extra request.
+    ensureSession().then(()=>getData('profile').catch(()=>{}));
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     await ensureSession();
     try{await onReady(user);}catch(e){console.error('[page-init]',e);toast(e.message||'Failed to load page data','error');}
@@ -359,9 +362,22 @@ export function renderAvatar(el, url, fallbackText = '?') {
   el.appendChild(img);
 }
 
-// src by SRT X CHEATS. Copy right SRT X CHEATS
+// Sidebar balance on EVERY page (dashboard/store used to be the only ones that painted it)
+export function paintDrawerBalance(balance) {
+  const el = document.getElementById('drawerBalance');
+  if (!el || balance === undefined || balance === null || balance === '' || isNaN(Number(balance))) return;
+  el.textContent = 'NRP ' + balance;
+}
+function paintDrawerFromCache() {
+  const c = cachePeek('profile');
+  if (c && c.value) paintDrawerBalance(c.value.balance);
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paintDrawerFromCache, { once: true });
+else paintDrawerFromCache();
+
 window.addEventListener('srtx:balance', (e) => {
   const p = e.detail || {};
+  paintDrawerBalance(p.balance);
   const label = p.profileName || p.email || 'My Account';
   const name = document.getElementById('drawerUserName');
   if (name && p.profileName) name.textContent = p.profileName;
