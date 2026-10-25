@@ -47,7 +47,7 @@ $proCard = !empty($proCard);
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { backendFetch, toast, cachePeek, cachePatch, refreshData } from '/assets/js/app.js?v=20261025-1';
+import { backendFetch, toast, cachePeek, cachePatch, refreshData } from '/assets/js/app.js?v=20261018-2';
 
 const $ = (id) => document.getElementById(id);
 const nrp = (n) => 'NRP ' + Number(n || 0).toLocaleString('en-US');

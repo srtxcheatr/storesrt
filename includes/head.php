@@ -3,7 +3,7 @@ require_once __DIR__ . '/config.php';
 if (!headers_sent()) { header('Cache-Control: no-cache, must-revalidate'); } // always fetch fresh HTML so new ?v= asset links load
 
 $fxPage   = $currentPage ?? '';
-$fxOff    = true; // premium UI: all decorative FX (orbs, creatures, confetti, welcome toast) are permanently off
+$fxOff    = ($bodyClass ?? '') === 'boot-body';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 ?>
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <link rel="canonical" href="<?= htmlspecialchars($seoUrl) ?>">
 <meta name="keywords" content="SRT X CHEATS, Nepali panel seller, Nepal trusted panel seller, Android panel, NonRoot panel, iOS panel, Glory bot seller">
 <meta name="application-name" content="<?= $siteName ?>">
-<meta name="theme-color" content="#0a0b10">
+<meta name="theme-color" content="#060a14">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96.png">
@@ -65,7 +65,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600;650;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -75,8 +75,6 @@ $seoTitle  = $pageTitle ?? $siteName;
 <?php if (!$fxOff): ?>
 <link rel="stylesheet" href="/assets/css/fx.css?v=20261018-2">
 <?php endif; ?>
-<link rel="stylesheet" href="/assets/css/glass.css?v=20261024-3">
-<link rel="stylesheet" href="/assets/css/premium.css?v=20261025-1">
 
 <script src="/assets/js/consent.js?v=20261025-1"></script>
 <script>
@@ -118,5 +116,5 @@ $seoTitle  = $pageTitle ?? $siteName;
 <?php endif; ?>
 <?= $extraHead ?? '' ?>
 </head>
-<?php $bodyClasses = trim('ux ' . (!empty($currentPage) ? 'page-' . preg_replace('/[^a-z0-9_-]/i', '', $currentPage) . ' ' : '') . ($bodyClass ?? '')); ?>
+<?php $bodyClasses = trim(($fxOff ? '' : 'fx-wild ') . ($bodyClass ?? '')); ?>
 <body<?= $bodyClasses !== '' ? ' class="' . htmlspecialchars($bodyClasses) . '"' : '' ?>>
