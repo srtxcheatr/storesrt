@@ -76,6 +76,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <link rel="stylesheet" href="/assets/css/fx.css?v=20261018-2">
 <?php endif; ?>
 <link rel="stylesheet" href="/assets/css/glass.css?v=20261025-6">
+<link rel="stylesheet" href="/assets/css/checkout-v2.css?v=20261025-1">
 
 <script src="/assets/js/consent.js?v=20261025-1"></script>
 <script>
