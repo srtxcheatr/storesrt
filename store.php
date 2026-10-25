@@ -62,6 +62,15 @@ require __DIR__ . '/includes/nav.php';
     </div>
 </div>
 
+<div id="planModal" class="modal-overlay hidden">
+    <div class="panel plan-popup" style="max-width:430px;width:100%">
+        <button type="button" class="plan-close" data-no-busy aria-label="Close" onclick="closeModal('planModal')"><i class="fas fa-xmark"></i></button>
+        <div class="prompt-header"><i class="fas fa-cart-shopping"></i> SELECT PLAN</div>
+        <div id="planProductName" class="plan-product-name"></div>
+        <div id="planDurationList"></div>
+    </div>
+</div>
+
 <div id="checkoutModal" class="modal-overlay hidden">
     <div class="panel confirm-panel" style="max-width:400px;width:100%">
         <div class="confirm-title">CONFIRM PURCHASE?</div>
@@ -990,8 +999,16 @@ function renderCatalog() {
                 <div class="product-rating">${starsHtml(defaultItem?.rating, defaultItem?.reviewCount)}</div>
                 ${maintenance ? `<div class="maintenance-note"><i class="fas fa-triangle-exclamation"></i> ${esc(maintenanceText)}</div>` : ''}
                 ${soldOut ? `<div class="maintenance-note"><i class="fas fa-triangle-exclamation"></i> All durations are currently out of stock.</div>` : ''}
-                ${planRowsHtml(items, gi)}
+                <div class="product-plan-preview">
+                    <i class="fas fa-clock"></i> ${items.filter(it => !isMaintenanceProduct(it) && !isOutOfStockProduct(it)).length} duration${items.filter(it => !isMaintenanceProduct(it) && !isOutOfStockProduct(it)).length === 1 ? '' : 's'} available
+                    <span>Tap Buy to select</span>
+                </div>
+                <div class="product-price-live">${locked && !defaultItem ? 'Unavailable' : `From Rs ${defaultItem.price}`}</div>
                 <div class="product-actions">
+                    ${locked
+                        // src by SRT X CHEATS. Copy right SRT X CHEATS
+                        ? `<button class="btn-buy btn-maintenance" type="button" disabled><i class="fas fa-lock"></i> ${maintenance ? 'Maintenance' : 'Sold Out'}</button>`
+                        : `<button class="btn-buy" onclick="window.__buySelected(${gi})"><i class="fas fa-cart-shopping"></i> Buy</button>`}
                     ${maintenance ? `
                         <button class="btn-download btn-download-disabled" type="button" disabled aria-disabled="true" title="Download unavailable during maintenance">
                             <i class="fas fa-lock"></i> Download Disabled
@@ -1076,6 +1093,16 @@ function planRowsHtml(items, gi) {
     }).join('') + `</div>`;
 }
 
+function openPlanPicker(gi) {
+    const group = lastGroups[gi];
+    if (!group) return;
+    if (!group.items.some(it => !isMaintenanceProduct(it) && !isOutOfStockProduct(it))) return toast('This product is currently unavailable.', 'error');
+    document.getElementById('planProductName').textContent = group.row;
+    document.getElementById('planDurationList').innerHTML = planRowsHtml(group.items, gi);
+    openModal('planModal');
+}
+window.__buySelected = (gi) => openPlanPicker(gi);
+
 window.__buyRow = (sku, btn) => {
     const raw = catalog[sku];
     if (!raw || isMaintenanceProduct(raw) || isOutOfStockProduct(raw)) return toast('This plan is currently unavailable.', 'error');
@@ -1093,6 +1120,7 @@ window.__buyRow = (sku, btn) => {
     // name + WhatsApp come from the profile; only ask when missing
     const nameEl = document.getElementById('payName'), waEl = document.getElementById('payWA');
     document.getElementById('payFields').classList.toggle('hidden', !!(nameEl.value.trim() && waEl.value.trim()));
+    closeModal('planModal');
     openModal('checkoutModal');
 };
 
@@ -1263,7 +1291,6 @@ async function runPurchase() {
     if (!name || !waNum) { toast('Please fill name and WhatsApp', 'error'); return; }
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
-    closeModal('checkoutModal');
     closeModal('errorModal');
     setLoading(confirmBtn, true);
 
@@ -1294,7 +1321,7 @@ async function runPurchase() {
             // src by SRT X CHEATS. Copy right SRT X CHEATS
             }
 
-            if (n === 1) { openModal('deliveryModal'); resetDeliverySteps(); }
+            if (n === 1) { closeModal('checkoutModal'); openModal('deliveryModal'); resetDeliverySteps(); }
 
             const jobId = startRes.jobId;
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -1350,6 +1377,7 @@ async function runPurchase() {
         openModal('errorModal');
     } finally {
         setLoading(confirmBtn, false);
+        closeModal('checkoutModal');
     }
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 }
