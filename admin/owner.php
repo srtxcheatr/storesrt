@@ -112,7 +112,9 @@ require_once __DIR__ . '/../includes/nav.php';
     <div class="prompt-header"><i class="fas fa-hashtag"></i> SEND TRANSACTION ID</div>
     <div class="dim" style="font-size:12px;margin-bottom:12px">Amount: <strong id="txAmt" style="color:var(--neon-amber)"></strong>. We check your payment with this ID.</div>
     <div class="field"><label><i class="fas fa-receipt"></i> Transaction ID</label>
-      <input type="text" id="txCode" placeholder="e.g. 0ABC1234XY" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40"></div>
+      <input type="text" id="txCode" placeholder="e.g. 1U7HMDY" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" inputmode="text" aria-describedby="txHint txErr"></div>
+    <div id="txHint" class="dim" style="font-size:11.5px;margin:-4px 0 10px;line-height:1.5">7 characters · CAPITAL letters + numbers · starts with <b>1</b> (example <b>1U7HMDY</b>)</div>
+    <div id="txErr" role="alert" style="display:none;margin:0 0 10px;padding:9px 11px;border-radius:10px;font-size:12.5px;line-height:1.45;color:#fecaca;background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.55)"><i class="fas fa-triangle-exclamation"></i> <span id="txErrText"></span></div>
     <button class="btn btn-solid" id="txSendBtn" style="margin-bottom:8px;position:relative;width:100%">
       <span class="btn-text"><i class="fas fa-paper-plane"></i> Send</span>
       <span class="btn-spinner"><span class="spinner"></span></span>
@@ -203,12 +205,30 @@ $('qrPayBtn').addEventListener('click', () => {
 $('qrClose').addEventListener('click', () => { closeOv('qrFull'); lockScroll(false); });
 $('qrPaidBtn').addEventListener('click', () => { closeOv('qrFull'); openOv('txModal'); setTimeout(() => $('txCode').focus(), 50); });
 $('txBackBtn').addEventListener('click', () => { closeOv('txModal'); openOv('qrFull'); });
-$('txCode').addEventListener('input', (e) => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9_-]/g, ''); });
+// eSewa tx code = exactly 7 chars, CAPITAL letters + digits, always starts with 1 (e.g. 1U7HMDY). Same rules as the server.
+function checkTxCode(raw) {
+    const t = String(raw || '').trim();
+    if (!t) return 'Enter your eSewa transaction code (example: 1U7HMDY).';
+    if (/[a-z]/.test(t)) return 'Transaction code must be in CAPITAL letters only (example: 1U7HMDY).';
+    if (/[^A-Z0-9]/.test(t)) return 'Transaction code can only contain capital letters (A-Z) and numbers (0-9) - no spaces or symbols.';
+    if (t.length < 7) return 'Transaction code is too short - it must be exactly 7 characters (you entered ' + t.length + '). Example: 1U7HMDY';
+    if (t.length > 7) return 'Transaction code is too long - it must be exactly 7 characters (you entered ' + t.length + '). Example: 1U7HMDY';
+    if (t[0] !== '1') return 'Transaction code always starts with the number 1 (example: 1U7HMDY). Please check your eSewa receipt.';
+    return '';
+}
+function showTxErr(msg) {
+    const box = $('txErr');
+    if (!msg) { box.style.display = 'none'; return; }
+    $('txErrText').textContent = msg; box.style.display = 'block';
+}
+$('txCode').addEventListener('input', () => showTxErr(''));
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
 $('txSendBtn').addEventListener('click', async () => {
     const txCode = $('txCode').value.trim();
-    if (!/^[A-Z0-9_-]{6,40}$/.test(txCode)) { toast('Enter a valid transaction ID (6–40 letters/numbers)', 'error'); return; }
+    const txProblem = checkTxCode(txCode);
+    if (txProblem) { showTxErr(txProblem); toast(txProblem, 'error'); $('txCode').focus(); return; }
+    showTxErr('');
     const btn = $('txSendBtn');
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     setBusy(btn, true);
@@ -220,6 +240,7 @@ $('txSendBtn').addEventListener('click', async () => {
         openOv('topupPendingModal');
         setTimeout(() => { try { window.srtFxConfetti && window.srtFxConfetti(); } catch (_) {} }, 250);
     } catch (e) {
+        showTxErr(e.message || 'Could not send. Try again.');
         toast(e.message || 'Could not send. Try again.', 'error');
     } finally {
         // src by SRT X CHEATS. Copy right SRT X CHEATS
