@@ -126,7 +126,7 @@
     if (document.querySelector('.bottom-tabbar')) box.className = 'has-tabbar';
     var current = state ? '<br><span style="opacity:.8">Your current choice: <b style="display:inline;font-size:inherit">' + (state === 'accepted' ? 'Accepted' : 'Rejected') + '</b></span>' : '';
     box.innerHTML =
-      '<div class="ic" aria-hidden="true"><i class="fas fa-cookie-bite"></i></div>' +
+      '<div class="ic" aria-hidden="true">\uD83C\uDF6A</div>' +
       '<div class="tx"><b>We use cookies</b><p>We always keep what is needed to log you in. If you accept, we also save your theme, faster-loading data and ' +
       '"already seen" notices on this device. No advertising or analytics cookies. <a id="srtxCookieMore">Learn more</a>' + current + '</p></div>' +
       '<div class="row"><button type="button" class="den" id="srtxCookieDeny">Reject</button><button type="button" class="acc" id="srtxCookieAccept">Accept</button></div>';

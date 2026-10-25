@@ -90,8 +90,6 @@ export function requireAuth(onReady){
     const cachedProfile=cachePeek('profile'); if(cachedProfile) announce('profile',cachedProfile.value);
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     await ensureSession();
-    // make sure the profile (balance/name/avatar) is loaded on every page; uses the cache when fresh
-    getData('profile').catch(()=>{});
     try{await onReady(user);}catch(e){console.error('[page-init]',e);toast(e.message||'Failed to load page data','error');}
     warmCache();
   });
@@ -365,9 +363,6 @@ export function renderAvatar(el, url, fallbackText = '?') {
 window.addEventListener('srtx:balance', (e) => {
   const p = e.detail || {};
   const label = p.profileName || p.email || 'My Account';
-  // sidebar balance must show on EVERY page, not only Dashboard/Store
-  const bal = document.getElementById('drawerBalance');
-  if (bal && p.balance !== undefined && p.balance !== null) bal.textContent = 'NRP ' + p.balance;
   const name = document.getElementById('drawerUserName');
   if (name && p.profileName) name.textContent = p.profileName;
   // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -487,7 +482,6 @@ const SCRAMBLE_CHARS='!<>-_\\/[]{}—=+*^?#________';
 export function setButtonLoading(btn,loading){if(!btn)return;if(loading){if(btn.dataset.origText===undefined)btn.dataset.origText=btn.textContent;btn.disabled=true;let f=0;clearInterval(btn._scrambleTimer);btn._scrambleTimer=setInterval(()=>{f++;const o=btn.dataset.origText||'',n=Math.floor((f/14)*o.length);btn.textContent=[...o].map((ch,i)=>ch===' '? ' ':i<n?ch:SCRAMBLE_CHARS[Math.floor(Math.random()*SCRAMBLE_CHARS.length)]).join('');if(n>=o.length)f=0;},45);}else{clearInterval(btn._scrambleTimer);btn.disabled=false;if(btn.dataset.origText!==undefined)btn.textContent=btn.dataset.origText;}}
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 export function enableTilt(root=document){
-  if(!window.SRT_TILT)return; // premium UI: card tilt is off (set window.SRT_TILT=true to re-enable)
   if(!matchMedia('(pointer:fine)').matches)return;
   root.querySelectorAll('.tilt').forEach(el=>{
     if(el._tiltBound)return;
@@ -515,7 +509,6 @@ export function enableTilt(root=document){
 }
 
 function initVisualEffects(){
-  if(!window.SRT_VISUALS) return; // premium UI: animated web canvas + custom cursor are off (set window.SRT_VISUALS=true to re-enable)
   if(document.body.dataset.srtVisuals==='1') return;
   // src by SRT X CHEATS. Copy right SRT X CHEATS
   document.body.dataset.srtVisuals='1';
