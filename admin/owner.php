@@ -65,7 +65,7 @@ require_once __DIR__ . '/../includes/nav.php';
       <span><i class="fas fa-wallet" style="color:var(--neon-purple)"></i> BALANCE LOAD</span>
       <button type="button" id="clearCacheBtn" class="clear-cache-btn" data-no-busy><i class="fas fa-broom"></i> Clear cache</button>
     </div>
-    <div class="owner-sub">Pick an amount, then send it to the owner on WhatsApp — your details are filled in for you.</div>
+    <div class="owner-sub">Pay with QR, or deposit through our Telegram bot — your details are filled in for you.</div>
 
     <div class="owner-balance-line">Current balance: <strong id="ownerBalance">—</strong> NRP</div>
 
@@ -74,10 +74,6 @@ require_once __DIR__ . '/../includes/nav.php';
       <span>Once a deposit is added to your balance it <strong>cannot be refunded</strong>. This is our policy — please confirm the amount before sending.</span>
     </div>
 
-    <div class="contact-limited-banner">
-      <i class="fas fa-clock" style="margin-top:1px"></i>
-      <span>This option is only available while the owner is online. Please wait for a reply after messaging.</span>
-    </div>
 
     <div class="amt-section-label">Choose an amount</div>
     <div class="amt-chip-grid" id="amountPresets"></div>
@@ -96,8 +92,9 @@ require_once __DIR__ . '/../includes/nav.php';
     </button>
     <div class="pay-or">or</div>
     <button type="button" class="btn btn-ghost" id="depositBtn" style="margin-top:8px;width:100%">
-      <i class="fab fa-whatsapp"></i> Deposit via WhatsApp
+      <i class="fab fa-telegram" style="color:#29a9eb"></i> Deposit via Telegram
     </button>
+    <div class="dim" style="font-size:11.5px;text-align:center;margin-top:8px;line-height:1.5">The bot shows the store QR, asks the amount and your eSewa transaction code.</div>
   </div>
 </div>
 
@@ -138,9 +135,7 @@ require_once __DIR__ . '/../includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, getData, toast, backendFetch, cacheClear } from '/assets/js/app.js?v=20261025-3';
-
-const OWNER_WA_NUMBER = <?= json_encode(WHATSAPP_TOPUP_NUMBER) ?>;
+import { requireAuth, getData, toast, backendFetch, cacheClear } from '/assets/js/app.js?v=20261025-4';
 
 const AMOUNT_PRESETS = [100, 300, 500, 1000, 2000, 5000];
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -176,24 +171,6 @@ function syncActiveChip() {
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 }
 amountInput.addEventListener('input', syncActiveChip);
-
-function buildWhatsAppMessage(amount, uid) {
-    const name = profileCache?.profileName || 'Not set';
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    const number = profileCache?.profilePhone || 'Not set';
-    const email = profileCache?.email || 'Not set';
-    return [
-        'Hello, I am coming from the Admin Panel and I want to get deposit balance.',
-        '',
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        `NRP - ${amount}`,
-        `Name - ${name}`,
-        `Number - ${number}`,
-        `Email - ${email}`,
-        `UID - ${uid}`,
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    ].join('\n');
-}
 
 document.getElementById('clearCacheBtn').addEventListener('click', async (e) => {
     const b = e.currentTarget; b.disabled = true;
@@ -265,25 +242,23 @@ requireAuth(async (user) => {
     }
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
-    depositBtn.addEventListener('click', () => {
-        const amount = parseInt(amountInput.value, 10);
-        if (!amount || amount < MIN_AMOUNT) {
-            toast(`Enter a valid amount (min NRP ${MIN_AMOUNT})`, 'error');
-            // src by SRT X CHEATS. Copy right SRT X CHEATS
-            return;
-        }
+    depositBtn.addEventListener('click', async () => {
         if (!profileCache?.profileName || !profileCache?.profilePhone) {
             toast('Add your name and number in Profile first', 'error');
             missingNote.classList.remove('hidden');
-            // src by SRT X CHEATS. Copy right SRT X CHEATS
             return;
         }
         missingNote.classList.add('hidden');
-
-        const message = buildWhatsAppMessage(amount, user.uid);
-        // src by SRT X CHEATS. Copy right SRT X CHEATS
-        const url = `https://wa.me/${OWNER_WA_NUMBER}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank', 'noopener');
+        // open the tab right now (inside the tap) so pop-up blockers allow it, then point it at the bot
+        const tab = window.open('', '_blank');
+        depositBtn.disabled = true;
+        try {
+            const r = await backendFetch('/api/user/telegram-deposit-link', { method: 'POST' });
+            if (tab) tab.location.href = r.url; else window.location.href = r.url;
+        } catch (e) {
+            if (tab) tab.close();
+            toast(e.message || 'Could not open Telegram. Please try again.', 'error');
+        } finally { depositBtn.disabled = false; }
     });
 });
 </script>
