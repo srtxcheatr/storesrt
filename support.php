@@ -124,7 +124,7 @@ require __DIR__ . '/includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, backendFetch, toast, esc } from '/assets/js/app.js?v=20261025-3';
+import { requireAuth, backendFetch, toast, esc } from '/assets/js/app.js?v=20261025-4';
 
 const $ = (id) => document.getElementById(id);
 const MIN = 10, MAX = 50;

@@ -114,7 +114,7 @@ import {
     requireAuth, backendFetch, toast, setButtonLoading, enableTilt,
     getData, cachePeek, cacheInvalidate, applyProfileChange, renderAvatar,
     auth, EmailAuthProvider, reauthenticateWithCredential, updatePassword,
-} from '/assets/js/app.js?v=20261025-3';
+} from '/assets/js/app.js?v=20261025-4';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 import { setAvatarBadge, applyProfileEffect, applyPageEffect } from '/assets/js/rewards-ui.js?v=20261026-1';
 

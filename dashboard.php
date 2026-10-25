@@ -188,7 +188,7 @@ import {
     requireAuth, backendFetch, toast, enableTilt, esc,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     getData, cachePeek, cachePatch, cacheInvalidate, applyBalanceChange, statsFromHistory,
-} from '/assets/js/app.js?v=20261025-3';
+} from '/assets/js/app.js?v=20261025-4';
 import { avBadgeHtml, bannerClass, bannerInner, CROWNS } from '/assets/js/rewards-ui.js?v=20261026-1';
 
 const MEDALS = [

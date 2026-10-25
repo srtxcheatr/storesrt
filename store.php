@@ -611,7 +611,7 @@ import {
     requireAuth, backendFetch, toast, esc, getAuthToken, enableTilt,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     getData, refreshData, cachePeek, cacheInvalidate, applyBalanceChange, recordPurchase,
-} from '/assets/js/app.js?v=20261025-3';
+} from '/assets/js/app.js?v=20261025-4';
 
 window.openModal = (id) => document.getElementById(id)?.classList.remove('hidden');
 window.closeModal = (id) => document.getElementById(id)?.classList.add('hidden');
@@ -747,7 +747,7 @@ function applyBalanceLight(d) {
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     document.getElementById('balAmount').textContent = d.balance;
     const drawerBal = document.getElementById('drawerBalance');
-    if (drawerBal) drawerBal.textContent = 'Rs ' + d.balance;
+    if (drawerBal) drawerBal.textContent = 'NRP ' + d.balance;
 }
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -755,7 +755,7 @@ function applyBalance(d) {
         userState = d;
         document.getElementById('balAmount').textContent = d.balance;
         const drawerBal = document.getElementById('drawerBalance');
-        if (drawerBal) drawerBal.textContent = 'Rs ' + d.balance;
+        if (drawerBal) drawerBal.textContent = 'NRP ' + d.balance;
         // src by SRT X CHEATS. Copy right SRT X CHEATS
         const drawerName = document.getElementById('drawerUserName');
         if (drawerName) drawerName.textContent = d.profileName || 'My Account';
