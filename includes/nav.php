@@ -1,6 +1,6 @@
 <?php // src by SRT X CHEATS. Copy right SRT X CHEATS
 $breadcrumb = $breadcrumb ?? $currentPage;
-$pageTitles = ['dashboard' => 'Dashboard', 'store' => 'Store', 'history' => 'Order History', 'profile' => 'Profile', 'othersprofile' => 'Player Profile', 'apicontact' => 'Reseller API', 'glorybot' => 'FF Glory Bot', 'rewards' => 'Reward Center', 'support' => 'Support'];
+$pageTitles = ['dashboard' => 'Dashboard', 'store' => 'Store', 'history' => 'Order History', 'profile' => 'Profile', 'othersprofile' => 'Player Profile', 'apicontact' => 'Reseller API', 'pikey' => 'PI Key', 'glorybot' => 'FF Glory Bot', 'rewards' => 'Reward Center', 'support' => 'Support'];
 $headerTitle = $pageTitles[$currentPage] ?? 'SRT X CHEATS';
 $isGuestPage = $currentPage === 'home';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -92,6 +92,7 @@ $isGuestPage = $currentPage === 'home';
     <a href="/rewards.php" class="drawer-item <?= $currentPage === 'rewards' ? 'active' : '' ?>"><i class="fas fa-gift"></i> Reward Center</a>
     <a href="/feedback.php" class="drawer-item <?= $currentPage === 'feedback' ? 'active' : '' ?>"><i class="fas fa-star"></i> Feedback</a>
     <a href="/apicontact.php" class="drawer-item hidden <?= $currentPage === 'apicontact' ? 'active' : '' ?>" id="resellerApiLink"><i class="fas fa-plug"></i> Reseller API</a>
+    <a href="/pikey.php" class="drawer-item <?= $currentPage === 'pikey' ? 'active' : '' ?>"><i class="fas fa-key"></i> PI Key</a>
 
     <div class="drawer-section-label">Account</div>
     <a href="/profile.php" class="drawer-item <?= $currentPage === 'profile' ? 'active' : '' ?>"><i class="fas fa-user-gear"></i> Profile</a>
