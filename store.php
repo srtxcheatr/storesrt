@@ -1131,7 +1131,7 @@ function planRowsHtml(items, gi) {
         const down = isMaintenanceProduct(it);
         const off = !planAvailable(it);
         const sel = firstOk && it.sku === firstOk.sku;
-        const badge = off ? (down ? 'Maintenance' : 'Sold out') : '';
+        const badge = off ? (down ? 'Maintenance' : 'Sold out') : (it.stockMode && Number(it.stock) > 0 ? `${Number(it.stock)} left` : '');
         return `
         <label class="pm2-opt${off ? ' off' : ''}" data-no-busy>
             <input type="radio" name="planOpt" value="${esc(it.sku)}" ${off ? 'disabled' : ''} ${sel ? 'checked' : ''}>
