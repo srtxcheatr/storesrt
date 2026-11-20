@@ -24,12 +24,14 @@
 </div>
 <?php endif; ?>
 
+<script src="/assets/js/seen.js?v=20261120-2"></script>
 <div id="topupDoneModal" class="modal-overlay hidden" style="z-index:1200">
   <div class="panel" style="max-width:400px;width:100%;text-align:center">
     <div class="prompt-header" style="justify-content:center"><i class="fas fa-circle-check" style="color:var(--neon-green)"></i> ORDER COMPLETED</div>
     <div style="background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.4);border-radius:12px;padding:14px;font-size:13px;line-height:1.7">
       Your order has been completed ✅<br><b id="topupDoneAmt"></b> added to your balance. Thank you! 🎉
     </div>
+    <label style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:12.5px;cursor:pointer"><input type="checkbox" id="topupDoneNever"> Do not show again</label>
     <button class="btn btn-solid" id="topupDoneOk" style="margin-top:14px;width:100%"><i class="fas fa-check"></i> OK</button>
   </div>
 </div>
@@ -91,6 +93,7 @@
     var q = d && d.qrApproved;
     if (!q || !q.reqId) return;
     if (Date.now() - new Date(q.at).getTime() > 24 * 3600 * 1000) return;
+    if (window.srtxNever && window.srtxNever.is('popup:topup')) return;      // user chose "Do not show again"
     var modal = document.getElementById('topupDoneModal');
     if (!modal || !modal.classList.contains('hidden')) return;      // already open
     var seen = [];
@@ -105,6 +108,8 @@
   }
   // src by SRT X CHEATS. Copy right SRT X CHEATS
   document.getElementById('topupDoneOk').addEventListener('click', function () {
+    var nv = document.getElementById('topupDoneNever');
+    if (nv && nv.checked && window.srtxNever) window.srtxNever.set('popup:topup');
     document.getElementById('topupDoneModal').classList.add('hidden');
   });
   window.addEventListener('srtx:balance', function (e) { showDone(e.detail); });

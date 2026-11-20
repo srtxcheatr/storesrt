@@ -81,7 +81,7 @@ $seoTitle  = $pageTitle ?? $siteName;
 <link rel="stylesheet" href="/assets/css/checkout-v2.css?v=20261026-1">
 
 <script src="/assets/js/consent.js?v=20261120-1"></script>
-<script src="/assets/js/seen.js?v=20261120-1"></script>
+<script src="/assets/js/seen.js?v=20261120-2"></script>
 <script>
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     window.BACKEND_URL = "<?= BACKEND_URL ?>";

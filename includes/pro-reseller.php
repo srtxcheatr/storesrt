@@ -15,6 +15,7 @@ $proCard = !empty($proCard);
 .pro-note{background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.35);border-radius:12px;padding:12px;font-size:12.5px;line-height:1.7;margin-top:10px}
 </style>
 
+<script src="/assets/js/seen.js?v=20261120-2"></script>
 <div id="proInfoModal" class="modal-overlay hidden" style="z-index:1250">
   <div class="panel" style="max-width:400px;width:100%;text-align:center">
     <div class="pro-modal-icon" id="proInfoIcon">💎</div>
@@ -49,10 +50,10 @@ function proOf(p) {
     };
 }
 
-function showInfo({ icon, title, body, buttons }) {
+function showInfo({ icon, title, body, buttons, never }) {
     $('proInfoIcon').textContent = icon;
     $('proInfoTitle').textContent = title;
-    $('proInfoBody').innerHTML = body;
+    $('proInfoBody').innerHTML = body + (never ? '<label style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-size:12.5px;cursor:pointer"><input type="checkbox" id="proNever"> Do not show again</label>' : '');
     const box = $('proInfoBtns'); box.innerHTML = '';
     for (const b of buttons) {
         const el = document.createElement(b.href ? 'a' : 'button');
@@ -60,6 +61,8 @@ function showInfo({ icon, title, body, buttons }) {
         el.innerHTML = b.label;
         if (b.href) el.href = b.href; else el.type = 'button';
         el.addEventListener('click', (ev) => {
+            const nv = $('proNever');
+            if (never && nv && nv.checked && window.srtxNever) window.srtxNever.set(never);
             $('proInfoModal').classList.add('hidden');
             if (b.href && new URL(b.href, location.href).pathname === location.pathname) ev.preventDefault();
         });
@@ -71,6 +74,7 @@ const showActive = () => showInfo({
     icon: '💎', title: 'PRO RESELLER UNLOCKED',
     body: 'Your deposit is received 🎉<br>Store prices are now <b>PRO RESELLER</b> prices. Buy low, sell high and earn! 🤑',
     buttons: [{ label: '<i class="fas fa-store"></i> Open Store', solid: true, href: '/store.php' }],
+    never: 'popup:pro-unlocked',
 });
 const showActiveInfo = () => showInfo({
     icon: '👑', title: 'PRO RESELLER',
@@ -112,6 +116,7 @@ function onProfile(p) {
     if (isActive) {
         // show the "unlocked" popup ONCE per account (not once per stamp: a stamp that changes would loop it)
         if (shownThisPage || !recent(s.stamp, 2)) return;
+        if (window.srtxNever && window.srtxNever.is('popup:pro-unlocked')) return;   // user chose "Do not show again"
         if (window.srtxSeen && window.srtxSeen.has(key)) return;
         if (window.srtxSeen) window.srtxSeen.add(key);          // mark BEFORE showing
         shownThisPage = true;
