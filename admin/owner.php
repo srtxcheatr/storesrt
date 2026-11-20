@@ -136,7 +136,7 @@ require_once __DIR__ . '/../includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, getData, toast, backendFetch, cacheClear } from '/assets/js/app.js?v=20261025-4';
+import { requireAuth, getData, toast, backendFetch, cacheClear } from '/assets/js/app.js?v=20261120-1';
 
 const AMOUNT_PRESETS = [100, 300, 500, 1000, 2000, 5000];
 // src by SRT X CHEATS. Copy right SRT X CHEATS
