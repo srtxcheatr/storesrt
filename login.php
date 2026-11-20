@@ -135,13 +135,22 @@ body.auth-body{flex-direction:column}
 
 /* src by SRT X CHEATS. Copy right SRT X CHEATS */
 </style>
+<script>
+// Failsafe: if the login script fails to load (old cached file, blocked CDN), do not spin forever.
+setTimeout(function () {
+    var c = document.getElementById('authChecking'), sh = document.getElementById('authShell');
+    if (c && !c.classList.contains('hidden') && sh) { c.classList.add('hidden'); sh.classList.remove('hidden'); }
+}, 8000);
+</script>
 <script type="module">
 import {
-    auth, checkAuthOnce, markLogin, backendFetch, toast, setButtonLoading, enableTilt,
+    auth, checkAuthOnce, backendFetch, toast, setButtonLoading, enableTilt,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     googleProvider, signInWithPopup, signInWithEmailAndPassword,
     createUserWithEmailAndPassword, sendPasswordResetEmail, getAdditionalUserInfo,
 } from '/assets/js/app.js?v=20261120-1';
+import * as AppNS from '/assets/js/app.js?v=20261120-1';
+const markLogin = AppNS.markLogin || (() => {});   // never break the login page if an older app.js is served
 // same Firebase module URL as app.js, so this is the very same instance (no app.js change = no cache problems)
 import { onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
@@ -150,7 +159,7 @@ let bootError = null;
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     // coming back from a Google redirect (used when the popup is blocked): finish it here
     try {
-        const rr = await getRedirectResult(auth);
+        const rr = await Promise.race([getRedirectResult(auth), new Promise((r) => setTimeout(() => r(null), 5000))]);   // never hang here
         if (rr && rr.user) { googlePending = true; await finishGoogle(rr.user, !!getAdditionalUserInfo(rr)?.isNewUser); return; }
     } catch (e) { if (e && e.code && e.code !== 'auth/no-auth-event') bootError = friendlyAuthError(e); }
     const user = await checkAuthOnce();
