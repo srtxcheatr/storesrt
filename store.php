@@ -657,7 +657,7 @@ import {
     requireAuth, backendFetch, toast, esc, getAuthToken, enableTilt,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     getData, refreshData, cachePeek, cacheInvalidate, applyBalanceChange, recordPurchase,
-} from '/assets/js/app.js?v=20261025-4';
+} from '/assets/js/app.js?v=20261120-1';
 
 window.openModal = (id) => document.getElementById(id)?.classList.remove('hidden');
 window.closeModal = (id) => document.getElementById(id)?.classList.add('hidden');

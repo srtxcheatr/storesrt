@@ -64,7 +64,7 @@ require __DIR__ . '/includes/nav.php';
 
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
-import { requireAuth, backendFetch, toast, esc, cachePeek, cacheInvalidate, renderAvatar } from '/assets/js/app.js?v=20261025-4';
+import { requireAuth, backendFetch, toast, esc, cachePeek, cacheInvalidate, renderAvatar } from '/assets/js/app.js?v=20261120-1';
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 import { BADGES, BANNERS, PROFILES, badgeHtml, avBadgeHtml, bannerClass, bannerInner, setAvatarBadge, applyProfileEffect, applyPageEffect } from '/assets/js/rewards-ui.js?v=20261026-1';
 

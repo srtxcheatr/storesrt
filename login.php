@@ -137,11 +137,11 @@ body.auth-body{flex-direction:column}
 </style>
 <script type="module">
 import {
-    auth, checkAuthOnce, backendFetch, toast, setButtonLoading, enableTilt,
+    auth, checkAuthOnce, markLogin, backendFetch, toast, setButtonLoading, enableTilt,
     // src by SRT X CHEATS. Copy right SRT X CHEATS
     googleProvider, signInWithPopup, signInWithEmailAndPassword,
     createUserWithEmailAndPassword, sendPasswordResetEmail, getAdditionalUserInfo,
-} from '/assets/js/app.js?v=20261025-4';
+} from '/assets/js/app.js?v=20261120-1';
 // same Firebase module URL as app.js, so this is the very same instance (no app.js change = no cache problems)
 import { onAuthStateChanged, signInWithRedirect, getRedirectResult } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
@@ -163,6 +163,7 @@ let bootError = null;
     document.getElementById('authShell').classList.remove('hidden');
     enableTilt();
     if (bootError) showAuthError(bootError);
+    else if (new URLSearchParams(location.search).get('expired')) showAuthError('Your 2-hour login session ended. Please log in again.');
     else if (!navigator.onLine) showAuthError('You are offline. Please check your internet connection.');
 })();
 
@@ -181,6 +182,7 @@ document.getElementById('openLogin').onclick = (e) => {
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 
 async function afterAuth(profileFields) {
+    markLogin();                                       // starts the 2-hour login session
     try { await backendFetch('/api/user/init', { method: 'POST', body: JSON.stringify(profileFields || {}) }); } catch (e) { console.error(e); }
     try { sessionStorage.setItem('srtx_session_inited', '1'); } catch (e) {}
     window.location.href = '/dashboard.php';

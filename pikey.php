@@ -184,7 +184,7 @@ require __DIR__ . '/includes/nav.php';
 </style>
 
 <script type="module">
-import { requireAuth, backendFetch, toast, esc } from '/assets/js/app.js?v=20261025-4';
+import { requireAuth, backendFetch, toast, esc } from '/assets/js/app.js?v=20261120-1';
 
 const ENDPOINT = String(window.BACKEND_URL || '').trim().replace(/\/+$/, '') + '/api/pi/v1';
 const DOTS = '\u2022'.repeat(32);
