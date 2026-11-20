@@ -20,6 +20,24 @@
       st.setItem(K, JSON.stringify(o));
     } catch (e) {}
   }
+  // "Do not show again": an explicit user choice, kept for 1 year in a cookie + localStorage + sessionStorage
+  // (the cookie is not affected by the storage gate in consent.js, so it works on every page / route).
+  var NC = 'srtx_never';
+  function cookieList() { var m = (document.cookie || '').match(/(?:^|;\s*)srtx_never=([^;]*)/); return m && m[1] ? m[1].split('.') : []; }
+  function nevers() {
+    var l = cookieList();
+    stores().forEach(function (st) { var o = read(st); Object.keys(o).forEach(function (k) { if (k.charAt(0) === 'n') l.push(k.slice(1)); }); });
+    return l;
+  }
+  window.srtxNever = {
+    is: function (key) { return nevers().indexOf(hash(key)) >= 0; },
+    set: function (key) {
+      var id = hash(key), l = cookieList();
+      if (l.indexOf(id) < 0) l.push(id);
+      try { document.cookie = NC + '=' + l.slice(-30).join('.') + '; Max-Age=31536000; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : ''); } catch (e) {}
+      stores().forEach(function (st) { var o = read(st); o['n' + id] = Date.now(); write(st, o); });
+    }
+  };
   window.srtxSeen = {
     has: function (key) {
       var id = hash(key); if (mem[id]) return true;
