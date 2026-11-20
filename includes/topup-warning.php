@@ -86,19 +86,21 @@
   // src by SRT X CHEATS. Copy right SRT X CHEATS
   window.srtxRenderFakePay = render;
 
+  var _doneKey = function (q) { return 'qr:' + q.reqId; };
   function showDone(d) {
     var q = d && d.qrApproved;
     if (!q || !q.reqId) return;
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
     if (Date.now() - new Date(q.at).getTime() > 24 * 3600 * 1000) return;
+    var modal = document.getElementById('topupDoneModal');
+    if (!modal || !modal.classList.contains('hidden')) return;      // already open
     var seen = [];
     try { seen = JSON.parse(localStorage.getItem('srtx_qr_done') || '[]'); } catch (_) {}
-    if (seen.indexOf(q.reqId) >= 0) return;
-    seen.push(q.reqId);
-    // src by SRT X CHEATS. Copy right SRT X CHEATS
-    try { localStorage.setItem('srtx_qr_done', JSON.stringify(seen.slice(-30))); } catch (_) {}
+    if (seen.indexOf(q.reqId) >= 0) return;                         // old flag (kept for users who already had it)
+    if (window.srtxSeen && window.srtxSeen.has(_doneKey(q))) return;
+    if (window.srtxSeen) window.srtxSeen.add(_doneKey(q));          // mark BEFORE showing: it can never open twice
+    try { seen.push(q.reqId); localStorage.setItem('srtx_qr_done', JSON.stringify(seen.slice(-30))); } catch (_) {}
     document.getElementById('topupDoneAmt').textContent = 'NRP ' + q.amount;
-    document.getElementById('topupDoneModal').classList.remove('hidden');
+    modal.classList.remove('hidden');
     setTimeout(function () { try { window.srtFxConfetti && window.srtFxConfetti(); } catch (_) {} }, 250);
   }
   // src by SRT X CHEATS. Copy right SRT X CHEATS

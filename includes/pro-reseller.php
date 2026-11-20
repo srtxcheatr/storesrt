@@ -27,14 +27,18 @@ $proCard = !empty($proCard);
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 // PRO RESELLER unlocks automatically: 10+ keys bought AND ONE new deposit of NRP 3500+ (no form, no approval).
-import { cachePeek } from '/assets/js/app.js?v=20261025-3';
+import { cachePeek } from '/assets/js/app.js?v=20261120-1';
 
 const $ = (id) => document.getElementById(id);
 const nrp = (n) => 'NRP ' + Number(n || 0).toLocaleString('en-US');
-const SEEN_KEY = 'srtx_pro_seen';
-const seenMap = () => { try { return JSON.parse(localStorage.getItem(SEEN_KEY) || '{}'); } catch (_) { return {}; } };
-const markSeen = (status, stamp) => { try { const m = seenMap(); m[status] = stamp; localStorage.setItem(SEEN_KEY, JSON.stringify(m)); } catch (_) {} };
 const recent = (stamp, days) => { const t = Date.parse(stamp); return !t || (Date.now() - t) < days * 864e5; };
+const onStorePage = () => /^\/store(\.php)?\/?$/.test(location.pathname);
+let shownThisPage = false;
+const seenKey = (p) => {
+    let uid = (p && (p.uid || p.id || p.email)) || '';
+    if (!uid) { try { uid = localStorage.getItem('srtx_data_uid') || ''; } catch (_) {} }
+    return 'pro-active:' + uid;
+};
 
 function proOf(p) {
     const x = (p && p.proReseller) || {};
@@ -55,7 +59,10 @@ function showInfo({ icon, title, body, buttons }) {
         el.className = 'btn' + (b.solid ? ' btn-solid' : ''); el.style.cssText = 'flex:1;text-align:center;text-decoration:none';
         el.innerHTML = b.label;
         if (b.href) el.href = b.href; else el.type = 'button';
-        el.addEventListener('click', () => $('proInfoModal').classList.add('hidden'));
+        el.addEventListener('click', (ev) => {
+            $('proInfoModal').classList.add('hidden');
+            if (b.href && new URL(b.href, location.href).pathname === location.pathname) ev.preventDefault();
+        });
         box.appendChild(el);
     }
     $('proInfoModal').classList.remove('hidden');
@@ -101,8 +108,17 @@ function onProfile(p) {
     if (!p) return;
     const s = proOf(p);
     renderCard(s);
-    const seen = seenMap();
-    if ((s.status === 'active' || s.role === 'pro_reseller') && seen.active !== s.stamp && recent(s.stamp, 2)) { markSeen('active', s.stamp); showActive(); }
+    const key = seenKey(p), isActive = s.status === 'active' || s.role === 'pro_reseller';
+    if (isActive) {
+        // show the "unlocked" popup ONCE per account (not once per stamp: a stamp that changes would loop it)
+        if (shownThisPage || !recent(s.stamp, 2)) return;
+        if (window.srtxSeen && window.srtxSeen.has(key)) return;
+        if (window.srtxSeen) window.srtxSeen.add(key);          // mark BEFORE showing
+        shownThisPage = true;
+        if (!onStorePage()) showActive();                       // already in the store: nothing to open
+    } else if (p.role && p.proReseller && window.srtxSeen) {
+        window.srtxSeen.remove(key);                            // full profile says not PRO any more -> a future unlock shows again
+    }
 }
 window.addEventListener('srtx:balance', (e) => onProfile(e.detail));
 window.addEventListener('srtx:data', (e) => { const { key, value } = e.detail || {}; if (key === 'profile') onProfile(value); });

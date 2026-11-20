@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <script type="module">
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 // Order-status icon: visible only when the user has a shop-project order; opens the live tracker.
-import { backendFetch, toast } from '/assets/js/app.js?v=20261025-4';
+import { backendFetch, toast } from '/assets/js/app.js?v=20261120-1';
 if (typeof window.toast !== 'function') window.toast = toast;
 
 const btn = document.getElementById('orderStatusBtn');
