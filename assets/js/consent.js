@@ -35,7 +35,7 @@
   if (state && cookieValue() !== state) saveChoice(state);   // cookie was lost but a backup exists: restore it
 
   // Firebase keeps the login session itself (strictly necessary); everything else we write goes through the gate below.
-  var isEssential = function (k) { return k === COOKIE || /^firebase/i.test(String(k)); };
+  var isEssential = function (k) { return k === COOKIE || k === 'srtx_login_at' || /^firebase/i.test(String(k)); };
   if (ls) {
     try {
       var rawSet = Storage.prototype.setItem;

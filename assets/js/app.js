@@ -1,7 +1,7 @@
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import {
-  initializeAuth, browserSessionPersistence, browserPopupRedirectResolver, onAuthStateChanged, signOut,
+  initializeAuth, browserLocalPersistence, browserPopupRedirectResolver, onAuthStateChanged, signOut,
   signInWithEmailAndPassword, createUserWithEmailAndPassword,
   // src by SRT X CHEATS. Copy right SRT X CHEATS
   GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail,
@@ -11,11 +11,11 @@ import {
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 export const app = initializeApp(window.FIREBASE_CONFIG);
-// Session-only login: closing the tab/browser logs the user out; nothing persists in localStorage/IndexedDB
+// Login is remembered on this device (auto login) but only for 2 hours: see SESSION_MS below. After that the user must log in again.
 // The popup/redirect resolver makes Firebase load an extra auth iframe + gapi on EVERY page (slow on phones).
 // Only the login/home pages sign in with Google, so only they get it.
 const NEEDS_POPUP = /^\/(?:(?:login|home|index)(?:\.php)?)?$/.test(location.pathname);
-export const auth = initializeAuth(app, NEEDS_POPUP ? { persistence: browserSessionPersistence, popupRedirectResolver: browserPopupRedirectResolver } : { persistence: browserSessionPersistence });
+export const auth = initializeAuth(app, NEEDS_POPUP ? { persistence: browserLocalPersistence, popupRedirectResolver: browserPopupRedirectResolver } : { persistence: browserLocalPersistence });
 export const googleProvider = new GoogleAuthProvider();
 export { onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword,
   signInWithPopup, sendPasswordResetEmail, EmailAuthProvider, reauthenticateWithCredential, updatePassword,
@@ -23,6 +23,27 @@ export { onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWith
   getAdditionalUserInfo };
 
 const LOGIN_PATH='/login.php', DASHBOARD_PATH='/dashboard.php';
+
+// ---- 2-hour login session -------------------------------------------------------------------------------
+const SESSION_MS = 2*60*60*1000, LOGIN_AT_KEY = 'srtx_login_at';   // key is whitelisted as "essential" in consent.js
+let memLoginAt = 0, sessionTimer = null;
+const loginAt = () => { try { const v = Number(localStorage.getItem(LOGIN_AT_KEY)); if (v > 0) return v; } catch (_) {} return memLoginAt; };
+export function markLogin(){ memLoginAt = Date.now(); try { localStorage.setItem(LOGIN_AT_KEY, String(memLoginAt)); } catch (_) {} }
+export function sessionExpired(){ const t = loginAt(); return !!t && Date.now() - t >= SESSION_MS; }
+async function expireSession(){
+  try { localStorage.removeItem(LOGIN_AT_KEY); } catch (_) {}
+  memLoginAt = 0;
+  try { await signOut(auth); } catch (_) {}
+  if (location.pathname !== LOGIN_PATH) location.replace(LOGIN_PATH + '?expired=1');
+}
+function watchSession(){
+  if (!loginAt()) markLogin();                       // session that started before this update: its 2 hours start now
+  const check = () => { if (auth.currentUser && sessionExpired()) expireSession(); };
+  clearInterval(sessionTimer); sessionTimer = setInterval(check, 30000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
+  window.addEventListener('storage', (e) => { if (e.key === LOGIN_AT_KEY && !e.newValue && auth.currentUser) check(); });
+}
+
 const API_TIMEOUT_MS=12000;
 
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -88,6 +109,8 @@ export function requireAuth(onReady){
   // src by SRT X CHEATS. Copy right SRT X CHEATS
   const unsubscribe=onAuthStateChanged(auth,async user=>{
     if(!user){unsubscribe();if(location.pathname!==LOGIN_PATH) location.replace(LOGIN_PATH);return;}
+    if(sessionExpired()){unsubscribe();expireSession();return;}
+    watchSession();
     bindUid(user.uid);
     startSync();
     const cachedProfile=cachePeek('profile'); if(cachedProfile) announce('profile',cachedProfile.value);
@@ -127,13 +150,16 @@ function warmCache(){
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 export function checkAuthOnce(){
   return new Promise(resolve=>{
-    const unsubscribe=onAuthStateChanged(auth,user=>{unsubscribe();if(user)bindUid(user.uid);resolve(user);});
+    const unsubscribe=onAuthStateChanged(auth,async user=>{
+      unsubscribe();
+      if(user&&sessionExpired()){try{localStorage.removeItem(LOGIN_AT_KEY);memLoginAt=0;await signOut(auth);}catch(_){}user=null;}
+      if(user)bindUid(user.uid);resolve(user);});
     setTimeout(()=>{try{unsubscribe();}catch{} resolve(null);},10000);
   });
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 }
 
-export function optionalAuth(onChange){onAuthStateChanged(auth,user=>{if(user&&location.pathname==='/home.php'){location.replace(DASHBOARD_PATH);return;}onChange(user);});}
+export function optionalAuth(onChange){onAuthStateChanged(auth,async user=>{if(user&&sessionExpired()){try{localStorage.removeItem(LOGIN_AT_KEY);memLoginAt=0;await signOut(auth);}catch(_){}user=null;}if(user&&location.pathname==='/home.php'){location.replace(DASHBOARD_PATH);return;}onChange(user);});}
 
 const MIN = 60 * 1000;
 // src by SRT X CHEATS. Copy right SRT X CHEATS
@@ -491,7 +517,7 @@ export function toast(msg,kind){
   if(!el){el=document.createElement('div');el.id='__toast';el.className='toast';document.body.appendChild(el);}
   el.textContent=msg;el.className='toast show'+(kind?' '+kind:'');clearTimeout(el._timer);el._timer=setTimeout(()=>el.classList.remove('show'),4000);
 }
-export async function doLogout(){try{localStorage.clear();sessionStorage.clear();await signOut(auth);}catch(e){console.error(e);}finally{location.replace(LOGIN_PATH);}}
+export async function doLogout(){try{['srtx_seen_v2','srtx_consent'].forEach(k=>{});const keep={};['srtx_seen_v2','srtx_consent'].forEach(k=>{try{const v=localStorage.getItem(k);if(v!==null)keep[k]=v;}catch(_){}});localStorage.clear();Object.keys(keep).forEach(k=>{try{localStorage.setItem(k,keep[k]);}catch(_){}});sessionStorage.removeItem('srtx_session_inited');await signOut(auth);}catch(e){console.error(e);}finally{location.replace(LOGIN_PATH);}}
 // src by SRT X CHEATS. Copy right SRT X CHEATS
 window.doLogout=doLogout;
 export function fmtDate(iso){if(!iso)return '';try{return new Date(iso).toLocaleString();}catch{return iso;}}
